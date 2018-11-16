@@ -144,6 +144,203 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-你应该知道这些React-js理论-当你学了React基础自后" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">你应该知道这些React.js理论(当你学了React基础自后)</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/" class="archive-article-date">
+  	<time datetime="2018-11-15T11:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文翻译来自:<a href="https://medium.freecodecamp.org/these-are-the-concepts-you-should-know-in-react-js-after-you-learn-the-basics-ee1d2f4b8030" target="_blank" rel="noopener">https://medium.freecodecamp.org/these-are-the-concepts-you-should-know-in-react-js-after-you-learn-the-basics-ee1d2f4b8030</a></p>
+<p>这是我第一次翻译英文的文章,如果有什么不对或是不妥当的地方可以在:<a href="https://github.com/daiyunchao/daiyunchao.github.io" target="_blank" rel="noopener">https://github.com/daiyunchao/daiyunchao.github.io</a> 提交issues</p>
+<p>本文面向的是React初学者,不过复习下也挺好.</p>
+</blockquote>
+<p>当你学习了React的最初指导教程以后感觉React还不错.那么后面学习什么呢?<br>跟随这篇文章,我们将一去讨论4个能让你的提高技能并且到另外一个更高的层次的React理论.</p>
+<p>如果完全是一个React的小白,请先花上一些时间,完成<a href="https://reactjs.org/tutorial/tutorial.html" target="_blank" rel="noopener">指导教程</a>,在回来继续阅读吧.</p>
+<h3 id="1-组件的生命周期"><a href="#1-组件的生命周期" class="headerlink" title="1.组件的生命周期"></a>1.组件的生命周期</h3><p>学习React,最重要的一个理论就是理解组件的声明周期,这个理论就像字面意思一样,”组件在生命中的各个细节”,就像人一样,组件会从一个新生的婴儿慢慢的变的强壮或许会成为英雄,再接着慢慢变老和死亡.<br>前面只是一个不形象的比喻,真实的组件生命周期看上去下这样:<br><img src="../../public/img/smzq.png" alt="图片"></p>
+<p>让我们来分析下上面的这个图片.每一个有颜色的长方形都代表着生命周期的一个方法(除了:React updates DOM and refs).这些不同的列,代表着不同的组件不同的生命周期的阶段.<br>一个组件,在同一个时刻只有一个阶段,它从”mounting”开始,慢慢的向”updating”移动.当它从虚拟DOM树中移除时,它进入”Unmonuting”阶段,之后,在被DOM移除.</p>
+<p>组件的生命周期的各个方法可以让我们写入特定的代码从而改变组件的状态</p>
+<p>让我们来一起看看组件在它的不同阶段和该阶段对应的方法吧</p>
+<p><br></p>
+<h4 id="Mounting"><a href="#Mounting" class="headerlink" title="Mounting"></a>Mounting</h4><p>因为组件都是以Class为基础的,所以执行的第一个方法是 <em>constructor</em>方法.通常,我们将初始化组件的状态(state)放到constructor中.</p>
+<p>接下来,组件会执行<em>getDerivedStateFromProps</em>方法.因为这个方法基本上不会用,所以我们将跳过这个方法.</p>
+<p>接下来将执行 <em>render</em>方法,该方法会返回你的JSX.执行了该方法后,内容就会加载到DOM中.</p>
+<p>在Mounting阶段的最后,会执行<em>componentDidMount</em>方法,在这个方法中,你可以执行异步调用数据库的函数,如果你需要操作DOM,在这个方法中也是可以的.</p>
+<p>这个周期执行完成了,我们的组件就算是”出生”了.<br><br></p>
+<h4 id="Updating"><a href="#Updating" class="headerlink" title="Updating"></a>Updating</h4><p>当你的<em>state</em> 或是 <em>props</em>改变时这个阶段的方法,就会被触发到.和<em>mounting</em>阶段一样,<em>getDerivedStateFromProps</em>方法也会被调用到(但是<em>constructor</em>就不会被调用了).</p>
+<p>下一个要执行的方法是<em>shouldComponentUpdate</em>,在这个方法,你可以比较新旧props/state.你可以通过return true/false 来决定组件是否被再次渲染.(true:会再次渲染,false:不会再次渲染),<strong>重复渲染</strong>是影响你应用的关键点(译者注:如果组件是大列表或是性能有特别的要求,可以考虑使用:pureComponent).如果在该方法return false 则Updating阶段就结束了,该阶段下面的方法都不会再执行了.</p>
+<p>如果<em>shouldComponentUpdate</em>方法返回的是true,组件会执行:<em>getSnapshotBeforeUpdate</em> , (因为这个方法很少使用,这里就省略了.) 和 <em>Render</em>方法,此时组件的内容将会被更新. 执行了Render方法后,紧接着执行:<em>componentDidUpdate</em> 该方法和<em>componentDidMount</em>一样,也可以在<em>componentDidUpdate</em>中执行异步调用或是操控DOM.<br><br></p>
+<h4 id="Unmounting"><a href="#Unmounting" class="headerlink" title="Unmounting"></a>Unmounting</h4><p>我们的组件生活的很好,但任何美好的事物必将迎来终点.<br><em>Unmounting</em>就是组件生命周期中的的最后一个阶段.当你从DOM中移除组件时,React将会执行<em>componentWillUnmount</em>,该方法会在真正移除组件前执行,在这个方法中你可以加入一些清理工作,e.g:关闭WebSockets.<br><br></p>
+<h4 id="生命周期中的其他方法"><a href="#生命周期中的其他方法" class="headerlink" title="生命周期中的其他方法"></a>生命周期中的其他方法</h4><p>在我们看下一个知识点之前,让我简单的说一说 <em>forceUpdate</em>方法和<em>getDerivedStateFromError</em>方法</p>
+<p><em>forceUpdate</em>可以直接引起组件的再次渲染,这个方法可能有一些使用场景,但通常应该被避免使用.</p>
+<p><em>getDerivedStateFromError</em> 它不是组件生命周期的一个可直接调用的一个方法.但组件发生异常时,该方法会被执行,你可以在该方法中更新state,让UI显示一个错误信息.</p>
+<p>接下来的:<a href="https://codepen.io/chrischuck/pen/EdrBxW" target="_blank" rel="noopener">CodePen snippet</a> 将显示生命周期的各个不同的方法调用情况:<br><img src="../../public/img/smzq_zxt.png" alt="图片"></p>
+<p>理解React组件生命周期和它对应的方法,可以让你找到更适合的方法处理数据流和程序.</p>
+<p><br></p>
+<h3 id="2-高阶组件"><a href="#2-高阶组件" class="headerlink" title="2.高阶组件"></a>2.高阶组件</h3><p>也行你已经用过高阶组件(HOC),Redux’s的<em>connect</em>函数就是. 举个栗子,一个函数返回高阶组件.但,什么是高阶组件?</p>
+<p>官方文档是这样描述的:</p>
+<blockquote>
+<p>A higher-order component is a function that takes a component and returns a new component.<br>(译: 高阶组件是一个以组件为参数,并且返回一个新组件的的函数)</p>
+</blockquote>
+<p>让我们来看下使用Redux’s的<em>connect</em>函数片段:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hoc = connect(<span class="function"><span class="params">state</span> =&gt;</span> state)</span><br><span class="line"><span class="keyword">const</span> WrappedComponent = hoc(SomeComponent)</span><br></pre></td></tr></table></figure>
+<p>当我们调用<em>connect</em>时,我们获取到了一个HOC,并且可以用他来包裹一个组件.</p>
+<p>高阶组件可以让我们抽象一些共同的逻辑,并且运用在各个组件之间.</p>
+<p>一个使用HOC很好的例子就是 “权限判断”.你可以写”权限判断在你的每一个单独的组件中”.但这会让你的代码很快变得臃肿.</p>
+<p>让我们看下如果不使用HOC,我们可能写的代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">lass RegularComponent extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.isLoggedIn) &#123;</span><br><span class="line">      <span class="keyword">return</span> &lt;p&gt;hi&lt;/p&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &lt;p&gt;You're not logged in ☹️&lt;/p&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// repeated code!</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OtherRegularComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.isLoggedIn) &#123;</span><br><span class="line">      <span class="keyword">return</span> &lt;p&gt;hi&lt;/p&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &lt;p&gt;You're not logged in ☹️&lt;/p&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// notice how we need different logic for functional components</span></span><br><span class="line"><span class="keyword">const</span> FunctionalComponent = <span class="function">(<span class="params">&#123; isLoggedIn &#125;</span>) =&gt;</span> ( isLoggedIn ? &lt;p&gt;Hi There&lt;/p&gt; : &lt;p&gt;You're not logged in ☹️&lt;/p&gt; )</span><br></pre></td></tr></table></figure>
+<p>使用HOC,我们的代码将会变成下面的样子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">AuthWrapper</span>(<span class="params">WrappedComponent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.props.isLoggedIn) &#123;</span><br><span class="line">        <span class="keyword">return</span> &lt;WrappedComponent &#123;...this.props&#125; /&gt;</span><br><span class="line">      &#125;</span><br><span class="line">      return &lt;p&gt;You're not logged in ☹️&lt;/p&gt;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class RegularComponent extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;p&gt;hi&lt;/p&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class OtherRegularComponent extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;p&gt;hello&lt;/p&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const FunctionalComponent = () =&gt; (&lt;p&gt;Hi There&lt;/p&gt;)</span><br><span class="line"></span><br><span class="line">const WrappedOne = AuthWrapper(RegularComponent)</span><br><span class="line">const WrappedTwo = AuthWrapper(OtherRegularComponent)</span><br><span class="line">const WrappedThree = AuthWrapper(FunctionalComponent)</span><br></pre></td></tr></table></figure>
+<p>这:<a href="https://codepen.io/chrischuck/pen/yRwMeo" target="_blank" rel="noopener">CodePen snippet</a> 可执行上面的代码例子.</p>
+<p>通过上面的例子,我们能发现,使用HOC,我们可以让我们的单独的组件逻辑简单. <em>AuthWrapper</em>组件中统一处理”权限认证”的逻辑.他的作用是 通过判断一个叫<em>isLoggedIn</em>的属性true或是false从而返回一个<em>WrappedComponent</em>组件,或是一段没有认证的话.</p>
+<p>正如你所看到的一样,HOC在重用代码和保持组件简单方面非常好用,下面会有更多的HOC实践!</p>
+<h4 id="3-React-State-和-setState"><a href="#3-React-State-和-setState" class="headerlink" title="3.React State 和 setState()"></a>3.React State 和 setState()</h4><p>你一定用过React的state,甚至我们在我们的HOC例子中也用到了(译注:CodePen snippet中).但理解state是至关重要的,因为staet的改变会导致组件触发”再次渲染”(如果你在<em>shouldComponentUpdate</em>方法中返回false,就不算了).</p>
+<p>现在让我们来讨论下如何改变state,改变state的唯一方法就是<em>setState</em>,这个方法可以让一个对象合并到当前的state中,在此之上,我们必须注意下面的一些小细节:</p>
+<p>首先:<em>setState</em>是一个异步的,这意味着state的更新并不是调用<em>setState</em>后同步生效的.这有可能会导致结果和预期的不太一样.<br><img src="../../public/img/smzq3.png" alt="图片"></p>
+<p>看上面的图片,我们调用了<em>setState</em>,然后用<em>console.log</em>打印state结果,我们的<em>counter</em>变量的值应该是1,但实际上却是0. 当我们<em>setState</em>后怎么才能安全的访问到新的state呢?</p>
+<p><em>setState</em>的回调函数可以帮我们解决这个问题,让我们来修复我们的代码吧.<br><img src="../../public/img/smzq4.png" alt="图片"></p>
+<p>非常好,这段代码是可用的,现在就完全正确了吗? 并不是!在这个例子中,我们其实没有正确的使用<em>setState</em>我们用一个函数来代替<em>setState</em>方法的第一个参数,这种模式常被用于你想用新将现在的一个state值设置成一个新的值的时候,就像我们上面的例子一样,让我们再次修改我们的代码吧!<br><img src="../../public/img/smzq5.png" alt="图片"></p>
+<p>点击这里<a href="https://codepen.io/chrischuck/pen/wYYxrd" target="_blank" rel="noopener">CodePen</a> 就是上面<em>setState</em>的代码了.</p>
+<p>为什么我们要用一个函数代替一个对象传入<em>setState</em>中呢? 因为<em>setState</em>是异步的,如果我们只是传递一个对象当成<em>setState</em>的参数,可能会产生很多的陷阱.例如:当我执行一个<em>setState</em>函数的时候,另外一个<em>setState</em>函数也在修改这个state的值,如果我们传递的时候一个函数,那么我们看到的<em>preState</em>就是我们当前state的静态拷贝.</p>
+<p>看下面的例子: 我将调用两次让<em>counter</em>变大的<em>setState</em>:<br><img src="../../public/img/smzq6.png" alt="图片"><br>上面这个方法,是使用一个对象去当成<em>setState</em>参数的例子.</p>
+<p>下面我们来修改下:<br><img src="../../public/img/smzq7.png" alt="图片"></p>
+<p>点击<a href="https://codepen.io/chrischuck/pen/GYemvM" target="_blank" rel="noopener">CodePen</a> 获取上面例子的代码</p>
+<p>第一张图片在<em>setState</em>中两次都使用的是:<em>this.state.counter</em>. <em>this.state.counter</em>始终是0,当我第一次调用<em>setState</em>以后,因此我们执行两次<em>setState</em>的结果是1,而不是2,<em>setState</em>函数都将<em>counter</em>设置成了1.</p>
+<p>再第二张图片中,我们像<em>setState</em>传递了一个函数,这个函数中将携带<em>state</em>只读的一个快照,所以我们得到的结果是2.</p>
+<p>以上就是你应该知道的React中State的知识点!</p>
+<h4 id="4-不断的更新你的React版本"><a href="#4-不断的更新你的React版本" class="headerlink" title="4.不断的更新你的React版本"></a>4.不断的更新你的React版本</h4><p>这个最好一个理论也行是最好理解的,让你的React版本一直保持最新也是很容易的.最近React做了很多改变,同时也在不断的强大和深入.</p>
+<p>例如: 在React 16.3版本中,一些<a href="https://reactjs.org/blog/2018/03/29/react-v-16-3.html#component-lifecycle-changes" target="_blank" rel="noopener">生命周期函数</a>被轻视,在React 16.6版本中 我们可以获取 <a href="https://reactjs.org/docs/code-splitting.html#reactlazy" target="_blank" rel="noopener">异步组件</a> ,在16.7中我们可以用<a href="https://reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener">hooks</a>完全的来代替函数组件</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>感谢你能阅读这篇文章!我希望你能很愉快的学习到关于React的知识,我希望你不单单是通过看文章去学习React,我更加鼓励你自己去尝试这些特性/怪癖.阅读是一回事,但如果你想精通React,只有多试这一条路.</p>
+<p>学习新知识的时候总是感觉让人畏惧,但保持一直编码和尝试,你就会发现你就成为React的专家.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-一些习惯可能会影响React性能" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/14/一些习惯可能会影响React性能/">一些习惯可能会影响React性能</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/14/一些习惯可能会影响React性能/" class="archive-article-date">
+  	<time datetime="2018-11-14T11:04:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/14/一些习惯可能会影响React性能/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关于我和我的Blog" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -303,6 +500,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
