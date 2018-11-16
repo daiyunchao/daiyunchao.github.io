@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>关系数据库 or vs in 效率到底谁高? | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到in的时间复杂度是 O(logn) 而 or的时间复杂度是 O(n),这么说来 in的效率应该会高于or所以就查询了一些资料  SQL优化关于or与in使用 是这样说的:有人做了这么一组实验(测试库数据为1000万条记录)：A组分别用or与in查询3条记录，B组分别用or与in查询120条记录,C组分别用">
+  <meta name="description" content="之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到in的时间复杂度是 O(logn) 而 or的时间复杂度是 O(n),这么说来 in的效率应该会高于or所以就查询了一些资料">
 <meta name="keywords" content="数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关系数据库 or vs in 效率到底谁高?">
 <meta property="og:url" content="http://yoursite.com/2018/11/16/关系数据库-or-vs-in-效率到底谁高/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
-<meta property="og:description" content="之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到in的时间复杂度是 O(logn) 而 or的时间复杂度是 O(n),这么说来 in的效率应该会高于or所以就查询了一些资料  SQL优化关于or与in使用 是这样说的:有人做了这么一组实验(测试库数据为1000万条记录)：A组分别用or与in查询3条记录，B组分别用or与in查询120条记录,C组分别用">
+<meta property="og:description" content="之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到in的时间复杂度是 O(logn) 而 or的时间复杂度是 O(n),这么说来 in的效率应该会高于or所以就查询了一些资料">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-16T10:35:16.572Z">
+<meta property="og:updated_time" content="2018-11-16T10:41:06.565Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关系数据库 or vs in 效率到底谁高?">
-<meta name="twitter:description" content="之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到in的时间复杂度是 O(logn) 而 or的时间复杂度是 O(n),这么说来 in的效率应该会高于or所以就查询了一些资料  SQL优化关于or与in使用 是这样说的:有人做了这么一组实验(测试库数据为1000万条记录)：A组分别用or与in查询3条记录，B组分别用or与in查询120条记录,C组分别用">
+<meta name="twitter:description" content="之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到in的时间复杂度是 O(logn) 而 or的时间复杂度是 O(n),这么说来 in的效率应该会高于or所以就查询了一些资料">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -61,6 +61,10 @@
 			<ul>
 			
 				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/前端/">前端</a></li>
+	        
+				<li><a href="/tags/数据库/">数据库</a></li>
 	        
 				<li><a href="/tags/随笔/">随笔</a></li>
 	        
@@ -114,6 +118,10 @@
 			
 				
 			
+				
+			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -127,12 +135,16 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 25%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 25%"><a href="/tags/前端/">前端</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/数据库/">数据库</a></li>
+		        
+					<li style="width: 25%"><a href="/tags/随笔/">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -170,6 +182,7 @@
         <blockquote>
 <p>之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到<em>in</em>的时间复杂度是 O(logn) 而 <em>or</em>的时间复杂度是 O(n),这么说来 <em>in</em>的效率应该会高于<em>or</em><br>所以就查询了一些资料</p>
 </blockquote>
+<a id="more"></a>
 <h4 id="SQL优化关于or与in使用-是这样说的"><a href="#SQL优化关于or与in使用-是这样说的" class="headerlink" title="SQL优化关于or与in使用 是这样说的:"></a><a href="https://blog.csdn.net/weixin_40609759/article/details/79998911" target="_blank" rel="noopener">SQL优化关于or与in使用</a> 是这样说的:</h4><p>有人做了这么一组实验(测试库数据为1000万条记录)：A组分别用or与in查询3条记录，B组分别用or与in查询120条记录,C组分别用or与in查询500条记录,D组分别用or与in查询1000条记录.</p>
 <p>第一种情况，目标列为主键的情况，4组测试执行计划一样，执行的时间也基本没有区别。<br>A组or和in的执行时间： or的执行时间为：0.002s     in的执行时间为：0.002s<br>B组or和in的执行时间： or的执行时间为：0.004s     in的执行时间为：0.004s<br>C组or和in的执行时间： or的执行时间为：0.006s     in的执行时间为：0.005s<br>D组or和in的执行时间： or的执行时间为：0.017s     in的执行时间为：0.014s</p>
 <p>第二种情况，目标列为一般索引的情况，4组测试执行计划一样，执行的时间也基本没有区别。<br>A组or和in的执行时间： or的执行时间为：0.002s     in的执行时间为：0.002s<br>B组or和in的执行时间： or的执行时间为：0.006s     in的执行时间为：0.005s<br>C组or和in的执行时间： or的执行时间为：0.008s     in的执行时间为：0.008s<br>D组or和in的执行时间： or的执行时间为：0.020s     in的执行时间为：0.019s </p>
@@ -425,6 +438,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">React,前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">-React, -前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
             
             <div class="clearfix"></div>
