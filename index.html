@@ -156,6 +156,111 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JS的Clas如何实现实例GET和SET方法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/23/JS的Clas如何实现实例GET和SET方法/">&#39;JS的Clas如何实现实例GET和SET方法?&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/23/JS的Clas如何实现实例GET和SET方法/" class="archive-article-date">
+  	<time datetime="2018-11-23T09:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文章来实现的是一个简单的需求,在JS中如何实现计算属性,eg: 如有string的name属性和number类型的age属性,现在需要一个name_age属性返回的是:name_age的值</p>
+</blockquote>
+<h3 id="如何实现计算属性"><a href="#如何实现计算属性" class="headerlink" title="如何实现计算属性?"></a>如何实现计算属性?</h3><p>因为ES6提供了GET和SET方法,其实要想实现该需求很简单<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//定义:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name,age)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">    <span class="keyword">this</span>.name_age;</span><br><span class="line">  &#125;</span><br><span class="line">  get name_age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>_<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用:</span></span><br><span class="line"><span class="keyword">let</span> zhangsan=<span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>,<span class="number">18</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line">zhangsan.age=<span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line"><span class="comment">//执行结果为:</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_18</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_20</span></span><br></pre></td></tr></table></figure></p>
+<p><em>注:上面的代码可以放到支持ES6语法的浏览器中进行测试</em></p>
+<h3 id="如果我使用拷贝一个新对象-还能使用get方法吗"><a href="#如果我使用拷贝一个新对象-还能使用get方法吗" class="headerlink" title="如果我使用拷贝一个新对象,还能使用get方法吗"></a>如果我使用拷贝一个新对象,还能使用get方法吗</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person 还是上面的定义</span></span><br><span class="line"><span class="keyword">let</span> zhangsan=<span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>,<span class="number">18</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line"><span class="comment">//从zhangsan复制一个lisi</span></span><br><span class="line"><span class="keyword">let</span> lisi=<span class="built_in">Object</span>.assign(&#123;&#125;,zhangsan,&#123;&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`lisi.name是:<span class="subst">$&#123;lisi.name&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`lisi.age是:<span class="subst">$&#123;lisi.age&#125;</span>`</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`lisi.name_age是:<span class="subst">$&#123;lisi.name_age&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//执行结果:</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_18</span></span><br><span class="line"><span class="comment">//lisi.name是:zhangsan</span></span><br><span class="line"><span class="comment">//lisi.age是:18</span></span><br><span class="line"><span class="comment">//lisi.name_age是:undefined</span></span><br></pre></td></tr></table></figure>
+<p>我们通过测试发现:<em>lisi.name_age是:undefined</em>,这是为什么呢?<br>我复制一个新对象,原来定义的方法就丢了吗??<br>接下来,我做了一个另外的测试:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person=&#123;</span><br><span class="line">  name:<span class="string">"zhangsan"</span>,</span><br><span class="line">  age:<span class="number">18</span>,</span><br><span class="line">  get name_age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>_<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span></span><br><span class="line">    &#125;</span><br><span class="line">   &#125;;</span><br><span class="line"><span class="keyword">let</span> lisi=<span class="built_in">Object</span>.assign(&#123;&#125;,person,&#123;&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`lisi.name_age 是:<span class="subst">$&#123;lisi.name_age&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//执行的结果是:</span></span><br><span class="line"><span class="comment">//lisi.name_age 是:zhangsan_18</span></span><br></pre></td></tr></table></figure></p>
+<p>这个测试说明,对象的复制不会讲方法丢掉.<br>然而为什么 使用class 和Object.assign 去复制 class的一个实例的时候回出现方法丢失的问题呢?</p>
+<p>解析原因:<br>如果你不是从ES6开始接触JS的话,应该对下面代码还有印象:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> Student = <span class="function"><span class="keyword">function</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.get_name_age = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">"_"</span> + <span class="keyword">this</span>.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> zhangsan = <span class="keyword">new</span> Student(<span class="string">"zhangsan"</span>, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">let</span> name_age=zhangsan.get_name_age();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`name_age是 <span class="subst">$&#123;name_age&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//执行的结果是:</span></span><br><span class="line"><span class="comment">//name_age是:zhangsan_18</span></span><br></pre></td></tr></table></figure></p>
+<p>再比较一下下面的代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> Student = <span class="function"><span class="keyword">function</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Student.prototype.get_name_age=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name+<span class="string">"_"</span>+<span class="keyword">this</span>.age</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> zhangsan = <span class="keyword">new</span> Student(<span class="string">"zhangsan"</span>, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">let</span> name_age=zhangsan.get_name_age();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`name_age是 <span class="subst">$&#123;name_age&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//执行的结果是:</span></span><br><span class="line"><span class="comment">//name_age是:zhangsan_18</span></span><br></pre></td></tr></table></figure>
+<p>上面两段代码的执行结果是相同的,不同点在于:第一段代码将<em>get_name_age</em>方法定义成了实例方法,而第二段代码是定义在原型链上的.<br>这样定义的不同点在于,如果定义在实例中,每一个实例对象都有一个一个get_name_age方法,在<em>new Student</em>的时候就会拷贝一个<em>get_name_age</em>在<em>zhangsan</em>对象中,如果有多个实例,则会出现多个多个相同方法的拷贝.而定义在原型链上的方法则始终只会出现一个<em>get_name_age</em>方法(<em>get_name_age</em>是属于Student的,而不属于zhangsan,只是zhangsan能通过原型链找到此方法而已)</p>
+<p>理解了上面的话以后自然就能明白为什么使用<em>Object.assign</em>去拷贝一个<em>Class</em>的实例后获取不到该Class定义的方法了.<br>如何证明定义在Class中的方法是定义在原型链中的呢??<br>下面是我用TS写的一段代码,通过TS转换成ES5的语法,我们可以来看看结果.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//TS定义了一个Class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name,age)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">    <span class="keyword">this</span>.name_age;</span><br><span class="line">  &#125;</span><br><span class="line">  get name_age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>_<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下面是通过TS compilerOptions&#123;target:'es5'&#125; 转换后的JS代码:</span></span><br><span class="line"><span class="keyword">var</span> Person = <span class="comment">/** @class */</span> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.name_age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(Person.prototype, <span class="string">"name_age"</span>, &#123;</span><br><span class="line">        get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">"_"</span> + <span class="keyword">this</span>.age;</span><br><span class="line">        &#125;,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> Person;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>可以从上面的代码中看出来,<em>name_age</em>是定义在<em>Person.prototype</em>中的.</p>
+<p>到目前为止,已经解释了为什么 我们拷贝Class实例的时候,不能使用Class的方法. 下面我们来尝试下如何解决这个问题</p>
+<p>如果直接定义方法不能被拷贝,那是否可以直接定义一个实例函数呢?<br>让我们来改造下下之前定义的<em>Person</em>类</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name, age) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.name_age;</span><br><span class="line">        <span class="comment">//将原来定义在class的方法,定义在实例中:</span></span><br><span class="line">        <span class="keyword">this</span>.get_name_age = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">'_'</span> + <span class="keyword">this</span>.age;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> zhangsan = <span class="keyword">new</span> Person(<span class="string">'zhangsan'</span>, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">let</span> lisi = <span class="built_in">Object</span>.assign(&#123;&#125;, zhangsan, &#123;&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`lisi.name_age:<span class="subst">$&#123;lisi.get_name_age()&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//执行结果是:</span></span><br><span class="line"><span class="comment">//lisi.name_age:zhangsan_18</span></span><br></pre></td></tr></table></figure>
+<p>当上面的方法有个问题<br>在调用的时候 我调用的是方法<em>lisi.get_name_age()</em>,虽然我们可以理解成,方法也是属性,只是值是一个函数的指针而已.但调用还是感觉不太满意<br>能直接调用属性吗?</p>
+<p>下面有两种方法:</p>
+<h5 id="方法1"><a href="#方法1" class="headerlink" title="方法1:"></a>方法1:</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name, age) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> zhangsan = <span class="keyword">new</span> Person(<span class="string">'zhangsan'</span>, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">let</span> lisi = <span class="built_in">Object</span>.assign(</span><br><span class="line">    &#123;</span><br><span class="line">        get name_age() &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">"_"</span> + <span class="keyword">this</span>.age;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, </span><br><span class="line">    zhangsan,</span><br><span class="line">    &#123;&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`lisi.name_age:<span class="subst">$&#123;lisi.name_age&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//执行结果是:</span></span><br><span class="line"><span class="comment">//lisi.name_age:zhangsan_18</span></span><br></pre></td></tr></table></figure>
+<p>这种方式是讲get name_age 定义在复制出来的对象中的,但这种方式也有一个问题,就是 每次都要定义,当然可以使用通用方法…</p>
+<h5 id="方法2"><a href="#方法2" class="headerlink" title="方法2:"></a>方法2:</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name, age) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.name_age;</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, <span class="string">"name_age"</span>, &#123;</span><br><span class="line">            get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">"_"</span> + <span class="keyword">this</span>.age;</span><br><span class="line">            &#125;,</span><br><span class="line">            enumerable: <span class="literal">true</span>,</span><br><span class="line">            configurable: <span class="literal">true</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> zhangsan = <span class="keyword">new</span> Person(<span class="string">'zhangsan'</span>, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">let</span> lisi = <span class="built_in">Object</span>.assign(&#123;&#125;, zhangsan, &#123;&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`lisi.name_age:<span class="subst">$&#123;lisi.name_age&#125;</span>`</span>);</span><br><span class="line"><span class="comment">//执行结果是:</span></span><br><span class="line"><span class="comment">//lisi.name_age:zhangsan_18</span></span><br></pre></td></tr></table></figure>
+<p>这是我参考ts转换es5的结果代码写出来的,但定义比在Class中直接写方法会稍微麻烦一些.<br>到此,这个问题就解决了.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/23/JS的Clas如何实现实例GET和SET方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关系数据库-or-vs-in-效率到底谁高" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -271,11 +376,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
         		</li>
       		
 		</ul>
@@ -476,23 +581,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">React 前端</a>
+                <a href="javascript:void(0)" class="js-tag color1">JAVASCRIPT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">React,前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">-React, -前端</a>
+                <a href="javascript:void(0)" class="js-tag color3">后端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,7 +597,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>
