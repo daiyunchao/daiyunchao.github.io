@@ -9,20 +9,20 @@
   <title>对JS中异步执行的知识点回顾和补充 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="看了一篇名为:8张图让你一步步看清 async/await 和 promise 的执行顺序的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解">
-<meta name="keywords" content="后端,JAVASCRIPT,前端">
+<meta name="keywords" content="JAVASCRIPT,前端,后端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对JS中异步执行的知识点回顾和补充">
 <meta property="og:url" content="http://yoursite.com/2018/12/12/对JS中异步执行的知识点回顾和补充/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
 <meta property="og:description" content="看了一篇名为:8张图让你一步步看清 async/await 和 promise 的执行顺序的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://segmentfault.com/img/bVbkqTs?w=542&h=170">
-<meta property="og:image" content="https://segmentfault.com/img/bV1TKz?w=879&h=723">
-<meta property="og:updated_time" content="2018-12-12T11:39:10.449Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/260670760-5c037b9b2e7d5_articlex.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/386112937-5a5763d9ef823_articlex.png">
+<meta property="og:updated_time" content="2018-12-12T11:46:36.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对JS中异步执行的知识点回顾和补充">
 <meta name="twitter:description" content="看了一篇名为:8张图让你一步步看清 async/await 和 promise 的执行顺序的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解">
-<meta name="twitter:image" content="https://segmentfault.com/img/bVbkqTs?w=542&h=170">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/260670760-5c037b9b2e7d5_articlex.png">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -192,12 +192,12 @@
 <p>看了一篇名为:<a href="https://segmentfault.com/a/1190000017224799#articleHeader0" target="_blank" rel="noopener">8张图让你一步步看清 async/await 和 promise 的执行顺序</a>的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h3><p>####原本的理解:<br>只是判断函数是否是异步的,如果是异步的则进入事件队列等待执行,如果是同步函数则顺序执行<br>下面的例子来自==&gt;<a href="https://segmentfault.com/a/1190000012806637" target="_blank" rel="noopener">戳我</a>,作者和我的理解相同,所以就照搬了他的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h3><h4 id="原本的理解"><a href="#原本的理解" class="headerlink" title="原本的理解:"></a>原本的理解:</h4><p>只是判断函数是否是异步的,如果是异步的则进入事件队列等待执行,如果是同步函数则顺序执行<br>下面的例子来自==&gt;<a href="https://segmentfault.com/a/1190000012806637" target="_blank" rel="noopener">戳我</a>,作者和我的理解相同,所以就照搬了他的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
 <p><code>console.log(1)</code> 同步执行<br><code>setTimeout</code>异步方法加入事件队列<br><code>console.log(3)</code> 同步执行<br>按照我的理解执行顺序是: 132 这个没有问题</p>
 <p>但如果是下面这段代码呢<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'定时器开始啦'</span>)</span><br><span class="line"> &#125;);</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'马上执行for循环啦'</span>);</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++)&#123;</span><br><span class="line">         i == <span class="number">99</span> &amp;&amp; resolve();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'执行then函数啦'</span>)</span><br><span class="line"> &#125;);</span><br><span class="line"> </span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'代码执行结束'</span>);</span><br></pre></td></tr></table></figure></p>
 <p>嗯 在原来的代码中添加了 <code>Promise</code><br>如果按照之前的理解:<br><code>setTimeout</code>异步代码,加入事件循环<br><code>Promise</code>的主体代码是 同步执行的 马上执行<br><code>then</code> 异步代码,加入事件循环<br><code>console.log(&#39;代码执行结束&#39;)</code> 同步代码 马上执行<br>于是我认为的结果是: <code>马上执行for循环啦</code>-&gt;<code>代码执行结束</code>-&gt;<code>定时器开始啦</code>-&gt;<code>执行then函数啦</code><br>但结果是: <code>马上执行for循环啦</code>-&gt;<code>代码执行结束</code>-&gt;<code>执行then函数啦</code>-&gt;<code>定时器开始啦</code></p>
-<p>####现在的理解:<br>macro-task(宏任务)：包括整体代码script，setTimeout，setInterval<br>micro-task(微任务)：Promise，process.nextTick</p>
-<p>该作者的另外一张图能很好的说明宏任务和微任务的关系:<br><img src="https://segmentfault.com/img/bVbkqTs?w=542&amp;h=170" alt="图片"><br>微任务是在当前宏任务完成后立即执行的<br>宏任务有个列表 微任务也有个列表<br>宏任务执行完后执行微任务列表中的任务<br>微任务列表中的任务执行完成后再执行下一个宏任务<br><img src="https://segmentfault.com/img/bV1TKz?w=879&amp;h=723" alt="图片"><br>再用新的思想理解下上面的例子:<br><code>setTimeout</code>异步代码但<code>setTimeout</code>是宏任务,加入宏任务队列中<br><code>Promise</code>的主体代码是 同步执行的 马上执行<br><code>then</code> 异步代码但<code>then</code>是 微任务,加入微任务队列中<br><code>console.log(&#39;代码执行结束&#39;)</code> 同步代码 马上执行<br>所以就能理解: <code>马上执行for循环啦</code>-&gt;<code>代码执行结束</code>-&gt;<code>执行then函数啦</code>-&gt;<code>定时器开始啦</code>这样的结果了</p>
+<h4 id="现在的理解"><a href="#现在的理解" class="headerlink" title="现在的理解:"></a>现在的理解:</h4><p>macro-task(宏任务)：包括整体代码script，setTimeout，setInterval<br>micro-task(微任务)：Promise，process.nextTick</p>
+<p>该作者的另外一张图能很好的说明宏任务和微任务的关系:<br><img src="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/260670760-5c037b9b2e7d5_articlex.png" alt="图片"><br>微任务是在当前宏任务完成后立即执行的<br>宏任务有个列表 微任务也有个列表<br>宏任务执行完后执行微任务列表中的任务<br>微任务列表中的任务执行完成后再执行下一个宏任务<br><img src="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/386112937-5a5763d9ef823_articlex.png" alt="图片"><br>再用新的思想理解下上面的例子:<br><code>setTimeout</code>异步代码但<code>setTimeout</code>是宏任务,加入宏任务队列中<br><code>Promise</code>的主体代码是 同步执行的 马上执行<br><code>then</code> 异步代码但<code>then</code>是 微任务,加入微任务队列中<br><code>console.log(&#39;代码执行结束&#39;)</code> 同步代码 马上执行<br>所以就能理解: <code>马上执行for循环啦</code>-&gt;<code>代码执行结束</code>-&gt;<code>执行then函数啦</code>-&gt;<code>定时器开始啦</code>这样的结果了</p>
 <h3 id="async-await的理解"><a href="#async-await的理解" class="headerlink" title="async/await的理解"></a>async/await的理解</h3><p>注:例子来自于:<a href="https://segmentfault.com/a/1190000007535316" target="_blank" rel="noopener">理解 JavaScript 的 async/await</a></p>
 <h4 id="async的作用"><a href="#async的作用" class="headerlink" title="async的作用"></a>async的作用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">testAsync</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello async"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = testAsync();</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
 <p>输出结果:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span> &#123; <span class="string">'hello async'</span> &#125;</span><br></pre></td></tr></table></figure></p>
@@ -223,15 +223,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
         		</li>
       		
 		</ul>
@@ -421,14 +421,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">后端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JAVASCRIPT</a>
               </li>
              
@@ -437,15 +429,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">后端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>
