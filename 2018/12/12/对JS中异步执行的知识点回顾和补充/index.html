@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 前端 | daiyunchao&#39;s blog</title>
+  <title>对JS中异步执行的知识点回顾和补充 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/前端/index.html">
+  <meta name="description" content="看了一篇名为:8张图让你一步步看清 async/await 和 promise 的执行顺序的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解">
+<meta name="keywords" content="后端,JAVASCRIPT,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对JS中异步执行的知识点回顾和补充">
+<meta property="og:url" content="http://yoursite.com/2018/12/12/对JS中异步执行的知识点回顾和补充/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="看了一篇名为:8张图让你一步步看清 async/await 和 promise 的执行顺序的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://segmentfault.com/img/bVbkqTs?w=542&h=170">
+<meta property="og:image" content="https://segmentfault.com/img/bV1TKz?w=879&h=723">
+<meta property="og:updated_time" content="2018-12-12T11:39:10.449Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="对JS中异步执行的知识点回顾和补充">
+<meta name="twitter:description" content="看了一篇名为:8张图让你一步步看清 async/await 和 promise 的执行顺序的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解">
+<meta name="twitter:image" content="https://segmentfault.com/img/bVbkqTs?w=542&h=170">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,36 +168,56 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-对JS中异步执行的知识点回顾和补充" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      对JS中异步执行的知识点回顾和补充
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/12/对JS中异步执行的知识点回顾和补充/" class="archive-article-date">
+
+        
+        <a href="/2018/12/12/对JS中异步执行的知识点回顾和补充/" class="archive-article-date">
   	<time datetime="2018-12-12T09:46:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/12/对JS中异步执行的知识点回顾和补充/">对JS中异步执行的知识点回顾和补充</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>看了一篇名为:<a href="https://segmentfault.com/a/1190000017224799#articleHeader0" target="_blank" rel="noopener">8张图让你一步步看清 async/await 和 promise 的执行顺序</a>的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h3><p>####原本的理解:<br>只是判断函数是否是异步的,如果是异步的则进入事件队列等待执行,如果是同步函数则顺序执行<br>下面的例子来自==&gt;<a href="https://segmentfault.com/a/1190000012806637" target="_blank" rel="noopener">戳我</a>,作者和我的理解相同,所以就照搬了他的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
+<p><code>console.log(1)</code> 同步执行<br><code>setTimeout</code>异步方法加入事件队列<br><code>console.log(3)</code> 同步执行<br>按照我的理解执行顺序是: 132 这个没有问题</p>
+<p>但如果是下面这段代码呢<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'定时器开始啦'</span>)</span><br><span class="line"> &#125;);</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'马上执行for循环啦'</span>);</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++)&#123;</span><br><span class="line">         i == <span class="number">99</span> &amp;&amp; resolve();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'执行then函数啦'</span>)</span><br><span class="line"> &#125;);</span><br><span class="line"> </span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'代码执行结束'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>嗯 在原来的代码中添加了 <code>Promise</code><br>如果按照之前的理解:<br><code>setTimeout</code>异步代码,加入事件循环<br><code>Promise</code>的主体代码是 同步执行的 马上执行<br><code>then</code> 异步代码,加入事件循环<br><code>console.log(&#39;代码执行结束&#39;)</code> 同步代码 马上执行<br>于是我认为的结果是: <code>马上执行for循环啦</code>-&gt;<code>代码执行结束</code>-&gt;<code>定时器开始啦</code>-&gt;<code>执行then函数啦</code><br>但结果是: <code>马上执行for循环啦</code>-&gt;<code>代码执行结束</code>-&gt;<code>执行then函数啦</code>-&gt;<code>定时器开始啦</code></p>
+<p>####现在的理解:<br>macro-task(宏任务)：包括整体代码script，setTimeout，setInterval<br>micro-task(微任务)：Promise，process.nextTick</p>
+<p>该作者的另外一张图能很好的说明宏任务和微任务的关系:<br><img src="https://segmentfault.com/img/bVbkqTs?w=542&amp;h=170" alt="图片"><br>微任务是在当前宏任务完成后立即执行的<br>宏任务有个列表 微任务也有个列表<br>宏任务执行完后执行微任务列表中的任务<br>微任务列表中的任务执行完成后再执行下一个宏任务<br><img src="https://segmentfault.com/img/bV1TKz?w=879&amp;h=723" alt="图片"><br>再用新的思想理解下上面的例子:<br><code>setTimeout</code>异步代码但<code>setTimeout</code>是宏任务,加入宏任务队列中<br><code>Promise</code>的主体代码是 同步执行的 马上执行<br><code>then</code> 异步代码但<code>then</code>是 微任务,加入微任务队列中<br><code>console.log(&#39;代码执行结束&#39;)</code> 同步代码 马上执行<br>所以就能理解: <code>马上执行for循环啦</code>-&gt;<code>代码执行结束</code>-&gt;<code>执行then函数啦</code>-&gt;<code>定时器开始啦</code>这样的结果了</p>
+<h3 id="async-await的理解"><a href="#async-await的理解" class="headerlink" title="async/await的理解"></a>async/await的理解</h3><p>注:例子来自于:<a href="https://segmentfault.com/a/1190000007535316" target="_blank" rel="noopener">理解 JavaScript 的 async/await</a></p>
+<h4 id="async的作用"><a href="#async的作用" class="headerlink" title="async的作用"></a>async的作用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">testAsync</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello async"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = testAsync();</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
+<p>输出结果:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span> &#123; <span class="string">'hello async'</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>就是说:一旦使用了<code>async</code>无论是否有<code>await</code>返回的结果都是一个<code>Promise</code><br>case1:<code>return</code>了一个非<code>Promise</code>的对象:如:<code>return &quot;hello async&quot;</code><br>这种情况 <code>async</code>函数会将结果包装成一个<code>Promise</code>对象,在调用方可使用<code>await</code>或<code>.then()</code>的方式去处理结果<br>case2: 函数没有返回值:<br>这种情况 <code>async</code>函数也会进行包装,<code>Promise.resolve(undefined)</code><br>case3: 返回的就是一个<code>Promise</code>:<br>则这种情况 <code>async</code>函数会返回用户的<code>Promise</code></p>
+<h4 id="await的作用"><a href="#await的作用" class="headerlink" title="await的作用"></a>await的作用</h4><p><code>await</code>等待结果,这个结果可以是<code>Promise</code>的<code>then</code>结果,也可以是另外一个<code>async</code>的结果,当然也可以是一个普通的返回值:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"something"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">testAsync</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(<span class="string">"hello async"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> v1 = <span class="keyword">await</span> getSomething();</span><br><span class="line">    <span class="keyword">const</span> v2 = <span class="keyword">await</span> testAsync();</span><br><span class="line">    <span class="built_in">console</span>.log(v1, v2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+<p><code>await</code>等到结果以后呢如何执行:<br>case1: 如果等待的是一个普通的值:<br>那 await 表达式的运算结果就是它等到的东西<br>case2: 如果等待的是一个<code>Promise</code>:<br>这种情况下,<code>await</code>会阻塞后面的代码，等着 Promise 对象 resolve,然后得到 resolve 的值，作为 await 表达式的运算结果</p>
+<p>在回到文章一开头提到的文章:<br><a href="https://segmentfault.com/a/1190000017224799#articleHeader0" target="_blank" rel="noopener">文章在这</a><br>看看里面的测试题目:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'async1 start'</span> )</span><br><span class="line">        <span class="keyword">await</span> async2()</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'async1 end'</span> )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'async2'</span> )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">'script start'</span> )</span><br><span class="line">    </span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'setTimeout'</span> )</span><br><span class="line">    &#125;, <span class="number">0</span> )</span><br><span class="line">    </span><br><span class="line">    async1();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="keyword">function</span> (<span class="params"> resolve </span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'promise1'</span> )</span><br><span class="line">        resolve();</span><br><span class="line">    &#125; ).then( <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'promise2'</span> )</span><br><span class="line">    &#125; )</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">'script end'</span> )</span><br></pre></td></tr></table></figure>
+<p>分析下其中的执行顺序:</p>
+<p>执行是从<code>console.log( &#39;script start&#39; )</code>开始的:<br><code>console.log( &#39;script start&#39; )</code> 同步执行<br><code>setTimeout</code>是宏任务,添加到宏任务队列中<br><code>async1</code>在没遇到<code>await</code>前和普通函数相同,所以:<code>console.log( &#39;async1 start&#39; )</code>是同步执行<br>重要:<strong>下面遇到<code>await</code>,先执行<code>async2</code>函数</strong><br><code>console.log( &#39;async2&#39; )</code>同步执行<br><code>await</code>等到async2返回的结果是一个<code>Promise</code>,则阻塞后面的代码,执行<code>await</code>外的代码<br><code>new Promise</code><br><code>console.log( &#39;promise1&#39; )</code>同步执行<br><code>.then</code>添加到微任务中<br><code>console.log( &#39;script end&#39; )</code> 同步执行<br>外面的代码执行完后,又回到了<br><code>await</code>的代码位置<br><code>await</code>实际上是执行的<code>promise.then</code> ,<code>.then</code>是微任务添加到微任务列表中</p>
+<p>所以结果是:<br><code>script start</code>-&gt;<code>async1 start</code>-&gt;<code>async2</code>-&gt;<code>promise1</code>-&gt;<code>script end</code>-&gt;<code>promise2</code>-&gt;<code>async1 end</code>-&gt;<code>setTimeout</code></p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -209,107 +237,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/12/对JS中异步执行的知识点回顾和补充/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/23/JS的Class如何实现实例GET和SET方法/" class="archive-article-date">
-  	<time datetime="2018-11-23T09:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/04/数据库SQL汇总/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库SQL汇总</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">JS的Class如何实现实例GET和SET方法?</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/" class="archive-article-date">
-  	<time datetime="2018-11-15T11:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">你应该知道这些React.js理论(当你学了React基础自后)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -332,9 +359,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
