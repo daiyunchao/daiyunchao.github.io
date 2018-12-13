@@ -9,7 +9,7 @@
   <title>对JS中异步执行的知识点回顾和补充 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="看了一篇名为:8张图让你一步步看清 async/await 和 promise 的执行顺序的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解">
-<meta name="keywords" content="JAVASCRIPT,前端,后端">
+<meta name="keywords" content="前端,后端,JAVASCRIPT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对JS中异步执行的知识点回顾和补充">
 <meta property="og:url" content="http://yoursite.com/2018/12/12/对JS中异步执行的知识点回顾和补充/index.html">
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/260670760-5c037b9b2e7d5_articlex.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/386112937-5a5763d9ef823_articlex.png">
-<meta property="og:updated_time" content="2018-12-12T11:46:36.687Z">
+<meta property="og:updated_time" content="2018-12-13T02:57:22.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对JS中异步执行的知识点回顾和补充">
 <meta name="twitter:description" content="看了一篇名为:8张图让你一步步看清 async/await 和 promise 的执行顺序的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解">
@@ -210,6 +210,13 @@
 <p>分析下其中的执行顺序:</p>
 <p>执行是从<code>console.log( &#39;script start&#39; )</code>开始的:<br><code>console.log( &#39;script start&#39; )</code> 同步执行<br><code>setTimeout</code>是宏任务,添加到宏任务队列中<br><code>async1</code>在没遇到<code>await</code>前和普通函数相同,所以:<code>console.log( &#39;async1 start&#39; )</code>是同步执行<br>重要:<strong>下面遇到<code>await</code>,先执行<code>async2</code>函数</strong><br><code>console.log( &#39;async2&#39; )</code>同步执行<br><code>await</code>等到async2返回的结果是一个<code>Promise</code>,则阻塞后面的代码,执行<code>await</code>外的代码<br><code>new Promise</code><br><code>console.log( &#39;promise1&#39; )</code>同步执行<br><code>.then</code>添加到微任务中<br><code>console.log( &#39;script end&#39; )</code> 同步执行<br>外面的代码执行完后,又回到了<br><code>await</code>的代码位置<br><code>await</code>实际上是执行的<code>promise.then</code> ,<code>.then</code>是微任务添加到微任务列表中</p>
 <p>所以结果是:<br><code>script start</code>-&gt;<code>async1 start</code>-&gt;<code>async2</code>-&gt;<code>promise1</code>-&gt;<code>script end</code>-&gt;<code>promise2</code>-&gt;<code>async1 end</code>-&gt;<code>setTimeout</code></p>
+<hr>
+<hr>
+<p>2018年12月13日<br>补充:<br>只要函数中有<code>await</code>, <code>await</code>表达式执行后(如例子中的<code>await async2()</code> 是要先执行 <code>async2()</code>函数的.)就让出线程,继续执行宏任务中的函数,当宏任务执行完后,在回到<code>await</code>的地方,再继续执行下去 这时有两种情况:<br>case1: 如果 <code>await</code>的结果是一个<code>Promise</code>则会将该<code>Promise</code>的<code>.then</code>添加到微任务中,等待微任务的执行<br>case2: 如果 <code>await</code>的结果是一个一般的表达式,则直接就执行了,而不会在添加到微任务中.</p>
+<p>如果我把上面的例子做一个修改:</p>
+<p>将<code>async2</code>函数的<code>async</code>去掉,这样 <code>await async2()</code>等待的就是一个一般的表达式,而非<code>Promise</code>,这样就会进入case2的情况<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'async1 start'</span> )</span><br><span class="line">        <span class="keyword">await</span> async2()</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'async1 end'</span> )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'async2'</span> )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">'script start'</span> )</span><br><span class="line">    </span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'setTimeout'</span> )</span><br><span class="line">    &#125;, <span class="number">0</span> )</span><br><span class="line">    </span><br><span class="line">    async1();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="keyword">function</span> (<span class="params"> resolve </span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'promise1'</span> )</span><br><span class="line">        resolve();</span><br><span class="line">    &#125; ).then( <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'promise2'</span> )</span><br><span class="line">    &#125; )</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">'script end'</span> )</span><br></pre></td></tr></table></figure></p>
+<p>执行的结果是:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">script start</span><br><span class="line">async1 start</span><br><span class="line">async2</span><br><span class="line">promise1</span><br><span class="line">script end</span><br><span class="line">async1 end</span><br><span class="line">promise2</span><br><span class="line">setTimeout</span><br></pre></td></tr></table></figure></p>
+<p><code>async1 end</code> 先打印了.</p>
 
       
 
@@ -223,15 +230,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
         		</li>
       		
 		</ul>
@@ -421,7 +428,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JAVASCRIPT</a>
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -429,11 +436,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">后端</a>
+                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
+                <a href="javascript:void(0)" class="js-tag color3">后端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -441,7 +448,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
+                <a href="javascript:void(0)" class="js-tag color1">JAVASCRIPT</a>
               </li>
              
               <li class="article-tag-list-item">
