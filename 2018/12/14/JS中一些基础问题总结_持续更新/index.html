@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/12 | daiyunchao&#39;s blog</title>
+  <title>JS中一些基础问题总结_持续更新 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/archives/2018/12/index.html">
+  <meta name="description" content="今天看了如何通过饿了么NODEJS面试涉及到一些JS基础,看这些问题的时候也能帮我再理下这些问题  为什么 undefined == null结果是trueECMAScript认为undefined是由null派生出来的，所以将他们定义为相等 衍生问题:undefind和null的区别和联系null: null是js中的关键字，表示空值，null可以看作是object的一个特殊的值，如果一个ob">
+<meta name="keywords" content="JAVASCRIPT,前端,后端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS中一些基础问题总结_持续更新">
+<meta property="og:url" content="http://yoursite.com/2018/12/14/JS中一些基础问题总结_持续更新/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="今天看了如何通过饿了么NODEJS面试涉及到一些JS基础,看这些问题的时候也能帮我再理下这些问题  为什么 undefined == null结果是trueECMAScript认为undefined是由null派生出来的，所以将他们定义为相等 衍生问题:undefind和null的区别和联系null: null是js中的关键字，表示空值，null可以看作是object的一个特殊的值，如果一个ob">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-14T10:08:59.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="JS中一些基础问题总结_持续更新">
+<meta name="twitter:description" content="今天看了如何通过饿了么NODEJS面试涉及到一些JS基础,看这些问题的时候也能帮我再理下这些问题  为什么 undefined == null结果是trueECMAScript认为undefined是由null派生出来的，所以将他们定义为相等 衍生问题:undefind和null的区别和联系null: null是js中的关键字，表示空值，null可以看作是object的一个特殊的值，如果一个ob">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,36 +165,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-JS中一些基础问题总结_持续更新" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      JS中一些基础问题总结_持续更新
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/14/JS中一些基础问题总结_持续更新/" class="archive-article-date">
+
+        
+        <a href="/2018/12/14/JS中一些基础问题总结_持续更新/" class="archive-article-date">
   	<time datetime="2018-12-14T09:07:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/14/JS中一些基础问题总结_持续更新/">JS中一些基础问题总结_持续更新</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>今天看了<a href="https://github.com/ElemeFE/node-interview/blob/master/sections/zh-cn/common.md#%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD" target="_blank" rel="noopener">如何通过饿了么NODEJS面试</a>涉及到一些JS基础,看这些问题的时候也能帮我再理下这些问题</p>
+</blockquote>
+<h3 id="为什么-undefined-null结果是true"><a href="#为什么-undefined-null结果是true" class="headerlink" title="为什么 undefined == null结果是true"></a>为什么 <code>undefined == null</code>结果是true</h3><p>ECMAScript认为undefined是由null派生出来的，所以将他们定义为相等</p>
+<h4 id="衍生问题-undefind和null的区别和联系"><a href="#衍生问题-undefind和null的区别和联系" class="headerlink" title="衍生问题:undefind和null的区别和联系"></a>衍生问题:<code>undefind</code>和<code>null</code>的区别和联系</h4><p><strong>null</strong>:</p>
+<p><code>null</code>是js中的关键字，表示空值，<code>null</code>可以看作是<code>object</code>的一个特殊的值，如果一个<code>object</code>值为空，表示这个对象不是有效对象。</p>
+<p><strong>undefined</strong>:<br><code>undefined</code>不是<code>js</code>中的关键字，其是一个全局变量，是<code>Global</code>的一个属性，以下情况会返回<code>undefined</code>:</p>
+<p>1）使用了一个未定义的变量；var i;</p>
+<p>2）使用了已定义但未声明的变量；</p>
+<p>3）使用了一个对象属性，但该属性不存在或者未赋值；</p>
+<p>4)调用函数时，该提供的参数没有提供</p>
+<p>5)函数没有显示的<code>return</code>返回值</p>
+<p><strong>区别</strong>:<br>类型不同<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">null</span> <span class="comment">//object</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="literal">undefined</span> <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>转换为<code>Number</code>类型的结果不同<br><code>Number(null)</code> 结果是0<br><code>Number(undefined)</code> 结果是<code>NaN</code></p>
+<h4 id="衍生问题-undefined-null-结果为什么是false"><a href="#衍生问题-undefined-null-结果为什么是false" class="headerlink" title="衍生问题: undefined === null 结果为什么是false"></a>衍生问题: <code>undefined === null</code> 结果为什么是false</h4><p><code>undefined</code>的类型是 <code>undefined</code><br><code>null</code>的类型是 <code>object</code></p>
+<h3 id="为什么-1-1-结果是false"><a href="#为什么-1-1-结果是false" class="headerlink" title="为什么 [1] == [1]结果是false"></a>为什么 <code>[1] == [1]</code>结果是false</h3><p>如果比较的是值类型,则<code>==</code>比较的是两个值是否相等,当然中间会有一些类型的转换<br>如果比较的是引用类型,则<code>==</code>比较的是两个值的地址是否相同</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1</span>];</span><br><span class="line"><span class="comment">// 这里的a和b是两个不同的地址，所以不一样</span></span><br><span class="line"><span class="built_in">console</span>.log(a==b); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> d = c;</span><br><span class="line"><span class="comment">//这里的d引用的c的地址，所以一样</span></span><br><span class="line"><span class="built_in">console</span>.log(c==d); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h4 id="衍生问题-使用-时类型转换规则是怎么样的"><a href="#衍生问题-使用-时类型转换规则是怎么样的" class="headerlink" title="衍生问题:使用==时类型转换规则是怎么样的"></a>衍生问题:使用<code>==</code>时类型转换规则是怎么样的</h4><p>先来一波例子:<br>例子来自:<a href="https://my.oschina.net/huawu/blog/7654" target="_blank" rel="noopener">JavaScript中==等同运算符的类型转换</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="string">''</span> == <span class="string">'0'</span>          <span class="comment">// false</span></span><br><span class="line"><span class="number">0</span> == <span class="string">''</span>            <span class="comment">// true</span></span><br><span class="line"><span class="number">0</span> == <span class="string">'0'</span>           <span class="comment">// true</span></span><br><span class="line"><span class="literal">false</span> == <span class="string">'false'</span>   <span class="comment">// false</span></span><br><span class="line"><span class="literal">false</span> == <span class="string">'0'</span>       <span class="comment">// true</span></span><br><span class="line"><span class="literal">false</span> == <span class="literal">undefined</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">false</span> == <span class="literal">null</span>      <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="literal">undefined</span>  <span class="comment">// true</span></span><br><span class="line"><span class="string">' \t\r\n '</span> == <span class="number">0</span>    <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><strong>建议使用Object.is函数做比较,可以少很多坑</strong></p>
+<p>比较:<code>x==y</code><br>如果x是<code>null</code>，y是<code>undefined</code>，返回true<br>如果x是<code>undefined</code>，y是null，返回true<br>如果x是<code>Number</code>，y是<code>String</code>，将y转化成<code>Number</code>，然后再比较<br>如果x是<code>String</code>，y是<code>Number</code>，将x转化成<code>Number</code>，然后再比较<br>如果x是<code>Boolean</code>，那么将x转化成<code>Number</code>，然后再比较<br>如果y是<code>Boolean</code>，那么将y转化成<code>Number</code>，然后再比较<br>如果x是<code>String</code>或者<code>Number</code>，y是<code>Object</code>，那么将y转化成基本类型(valueOf 和 toString)，再进行比较<br>如果x是<code>Object</code>，y是<code>String</code>或者<code>Number</code>，将x转化成基本类型，再进行比较<br>其他情况均返回<code>false</code></p>
+<p><strong>简单一句话来概括就是，对于基本类型Boolean，Number，String，三者之间做比较时，总是向 Number进行类型转换，然后再比较；如果有Object，那么将Object转化成这三者，再进行比较；对于null和undefined，只有 x，y分别是它们时才相同，其他都为false</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''</span> == <span class="string">'0'</span>          <span class="comment">// false</span></span><br><span class="line"><span class="comment">//类型相同，毫无疑问，值不同，所以结果为false</span></span><br><span class="line"> </span><br><span class="line"><span class="number">0</span> == <span class="string">''</span>            <span class="comment">// true</span></span><br><span class="line"><span class="comment">//String要像Number转化，''是空String，根据上面的表，转成0，所以结果是true</span></span><br><span class="line"> </span><br><span class="line"><span class="number">0</span> == <span class="string">'0'</span>           <span class="comment">// true</span></span><br><span class="line"><span class="comment">//String要像Number转化，根据上面的转化Number表，'0'转成0，所以结果是true</span></span><br><span class="line"> </span><br><span class="line"><span class="literal">false</span> == <span class="string">'false'</span>   <span class="comment">// false</span></span><br><span class="line"><span class="comment">//有Boolean，转化成Number，所以第一步转化后为0=='false'；</span></span><br><span class="line"><span class="comment">//然后'false'向Number转，结果是NaN,最后变成比较0==NaN,那么肯定是false。</span></span><br><span class="line"><span class="comment">//（NaN和任何相比都是false，就算是自己也是false， NaN==NaN //false)</span></span><br><span class="line"> </span><br><span class="line"><span class="literal">false</span> == <span class="string">'0'</span>       <span class="comment">// true</span></span><br><span class="line"><span class="comment">//有Boolean，转化成Number，经过第一次转化就成了0=='0';</span></span><br><span class="line"><span class="comment">//就变成了上面的第3个例子，所以是true</span></span><br><span class="line"> </span><br><span class="line"><span class="literal">false</span> == <span class="literal">undefined</span> <span class="comment">// false</span></span><br><span class="line"><span class="comment">//对于undefined和null，只有两边分别是两者才是true，其他都是false；所以是false</span></span><br><span class="line"> </span><br><span class="line"><span class="literal">false</span> == <span class="literal">null</span>      <span class="comment">// false</span></span><br><span class="line"><span class="comment">//对于undefined和null，只有两边分别是两者才是true，其他都是false；所以是false</span></span><br><span class="line"> </span><br><span class="line"><span class="literal">null</span> == <span class="literal">undefined</span>  <span class="comment">// true</span></span><br><span class="line"><span class="comment">//对于undefined和null，只有两边分别是两者才是true，其他都是false；所以是true</span></span><br><span class="line"> </span><br><span class="line"><span class="string">' \t\r\n '</span> == <span class="number">0</span>    <span class="comment">// true</span></span><br><span class="line"><span class="comment">//对于String，先转成Number，对于空String，都将转成0，所以转化后成为0==0,结果为true</span></span><br><span class="line"><span class="comment">//（注意，空字符不仅仅是只是空格，还包括\t\r\n等等，更多可以见ECMAScript spec的9.3.1）</span></span><br></pre></td></tr></table></figure>
+<h4 id="衍生问题-JS中的强制转换和隐式转换有哪些"><a href="#衍生问题-JS中的强制转换和隐式转换有哪些" class="headerlink" title="衍生问题:JS中的强制转换和隐式转换有哪些"></a>衍生问题:JS中的强制转换和隐式转换有哪些</h4><p><code>parseInt()  parseFloat()  Number()   Boolean()</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ParseInt</span></span><br><span class="line">        <span class="built_in">parseInt</span>(<span class="string">"123"</span>);<span class="comment">//123</span></span><br><span class="line">        <span class="built_in">parseInt</span>(<span class="string">"+123"</span>);<span class="comment">//123</span></span><br><span class="line">        <span class="built_in">parseInt</span>(<span class="string">"-123"</span>);<span class="comment">//-123</span></span><br><span class="line">        <span class="built_in">parseInt</span>(<span class="string">"12.3元"</span>)<span class="comment">//12</span></span><br><span class="line">        <span class="built_in">parseInt</span>(<span class="string">"abc"</span>);<span class="comment">//NaN</span></span><br><span class="line">        <span class="built_in">parseInt</span>([<span class="number">1</span>,<span class="number">2</span>])<span class="comment">//1 引用类型 先toString()</span></span><br><span class="line">        <span class="built_in">parseInt</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>])<span class="comment">//1 引用类型 先toString()</span></span><br><span class="line">        <span class="built_in">parseInt</span>(<span class="string">"  "</span>);<span class="comment">//NaN</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//ParseFloat</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"123"</span>);<span class="comment">//123</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"-123"</span>);<span class="comment">//-123</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"+123"</span>);<span class="comment">//123</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"12.34"</span>);<span class="comment">//12.34</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"12.35元"</span>)<span class="comment">//12.35</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"12.23.122"</span>);<span class="comment">//12.23</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"av"</span>);<span class="comment">//NaN</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"0xAA"</span>);<span class="comment">//0</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="string">"0110"</span>);<span class="comment">//110</span></span><br><span class="line">        <span class="built_in">parseFloat</span>([<span class="number">1</span>]);<span class="comment">//1</span></span><br><span class="line">        <span class="built_in">parseFloat</span>([<span class="number">2</span>,<span class="number">3</span>]);<span class="comment">//2</span></span><br><span class="line">        <span class="built_in">parseFloat</span>([]);<span class="comment">//NaN</span></span><br><span class="line">        <span class="built_in">parseFloat</span>(<span class="literal">null</span>)<span class="comment">//NaN</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Number</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="string">"123"</span>);<span class="comment">//123</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="string">"+123"</span>);<span class="comment">//123</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="string">"12.3"</span>);<span class="comment">//12.3</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="literal">true</span>);<span class="comment">//1</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="string">"12.3.4"</span>);<span class="comment">//NaN</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="string">" "</span>);<span class="comment">//0</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="string">"abc"</span>);<span class="comment">//NaN</span></span><br><span class="line">        <span class="built_in">Number</span>([]);<span class="comment">//0</span></span><br><span class="line">        <span class="built_in">Number</span>([<span class="number">1</span>]);<span class="comment">//1</span></span><br><span class="line">        <span class="built_in">Number</span>([<span class="number">1</span>,<span class="number">2</span>]);<span class="comment">//NaN</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="keyword">new</span> <span class="built_in">Object</span>());<span class="comment">//NaN</span></span><br><span class="line">        <span class="built_in">Number</span>(<span class="literal">null</span>);<span class="comment">//0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Boolean</span></span><br><span class="line">        <span class="built_in">Boolean</span>(<span class="number">1</span>) ;<span class="comment">//true</span></span><br><span class="line">        <span class="built_in">Boolean</span>(<span class="number">0</span>);<span class="comment">//false</span></span><br><span class="line">        <span class="built_in">Boolean</span>(<span class="string">"1"</span>);<span class="comment">//true</span></span><br><span class="line">        <span class="built_in">Boolean</span>(<span class="string">"0"</span>);<span class="comment">//true</span></span><br><span class="line">        <span class="built_in">Boolean</span>(<span class="string">"abc"</span>);<span class="comment">//true</span></span><br><span class="line">        <span class="built_in">Boolean</span>(<span class="string">''</span>);<span class="comment">//false</span></span><br><span class="line">        <span class="built_in">Boolean</span>(<span class="string">'   '</span>);<span class="comment">//true</span></span><br><span class="line">        <span class="built_in">Boolean</span>([])<span class="comment">//true</span></span><br><span class="line">        <span class="built_in">Boolean</span>([<span class="number">1</span>])<span class="comment">//true</span></span><br><span class="line">        <span class="built_in">Boolean</span>(<span class="literal">null</span>)<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//隐式转换</span></span><br><span class="line">        <span class="keyword">var</span> x = <span class="string">"123"</span>;</span><br><span class="line">        <span class="keyword">var</span> y = <span class="number">121</span>;</span><br><span class="line">        alert(x+y);<span class="comment">//"123121;</span></span><br><span class="line">        alert(x-y);<span class="comment">//2</span></span><br><span class="line">        alert(x*y);<span class="comment">//14883</span></span><br><span class="line">        alert(x/y);<span class="comment">//1.016528256198346</span></span><br><span class="line">        alert(x%y);<span class="comment">//2</span></span><br><span class="line">        alert(x&gt;y);<span class="comment">//true</span></span><br><span class="line">        alert(x==y);<span class="comment">//false</span></span><br><span class="line">        alert(<span class="string">"123a"</span>&gt;y);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+      
 
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -209,103 +236,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/14/JS中一些基础问题总结_持续更新/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/12/对JS中异步执行的知识点回顾和补充/" class="archive-article-date">
-  	<time datetime="2018-12-12T09:46:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/12/对JS中异步执行的知识点回顾和补充/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">对JS中异步执行的知识点回顾和补充</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/12/对JS中异步执行的知识点回顾和补充/">对JS中异步执行的知识点回顾和补充</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/04/数据库SQL汇总/" class="archive-article-date">
-  	<time datetime="2018-12-04T06:24:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/04/数据库SQL汇总/">数据库SQL汇总</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -328,8 +358,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
