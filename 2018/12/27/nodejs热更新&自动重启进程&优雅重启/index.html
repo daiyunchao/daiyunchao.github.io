@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | daiyunchao&#39;s blog</title>
+  <title>nodejs热更新&amp;自动重启进程&amp;优雅重启 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="在看如何通过饿了么NODEJS面试文章中有一个关于热更新的问题,于是想着整理下NodeJs进程管理的一些问题.">
+<meta name="keywords" content="后端,NGINX">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs热更新&amp;自动重启进程&amp;优雅重启">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/nodejs热更新&自动重启进程&优雅重启/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="在看如何通过饿了么NODEJS面试文章中有一个关于热更新的问题,于是想着整理下NodeJs进程管理的一些问题.">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/优雅重启.png">
+<meta property="og:updated_time" content="2018-12-27T08:08:05.910Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="nodejs热更新&amp;自动重启进程&amp;优雅重启">
+<meta name="twitter:description" content="在看如何通过饿了么NODEJS面试文章中有一个关于热更新的问题,于是想着整理下NodeJs进程管理的一些问题.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/优雅重启.png">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,36 +167,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-nodejs热更新&amp;自动重启进程&amp;优雅重启" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      nodejs热更新&amp;自动重启进程&amp;优雅重启
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/27/nodejs热更新&自动重启进程&优雅重启/" class="archive-article-date">
+
+        
+        <a href="/2018/12/27/nodejs热更新&自动重启进程&优雅重启/" class="archive-article-date">
   	<time datetime="2018-12-27T06:35:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/27/nodejs热更新&自动重启进程&优雅重启/">nodejs热更新&amp;自动重启进程&amp;优雅重启</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>在看<a href="https://github.com/ElemeFE/node-interview/blob/master/sections/zh-cn/common.md#%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD" target="_blank" rel="noopener">如何通过饿了么NODEJS面试</a>文章中有一个关于<strong>热更新</strong>的问题,于是想着整理下NodeJs进程管理的一些问题.</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="现状"><a href="#现状" class="headerlink" title="现状:"></a>现状:</h4><p>前端是用Nginx做代理直接指向PM2管理的NodeJs进程</p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h4><p>问题1: 每次添加了功能或是修改了Bug都需要手动的重启进程<br>问题2: 在管理Nodejs进程时我发现进程重启是最麻烦的事情,无论是功能的添加还是Bug的修改,都会涉及到重启进程.如果直接重启进程就可能会出现502,影响用户体验.<br>问题3: 如果进程迟迟启动不了(可能有新的库还没安装或是出现了产品环境的新问题需要修改代码)服务器可能一直处于不可访问状态</p>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考:"></a>思考:</h4><p>如何才能避免这些问题呢?</p>
+<h4 id="发现"><a href="#发现" class="headerlink" title="发现:"></a>发现:</h4><p>找到的一些解决方案:</p>
+<p>热更新方案:<br><code>require cache</code><br><code>fs 读取文件</code></p>
+<p>自动重启方案:<br><code>pm2 reload</code><br><code>Bearcat 热更新</code><br><code>supervisor</code><br><code>自动监听文件,自动重启</code></p>
+<p><code>require cache</code> 原理是通过 <code>delete require.cache</code>的方式删除<code>require</code>缓存的模块,重新加载新文件.达到不重启服务器而使用新代码.</p>
+<p>缺点:<br>不能重新加载C++模块<br>还有 <a href="https://zhuanlan.zhihu.com/p/34702356" target="_blank" rel="noopener">一行 delete require.cache 引发的内存泄漏血案</a></p>
+<p>如果只是简单更新还是可以使用的.</p>
+<p><code>fs 读取文件</code> 既然<code>require</code>会缓存文件,那么<code>fs 读取文件</code>也确实是一个方案</p>
+<p>缺点:<br>但问题在于效率问题,如果每次都去磁盘上读取下这个文件,将会消耗很多的时间</p>
+<p>如果是一些小项目,并且就是要求时时去读取配置中的信息,可以使用<code>fs</code>去读取文件.(我在一个小的项目中就用过这种方式,效果还是比较好的,毕竟不用自己每次有任何的修改都去重启服务器)</p>
+<p><code>pm2 reload</code><br><code>Bearcat 热更新</code><br><code>supervisor</code><br><code>自动监听文件,自动重启</code><br>这几种方案都差不多,都是监听文件变化,然后重启,如果使用<code>pm2</code>使用<code>reload</code>确实是很方便,但还是有问题,在重启过程中会导致客户端502.影响用户体验</p>
+<h4 id="有更优雅的方式吗"><a href="#有更优雅的方式吗" class="headerlink" title="有更优雅的方式吗?"></a>有更优雅的方式吗?</h4><p>有:<code>Nginx</code>配合<code>文件监听</code>可实现</p>
+<p>引用Nginx的三个模块<br><code>consul</code><br><code>nginx_upstream_check_module</code><br><code>nginx-upsync-module-master</code></p>
+<p><code>consul</code>：是一个支持多数据中心分布式高可用的服务发现和配置共享的服务软件</p>
+<p><code>nginx_upstream_check_module</code>：nginx主动健康检查模块</p>
+<p><code>nginx-upsync-module</code>：nginx服务发现模块</p>
+<p>文章<a href="https://www.cnblogs.com/wangzhisdu/p/7762715.html" target="_blank" rel="noopener">consul集群搭建，配合nginx完成服务动态发现和健康检查</a>有介绍</p>
+<h4 id="如何使用呢"><a href="#如何使用呢" class="headerlink" title="如何使用呢?"></a>如何使用呢?</h4><p>上面提到过:<br>使用<code>nginx_upstream_check_module</code>对后端服务器进行检查检查<br>流程图如下:</p>
+<p><img src="https://raw.githubusercontent.com/daiyunchao/daiyunchao.github.io/master/img/优雅重启.png" alt="流程图"></p>
+<p>多个服务器如何排队重启:</p>
+<p>在启动进程时 传递一个参数标识当前进程的编号<br>比如同类型的进程有两个:<br>handler-api-0 //编号0<br>handler-api-1 //编号1</p>
+<p>方案1:<br>当版本号文件改变时 这两个进程都会收到文件变化的通知,这时编号0立即开始执行重启任务 编号1的开始计时等待1分钟后再执行重启任务(这个是根据重启大概需要的时间计算的)<br>该方案的缺点是:<br>不能实现当编号0启动完成后,再启动编号1的进程<br>一旦编号0重启出现了异常,不能阻止编号1的进程重启</p>
+<p>方案2:<br>当版本号文件改变时 这两个进程都会收到文件变化的通知,这时编号0立即开始执行重启任务 编号1开启一个定时任务去检查编号0的状态.(可以是ip:port的http请求) 等到检查完成后再执行重启任务<br>方案2是方案1的升级版.</p>
+<p>使用这种方式就可以解决上面提出的三个问题</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -205,393 +240,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/27/nodejs热更新&自动重启进程&优雅重启/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/14/JS中一些基础问题总结_持续更新/" class="archive-article-date">
-  	<time datetime="2018-12-14T09:07:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/14/JS中一些基础问题总结_持续更新/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JS中一些基础问题总结_持续更新</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/14/JS中一些基础问题总结_持续更新/">JS中一些基础问题总结_持续更新</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/12/对JS中异步执行的知识点回顾和补充/" class="archive-article-date">
-  	<time datetime="2018-12-12T09:46:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/12/对JS中异步执行的知识点回顾和补充/">对JS中异步执行的知识点回顾和补充</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/04/数据库SQL汇总/" class="archive-article-date">
-  	<time datetime="2018-12-04T06:24:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/04/数据库SQL汇总/">数据库SQL汇总</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/30/nginx原理及配置_百度脑图/" class="archive-article-date">
-  	<time datetime="2018-11-30T07:36:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/30/nginx原理及配置_百度脑图/">nginx原理及配置_百度脑图</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NGINX</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/26/关系数据全貌和SQL常用总结-百度脑图/" class="archive-article-date">
-  	<time datetime="2018-11-26T06:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/26/关系数据全貌和SQL常用总结-百度脑图/">关系数据全貌和SQL常用总结_百度脑图</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/23/JS的Class如何实现实例GET和SET方法/" class="archive-article-date">
-  	<time datetime="2018-11-23T09:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">JS的Class如何实现实例GET和SET方法?</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/" class="archive-article-date">
-  	<time datetime="2018-11-16T09:29:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/">关系数据库 or vs in 效率到底谁高?</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/" class="archive-article-date">
-  	<time datetime="2018-11-15T11:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">你应该知道这些React.js理论(当你学了React基础自后)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/13/关于我和我的Blog/" class="archive-article-date">
-  	<time datetime="2018-11-13T07:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/13/关于我和我的Blog/">关于我和我的Blog</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -614,8 +362,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
