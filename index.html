@@ -162,6 +162,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-看alipay-Luncher学到的东西" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/10/看alipay-Luncher学到的东西/">看alipay_Luncher学到的东西</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/10/看alipay-Luncher学到的东西/" class="archive-article-date">
+  	<time datetime="2019-01-10T10:46:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>alipay的<a href="https://github.com/Luncher/alipay" target="_blank" rel="noopener">GIT地址</a>,这个库是我在集成支付宝的时候使用到的,感觉用着挺方便的,所以想看看他的源代码,下面是我再看他的代码时候学到的一些东西</p>
+</blockquote>
+<h4 id="如何在Nodejs中使用ES6的语法-例如-import等"><a href="#如何在Nodejs中使用ES6的语法-例如-import等" class="headerlink" title="如何在Nodejs中使用ES6的语法,例如(import等)?"></a>如何在Nodejs中使用ES6的语法,例如(import等)?</h4><p>使用<code>babel</code>进行编译<br>如项目中:package.json的script中有这样一句<code>compile&quot;: &quot;babel src -d lib,</code>使用 babel进行编译<br>项目中依赖的babel库有:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">"babel-cli": "^6.24.0",</span><br><span class="line">"babel-eslint": "^7.1.1",</span><br><span class="line">"babel-plugin-add-module-exports": "^0.2.1",</span><br><span class="line">"babel-plugin-istanbul": "^5.1.0",</span><br><span class="line">"babel-plugin-root-import": "^5.1.0",</span><br><span class="line">"babel-preset-es2015": "^6.24.0",</span><br><span class="line">"babel-preset-power-assert": "^1.0.0",</span><br><span class="line">"babel-register": "^6.24.0",</span><br></pre></td></tr></table></figure></p>
+<p>根目录的<code>.babelrc</code>文件为:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"env"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: &#123;</span><br><span class="line">      <span class="string">"presets"</span>: [</span><br><span class="line">        <span class="string">"babel-preset-power-assert"</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="string">"plugins"</span>: [</span><br><span class="line">        [<span class="string">"istanbul"</span>]</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"presets"</span>: [</span><br><span class="line">    <span class="string">"es2015"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"plugins"</span>: [</span><br><span class="line">    [<span class="string">"babel-plugin-root-import"</span>, &#123;</span><br><span class="line">      <span class="string">"rootPathSuffix"</span>: <span class="string">"lib/"</span></span><br><span class="line">    &#125;],</span><br><span class="line">    <span class="string">"add-module-exports"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="如何在npm-install-时候就执行一段一个命令"><a href="#如何在npm-install-时候就执行一段一个命令" class="headerlink" title="如何在npm install 时候就执行一段一个命令?"></a>如何在npm install 时候就执行一段一个命令?</h4><p>在<code>package.json</code>中的<code>script</code>中添加命令:<code>prepublish</code><br>如:源代码中的:<br><code>&quot;prepublish&quot;: &quot;npm run compile&quot;</code> 就是在<code>npm install</code>后立即执行一编译命令<br><strong>注意，prepublish这个钩子不仅会在npm publish命令之前运行，还会在npm install（不带任何参数）命令之前运行。这种行为很容易让用户感到困惑，所以 npm 4 引入了一个新的钩子prepare，行为等同于prepublish，而从 npm 5 开始，prepublish将只在npm publish命令之前运行</strong><br>还有另外的一些钩子函数 可以看<a href="https://docs.npmjs.com/misc/scripts" target="_blank" rel="noopener">这里</a></p>
+<p>(未完待续)</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NODEJS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/10/看alipay-Luncher学到的东西/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-nodejs热更新&amp;自动重启进程&amp;优雅重启" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -900,82 +984,10 @@
 
 
   
-    <article id="post-关于我和我的Blog" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/13/关于我和我的Blog/">关于我和我的Blog</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/13/关于我和我的Blog/" class="archive-article-date">
-  	<time datetime="2018-11-13T07:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><p>我是程序员,貌似会的东西还不少<br>(React)/后端(NodeJs C#)/数据库(MySql MongoDB SqlServer PostgresQL)<br>但 细细一品….啧!其实只是会用而已.</p>
-<h3 id="看看别人"><a href="#看看别人" class="headerlink" title="看看别人"></a>看看别人</h3><p>看到阮一峰大神还在定期的更新着自己的博客,我也是挺羞愧的,比我聪明的人还比我努力…</p>
-<h3 id="关于我的Blog"><a href="#关于我的Blog" class="headerlink" title="关于我的Blog"></a>关于我的Blog</h3><p>大家都说现在的编程变化快,学习成本高,确实如此.这种变化在前端表现的更加的明显,<br>框架层出不穷,新特性,新思路,感觉一段时间就推倒从来. 然而为什么我学的这么累呢?<br>说到底还不是因为没有理解到本质,所谓”万变不离其宗”的宗没有看明白.<br>于是有了补全思想的打算. 好好的去看看我学过的.从里找到这个”宗”.<br>就像孙悟空有72变,但尾巴怎么也隐藏不了,希望通过我的总结和积累,找到这条尾巴.</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/13/关于我和我的Blog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -986,7 +998,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Dai YunChao
+    		&copy; 2019 Dai YunChao
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1077,7 +1089,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1085,7 +1097,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color2">NODEJS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
             
             <div class="clearfix"></div>
