@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | daiyunchao&#39;s blog</title>
+  <title>redis_常用命令学习 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="这段时间在用零散的时间学习redis的一些命令,命令比较多所以就打算把常用的记录下来,以便在再使用时候可以方便的查阅,也可以定期的看一看进行回忆.我更多学习redis的地址:笨办法学习redis">
+<meta name="keywords" content="后端,REDIS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis_常用命令学习">
+<meta property="og:url" content="http://yoursite.com/2019/01/28/redis-常用命令学习/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="这段时间在用零散的时间学习redis的一些命令,命令比较多所以就打算把常用的记录下来,以便在再使用时候可以方便的查阅,也可以定期的看一看进行回忆.我更多学习redis的地址:笨办法学习redis">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-28T03:18:47.975Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="redis_常用命令学习">
+<meta name="twitter:description" content="这段时间在用零散的时间学习redis的一些命令,命令比较多所以就打算把常用的记录下来,以便在再使用时候可以方便的查阅,也可以定期的看一看进行回忆.我更多学习redis的地址:笨办法学习redis">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,36 +165,122 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-redis-常用命令学习" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      redis_常用命令学习
+    </h1>
+  
+
+        
+        <a href="/2019/01/28/redis-常用命令学习/" class="archive-article-date">
+  	<time datetime="2019-01-28T03:14:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-28</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这段时间在用零散的时间学习redis的一些命令,命令比较多所以就打算把常用的记录下来,以便在再使用时候可以方便的查阅,也可以定期的看一看进行回忆.<br>我更多学习redis的地址:<a href="https://github.com/daiyunchao/stupid_way_learn_redis" target="_blank" rel="noopener">笨办法学习redis</a></p>
+</blockquote>
+<a id="more"></a>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构:"></a>数据结构:</h3><p>字符串:<code>Sting</code><br>对象:<code>Hash</code><br>简单有序字符串列表: <code>List</code><br>无序去重字符串列表: <code>Set</code><br>有序去重字符串列表: <code>ZSet</code>(Set的升级版)</p>
+<h4 id="常用操作汇总"><a href="#常用操作汇总" class="headerlink" title="常用操作汇总:"></a>常用操作汇总:</h4><h4 id="基础部分-和数据类型无关"><a href="#基础部分-和数据类型无关" class="headerlink" title="基础部分,和数据类型无关:"></a>基础部分,和数据类型无关:</h4><p>删除key<br><code>del key</code></p>
+<p>判断key是否存在<br><code>exists key</code></p>
+<p>设置一个key的过期时间(单位是秒)<br><code>expire key</code> 在字符串中类似于 <code>setex</code></p>
+<p>设置一个key的过期时间(单位是毫秒)<br><code>pexpire key</code> 在字符串中类似于 <code>psetex</code></p>
+<p>为key设置一个过期时间<br><code>expireat key</code></p>
+<p>获取当前的全部key<br><code>keys *</code></p>
+<p>移除key的过期时间<br><code>persist key</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">set username &apos;zhangsan&apos;</span><br><span class="line">ok</span><br><span class="line"></span><br><span class="line">expire username 10</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">ttl username</span><br><span class="line">7(返回的是还剩下的时间,假如使用了3秒)</span><br><span class="line"></span><br><span class="line">persist username</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">ttl username</span><br><span class="line">-1</span><br></pre></td></tr></table></figure>
+<p>ttl以秒为单位返回key的生命剩余时间<br><code>ttl key_name</code></p>
+<p>pttl以毫秒为单位返回key的生命剩余时间<br><code>pttl key_name</code></p>
+<p>rename修改 key 的名称<br><code>rename key newkey</code></p>
+<p>renamenx仅当 newkey 不存在时，将 key 改名为 newkey<br><code>renamenx key newkey</code></p>
+<p>type返回key的数据类型<br><code>type key</code><br>none(key不存在) string(字符串) list(列表) set(集合) zset(有序集合) hash(哈希表)</p>
+<h3 id="String部分"><a href="#String部分" class="headerlink" title="String部分:"></a><code>String部分</code>:</h3><p>存储一个string<br><code>set key value</code></p>
+<p>获取一个string<br><code>get key value</code></p>
+<p>获取字符串的一部分getrange<br><code>getrange username 0 3</code></p>
+<p>getset key 设置一个新的值,并且返回旧值<br><code>set username zhangsan</code><br><code>getset username &#39;lisi&#39;</code><br><code>zhangsan</code></p>
+<p>setnx 只有当key不存在时才能设置其值<br><code>setnx key_name value</code></p>
+<p>mset 设置多个值<br><code>mset name1 &#39;zhangsan&#39; name2 &#39;lisi&#39; name3 &#39;wangwu&#39;</code></p>
+<p>mget 获取多个值<br><code>mget name1 name2 name3</code></p>
+<p>msetnx设置多个key对应的值,但只有当key不存在时才能设置(原子操作,要成功都成功,要失败都失败)<br><code>msetnx key1 value1 key2 value2</code></p>
+<p>setex设置一个值并且设置它的过期时间(单位秒)<br><code>setex key_name timeout value</code></p>
+<p>ttl获取值的剩余时间(单位秒)<br><code>ttl key_name</code></p>
+<p>psetex设置一个值并且设置它的过期时间(单位毫秒)<br><code>psetex key_name timeout value</code></p>
+<p>pttl获取值的剩余时间(单位毫秒)<br><code>pttl key_name</code></p>
+<p>setrange,截取字符串,拼接字符串<br><code>SETRANGE KEY_NAME OFFSET VALUE</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">set username zhangsan</span><br><span class="line">ok</span><br><span class="line"></span><br><span class="line">get username</span><br><span class="line">zhangsan</span><br><span class="line"></span><br><span class="line">setrange username 0 &apos;he name called&apos;</span><br><span class="line"></span><br><span class="line">get username</span><br><span class="line">he name called</span><br><span class="line"></span><br><span class="line">setrange username 14 &apos; zhangsan&apos;</span><br><span class="line">he name called zhangsan</span><br></pre></td></tr></table></figure></p>
+<p>append字符串的相加功能<br><code>append key_name value</code></p>
+<p>获取存储字符串值的长度strlen<br><code>strlen key_name</code></p>
+<p>incr数值类型的值加一<br><code>incr key_name</code></p>
+<p>incrby为数值类型的值+指定的数值<br><code>incrby key_name number</code></p>
+<p>decr数值类型减一<br><code>decr key_name</code></p>
+<p>decrby为数值类型的值-指定的数值<br><code>decr key_name num</code></p>
+<h3 id="Hash部分"><a href="#Hash部分" class="headerlink" title="Hash部分:"></a><code>Hash部分</code>:</h3><p>hset 设置hash的值<br><code>hset key_name field1 value1</code></p>
+<p>hmset 批量设置hash 的值<br><code>hmset key_name field1 field1_value field2 field2_value</code></p>
+<p>hsetnx只有字段不存在时才能设置成功<br><code>hsetnx key_name field value</code></p>
+<p>hget 获取field中的值<br><code>hget key_name field</code></p>
+<p>hmget 获取多个key对应的值<br><code>hmget key_name field1 field2</code></p>
+<p>hgetall 获取对应key的全部field和field的value<br><code>hgetall key_name</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hgetall zhangsan</span><br><span class="line">1) &quot;name&quot;</span><br><span class="line">2) &quot;zhangsan&quot;</span><br><span class="line">3) &quot;age&quot;</span><br><span class="line">4) &quot;18&quot;</span><br></pre></td></tr></table></figure></p>
+<p>hvals获取hash中的全部的值<br><code>hvals key_name</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hvals zhangsan</span><br><span class="line">1) &quot;zhangsan&quot;</span><br><span class="line">2) &quot;18&quot;</span><br></pre></td></tr></table></figure></p>
+<p>hlen获取hash中的key数量<br><code>hlen key_name</code></p>
+<p>hexists 检查key是否存在<br><code>hexists key_name field</code></p>
+<p>hdel删除hash中的一个key或多个key<br><code>hdel key_name field1 field2</code></p>
+<h3 id="List部分"><a href="#List部分" class="headerlink" title="List部分:"></a><code>List部分</code>:</h3><p>lpush添加一个或多个到list中的头部<br><code>lpush key_name value1 value2</code></p>
+<p>lpushx 向一个已存在的key中插入值,并放到头部<br><code>lpushx key_name value1</code></p>
+<p>rpush 添加一个或多个到list的尾部(右边)<br><code>lpush</code>类似</p>
+<p>rpushx将一个值插入到列表的尾部<br><code>lpushx</code>类似</p>
+<p>linsert 插入指定顺序的值到列表中<br><code>linsert key_name before|after old_value new_value</code></p>
+<p>llen 获取list的长度<br><code>llen key_name</code></p>
+<p>lrange 获取list中指定范围内的value<br><code>lrange key_name start_num end_num</code><br><code>lrange key_name 0 -1</code> 获取全部元素</p>
+<p>lindex 通过索引获取列表中的元素<br><code>lindex key_name index_num</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lpush user zhangsan lisi</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">lindex user 0</span><br><span class="line">lisi</span><br><span class="line"></span><br><span class="line">lindex user 1</span><br><span class="line">zhangsan</span><br><span class="line"></span><br><span class="line">lindex user -1</span><br><span class="line">zhangsan</span><br></pre></td></tr></table></figure></p>
+<p>lpop 移除一个元素并返回<br><code>lpop key_name</code></p>
+<p>ltrim从左边裁剪元素<br><code>ltrim key_name start_index end_index</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">lpush user zhangsan lisi wangwu</span><br><span class="line">3</span><br><span class="line"></span><br><span class="line">lrange user 0 -1</span><br><span class="line">1) &quot;wangwu&quot;</span><br><span class="line">2) &quot;lisi&quot;</span><br><span class="line">3) &quot;zhangsan&quot;</span><br><span class="line"></span><br><span class="line">ltrim user 0 1</span><br><span class="line">ok</span><br><span class="line"></span><br><span class="line">lrange user  -1</span><br><span class="line">1) &quot;wangwu&quot;</span><br><span class="line">2) &quot;lisi&quot;</span><br></pre></td></tr></table></figure>
+<p>rpop 删除列表中的最后一个元素<br><code>rpop key_name</code></p>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>sadd添加一个或多个值到set中<br><code>sadd key_name value1 value2</code></p>
+<p>smembers 获取成员列表<br><code>smembers key_name</code></p>
+<p>sismember 判断是否是一个set的成员<br><code>sismember key_name value</code></p>
+<p>scard获取成员数量<br><code>scard key_name</code></p>
+<p>sdiff比较两个set中的差别<br>理解: 查询第一个set中出现而第二个set中没出现的值<br>如果key不存在,则认为该set是空<br><code>sdiff key_name_1 key_name_2</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sadd user_1 zhangsan lisi wangwu</span><br><span class="line">3</span><br><span class="line"></span><br><span class="line">sadd user_2 lisi zhaoliu</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">sdiff user_1 user_2</span><br><span class="line">1) &quot;zhangsan&quot;</span><br><span class="line">2) &quot;wangwu&quot;</span><br></pre></td></tr></table></figure></p>
+<p>sinter获取两个(多个)set的交集<br><code>sinter key_name_1 key_name_2</code></p>
+<p>spop 删除set中的一个或多个元素并返回<br><code>spop key_name [count]</code></p>
+<p>srandmember 随机返回一个或多个set中的元素<br><code>srandmember key_name [count]</code></p>
+<p>srem 移除set中的一个或多个元素<br><code>srem key_name member1 member2</code></p>
+<p>sunion合区两个或多个set的并集<br><code>sunion key_name key_name_2</code></p>
+<p>sunionstore 找到并集并存储到另外的set中<br><code>sunionstore key_name key_name2 key_name3</code></p>
+<h3 id="Sort-Set"><a href="#Sort-Set" class="headerlink" title="Sort_Set:"></a>Sort_Set:</h3><p>有序set,成员不能重复 每一个元素都有一个double类型的score,用此score进行排序</p>
+<p>zadd 添加一个或多个sort_set成员<br><code>zadd key_name score value1 value2</code></p>
+<p>zrange 获取sort_set的成员<br>成员会按照score的大小进行排序<br>可选项<code>WITHSCORES</code> 如果有该选项,则会返回value的score到列表中<br><code>zrange key_name start_number stop_number [WITHSCORES]</code></p>
+<p>zrevrange 获取sort_set中的全部成员(按照score 由大到小)<br>和<code>zrange</code>相同,只是排序方式是反的<br><code>zrevrange key_name start_index stop_index</code></p>
+<p>zcard 获取sort_set中的成员数量<br><code>zcard key_name</code></p>
+<p>zcount获取sort_set中指定区间score内的成员数量<br><code>zcount key_name start_score stop_score</code></p>
+<p>zinterstore 获取两个或多个sort_set并将结果存储到一个新的sort_set中<br><code>zinertstore new_store_key_name numberkeys key_name_1 key_name_2</code></p>
+<p><strong>zrangebyscore 通过score的值返回数据</strong><br><code>(</code> 大于   <code>)</code>小于 直接数值则为<code>&gt;=</code>或<code>&lt;=</code><br><code>zrangebyscore key_name exp</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">zadd user 1 zhangsan 2 lisi 3 wangwu</span><br><span class="line">3</span><br><span class="line"></span><br><span class="line">zrangebyscore user (1 3</span><br><span class="line">1) &quot;lisi&quot;</span><br><span class="line">2) &quot;wangwu&quot;</span><br></pre></td></tr></table></figure></p>
+<p>zrank 获取store_set中的值对应的index<br><code>zrank key_name value</code></p>
+<p>zrem移除sort_set中的一个或多个成员<br><code>zrem key_name value1 value2</code></p>
+<p>zscore获取sort_set中指定元素的score<br>zscore key_name value</p>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务:"></a>事务:</h3><blockquote>
+<p>不像数据库事务没有数据事务的原子性<br>特点:批量操作在发送 EXEC 命令前被放入队列缓存,收到 EXEC 命令后进入事务执行，事务中任意命令执行失败，其余的命令依然被执行(非原子性).在事务执行过程，其他客户端提交的命令请求不会插入到事务执行命令序列中(保证顺序)</p>
+</blockquote>
+<p>multi 标记一个事务的开始<br><code>multi</code></p>
+<p>exec执行批量任务<br><code>exec</code></p>
+<p>discard取消事务,取消事务中的全部命令<br><code>discard</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">multi</span><br><span class="line">ok</span><br><span class="line"></span><br><span class="line">set user zhangsan</span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">set user_2 lisi</span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">exec</span><br><span class="line">1) OK</span><br><span class="line">2) OK</span><br><span class="line"></span><br><span class="line">get user</span><br><span class="line">zhangsan </span><br><span class="line"></span><br><span class="line">get user_2</span><br><span class="line">lisi</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/27/nodejs热更新&自动重启进程&优雅重启/" class="archive-article-date">
-  	<time datetime="2018-12-27T06:35:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/27/nodejs热更新&自动重启进程&优雅重启/">nodejs热更新&amp;自动重启进程&amp;优雅重启</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -199,399 +290,112 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NGINX</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">REDIS</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/28/redis-常用命令学习/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/14/JS中一些基础问题总结_持续更新/" class="archive-article-date">
-  	<time datetime="2018-12-14T09:07:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/01/23/NODESCHOOL-高阶函数-functional-javascript-workshop-翻译/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NODESCHOOL-高阶函数-functional-javascript-workshop-翻译</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/14/JS中一些基础问题总结_持续更新/">JS中一些基础问题总结_持续更新</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/12/对JS中异步执行的知识点回顾和补充/" class="archive-article-date">
-  	<time datetime="2018-12-12T09:46:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/12/对JS中异步执行的知识点回顾和补充/">对JS中异步执行的知识点回顾和补充</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/04/数据库SQL汇总/" class="archive-article-date">
-  	<time datetime="2018-12-04T06:24:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/04/数据库SQL汇总/">数据库SQL汇总</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/30/nginx原理及配置_百度脑图/" class="archive-article-date">
-  	<time datetime="2018-11-30T07:36:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/30/nginx原理及配置_百度脑图/">nginx原理及配置_百度脑图</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NGINX</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/26/关系数据全貌和SQL常用总结-百度脑图/" class="archive-article-date">
-  	<time datetime="2018-11-26T06:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/26/关系数据全貌和SQL常用总结-百度脑图/">关系数据全貌和SQL常用总结_百度脑图</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/23/JS的Class如何实现实例GET和SET方法/" class="archive-article-date">
-  	<time datetime="2018-11-23T09:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">JS的Class如何实现实例GET和SET方法?</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/" class="archive-article-date">
-  	<time datetime="2018-11-16T09:29:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/">关系数据库 or vs in 效率到底谁高?</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/" class="archive-article-date">
-  	<time datetime="2018-11-15T11:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">你应该知道这些React.js理论(当你学了React基础自后)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/13/关于我和我的Blog/" class="archive-article-date">
-  	<time datetime="2018-11-13T07:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/13/关于我和我的Blog/">关于我和我的Blog</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -614,8 +418,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
