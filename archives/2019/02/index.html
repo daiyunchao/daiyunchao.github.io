@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>daiyunchao&#39;s blog</title>
+  <title>Archives: 2019/2 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2019/02/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -162,39 +162,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-JS的Class如何实现实例GET和SET方法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/02/02/从lodash源代码中学到的JS代码/" class="archive-article-date">
+  	<time datetime="2019-02-02T06:13:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-02</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">JS的Class如何实现实例GET和SET方法?</a>
+      <a class="archive-article-title" href="/2019/02/02/从lodash源代码中学到的JS代码/">从lodash源代码中学到的JS代码</a>
     </h1>
   
 
-        
-        <a href="/2018/11/23/JS的Class如何实现实例GET和SET方法/" class="archive-article-date">
-  	<time datetime="2018-11-23T09:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文章来实现的是一个简单的需求,在JS中如何实现计算属性,eg: 如有string的name属性和number类型的age属性,现在需要一个name_age属性返回的是:name_age的值</p>
-</blockquote>
-<h3 id="如何实现计算属性"><a href="#如何实现计算属性" class="headerlink" title="如何实现计算属性?"></a>如何实现计算属性?</h3><p>因为ES6提供了GET和SET方法,其实要想实现该需求很简单<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//定义:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name,age)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">    <span class="keyword">this</span>.name_age;</span><br><span class="line">  &#125;</span><br><span class="line">  get name_age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>_<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用:</span></span><br><span class="line"><span class="keyword">let</span> zhangsan=<span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>,<span class="number">18</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line">zhangsan.age=<span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line"><span class="comment">//执行结果为:</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_18</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_20</span></span><br></pre></td></tr></table></figure></p>
-<p><em>注:上面的代码可以放到支持ES6语法的浏览器中进行测试</em></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -214,280 +209,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-关系数据库-or-vs-in-效率到底谁高" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/">关系数据库 or vs in 效率到底谁高?</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/" class="archive-article-date">
-  	<time datetime="2018-11-16T09:29:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到<em>in</em>的时间复杂度是 O(logn) 而 <em>or</em>的时间复杂度是 O(n),这么说来 <em>in</em>的效率应该会高于<em>or</em><br>所以就查询了一些资料</p>
-</blockquote>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-你应该知道这些React-js理论-当你学了React基础自后" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">你应该知道这些React.js理论(当你学了React基础自后)</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/" class="archive-article-date">
-  	<time datetime="2018-11-15T11:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文翻译来自:<a href="https://medium.freecodecamp.org/these-are-the-concepts-you-should-know-in-react-js-after-you-learn-the-basics-ee1d2f4b8030" target="_blank" rel="noopener">https://medium.freecodecamp.org/these-are-the-concepts-you-should-know-in-react-js-after-you-learn-the-basics-ee1d2f4b8030</a></p>
-<p>这是我第一次翻译英文的文章,如果有什么不对或是不妥当的地方可以在:<a href="https://github.com/daiyunchao/daiyunchao.github.io" target="_blank" rel="noopener">https://github.com/daiyunchao/daiyunchao.github.io</a> 提交issues</p>
-<p>本文面向的是React初学者,不过复习下也挺好.</p>
-</blockquote>
-<p>当你学习了React的最初指导教程以后感觉React还不错.那么后面学习什么呢?<br>跟随这篇文章,我们将一去讨论4个能让你的提高技能并且到另外一个更高的层次的React理论.</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于我和我的Blog" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/13/关于我和我的Blog/">关于我和我的Blog</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/13/关于我和我的Blog/" class="archive-article-date">
-  	<time datetime="2018-11-13T07:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><p>我是程序员,貌似会的东西还不少<br>(React)/后端(NodeJs C#)/数据库(MySql MongoDB SqlServer PostgresQL)<br>但 细细一品….啧!其实只是会用而已.</p>
-<h3 id="看看别人"><a href="#看看别人" class="headerlink" title="看看别人"></a>看看别人</h3><p>看到阮一峰大神还在定期的更新着自己的博客,我也是挺羞愧的,比我聪明的人还比我努力…</p>
-<h3 id="关于我的Blog"><a href="#关于我的Blog" class="headerlink" title="关于我的Blog"></a>关于我的Blog</h3><p>大家都说现在的编程变化快,学习成本高,确实如此.这种变化在前端表现的更加的明显,<br>框架层出不穷,新特性,新思路,感觉一段时间就推倒从来. 然而为什么我学的这么累呢?<br>说到底还不是因为没有理解到本质,所谓”万变不离其宗”的宗没有看明白.<br>于是有了补全思想的打算. 好好的去看看我学过的.从里找到这个”宗”.<br>就像孙悟空有72变,但尾巴怎么也隐藏不了,希望通过我的总结和积累,找到这条尾巴.</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/13/关于我和我的Blog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -509,9 +243,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
