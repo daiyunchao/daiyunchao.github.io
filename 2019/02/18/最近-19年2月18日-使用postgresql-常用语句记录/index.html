@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 随笔 | daiyunchao&#39;s blog</title>
+  <title>最近_19年2月18日_使用postgresql,常用语句记录 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/随笔/index.html">
+  <meta name="description" content="这段时间一直在使用postgresql数据库,它的灵活和扩展性给我留下了很深的印象,特别是ltree,本篇文章是我最近使用postgresql时经常用到的一些语句和语法,做一个记录,以免忘记了找不到.">
+<meta name="keywords" content="后端,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最近_19年2月18日_使用postgresql,常用语句记录">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/最近-19年2月18日-使用postgresql-常用语句记录/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="这段时间一直在使用postgresql数据库,它的灵活和扩展性给我留下了很深的印象,特别是ltree,本篇文章是我最近使用postgresql时经常用到的一些语句和语法,做一个记录,以免忘记了找不到.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-18T11:38:10.767Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="最近_19年2月18日_使用postgresql,常用语句记录">
+<meta name="twitter:description" content="这段时间一直在使用postgresql数据库,它的灵活和扩展性给我留下了很深的印象,特别是ltree,本篇文章是我最近使用postgresql时经常用到的一些语句和语法,做一个记录,以免忘记了找不到.">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,60 +165,183 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-最近-19年2月18日-使用postgresql-常用语句记录" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/13/关于我和我的Blog/" class="archive-article-date">
-  	<time datetime="2018-11-13T07:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/13/关于我和我的Blog/">关于我和我的Blog</a>
+    <h1 class="article-title" itemprop="name">
+      最近_19年2月18日_使用postgresql,常用语句记录
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/02/18/最近-19年2月18日-使用postgresql-常用语句记录/" class="archive-article-date">
+  	<time datetime="2019-02-18T11:02:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这段时间一直在使用postgresql数据库,它的灵活和扩展性给我留下了很深的印象,特别是<code>ltree</code>,本篇文章是我最近使用postgresql时经常用到的一些语句和语法,做一个记录,以免忘记了找不到.</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="添加列"><a href="#添加列" class="headerlink" title="添加列"></a>添加列</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> schema_name.table_name</span><br><span class="line"><span class="keyword">add</span> <span class="keyword">column</span> column_name <span class="keyword">type</span>(<span class="keyword">length</span>) ;</span><br></pre></td></tr></table></figure>
+<h4 id="删除函数"><a href="#删除函数" class="headerlink" title="删除函数"></a>删除函数</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">function</span> <span class="keyword">if</span> <span class="keyword">exists</span> schema.function_name;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果有重复的函数名(但参数的数量时不能相同的)</span></span><br><span class="line"><span class="comment">-- 如果出现重复的情况,必须指定函数名和函数后面的参数列表,才能删除</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">function</span> <span class="keyword">if</span> <span class="keyword">exists</span> schema.function_name(param_name param_type(param_length)...);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 强制删除</span></span><br><span class="line"><span class="comment">-- 如果再删除触发器函数时,会报一个正在被使用的错误,这是 可以使用 `cascade` 关键字进行强制删除</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">function</span> <span class="keyword">if</span> <span class="keyword">exists</span> schema.function_name <span class="keyword">cascade</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="删除触发器"><a href="#删除触发器" class="headerlink" title="删除触发器"></a>删除触发器</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">trigger</span> trigger_name <span class="keyword">on</span> schema.table_name;</span><br></pre></td></tr></table></figure>
+<h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- index_name 可以省略 数据库会提供默认名</span></span><br><span class="line"><span class="comment">-- 如果不提供 index_name 该列的索引是可以重复创建的,建议在创建时 加上索引名</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_name <span class="keyword">on</span> schema.table_name(column_name);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 多列索引:</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> index_name <span class="keyword">on</span> schema.table_name(column_name_1,column_name_2);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建外键:</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> schema.table_name <span class="keyword">add</span> <span class="keyword">CONSTRAINT</span> fk_name <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(column_name) <span class="keyword">REFERENCES</span> fk_schema.fk_table_name(fk_table_column_name);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建主键:</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> schema.table_name <span class="keyword">add</span> <span class="keyword">constraint</span> pk_name primary <span class="keyword">key</span> (column_name);</span><br></pre></td></tr></table></figure>
+<h4 id="函数返回列表"><a href="#函数返回列表" class="headerlink" title="函数返回列表"></a>函数返回列表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 关键:returns setof type_name</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">function</span> schema_name.fn_function_name(param_name param_type(<span class="keyword">length</span>))</span><br><span class="line"><span class="keyword">returns</span> setof <span class="keyword">type</span> <span class="keyword">as</span> $$</span><br><span class="line"><span class="keyword">declare</span> variable_name varchar_type(<span class="keyword">length</span>);</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line">$$ language plpgsql stable SECURITY DEFINER;</span><br></pre></td></tr></table></figure>
+<h4 id="创建类型"><a href="#创建类型" class="headerlink" title="创建类型"></a>创建类型</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">type</span> <span class="keyword">if</span> <span class="keyword">exists</span> type_name <span class="keyword">as</span> (field_name_a <span class="keyword">type</span>(type_length),...);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- exp:</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">type</span> <span class="keyword">if</span> <span class="keyword">exists</span> schema_name.type_name</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">type</span> schema_name.type_name <span class="keyword">as</span> (</span><br><span class="line">  	m_id <span class="built_in">varchar</span>(<span class="number">64</span>),</span><br><span class="line">	  opt_uid <span class="built_in">varchar</span>(<span class="number">64</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="创建触发器"><a href="#创建触发器" class="headerlink" title="创建触发器"></a>创建触发器</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> trigger_name <span class="keyword">before</span>|<span class="keyword">after</span> |<span class="keyword">insert</span>|<span class="keyword">update</span>  (<span class="keyword">before</span> <span class="keyword">insert</span> <span class="keyword">or</span> <span class="keyword">update</span>) (<span class="keyword">after</span> <span class="keyword">insert</span> <span class="keyword">or</span> <span class="keyword">update</span>)</span><br><span class="line"><span class="keyword">on</span> schema_name.table_name <span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span> <span class="keyword">execute</span> <span class="keyword">procedure</span> function_name();</span><br></pre></td></tr></table></figure>
+<h4 id="函数抛出异常"><a href="#函数抛出异常" class="headerlink" title="函数抛出异常"></a>函数抛出异常</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RAISE EXCEPTION 'error_message';</span><br></pre></td></tr></table></figure>
+<h4 id="函数中使用-if-else"><a href="#函数中使用-if-else" class="headerlink" title="函数中使用 if else"></a>函数中使用 <code>if else</code></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if xxx and | or xxx then</span><br><span class="line"><span class="comment">-- 这些一些内容</span></span><br><span class="line">else</span><br><span class="line"><span class="comment">-- 这是在else中的一些内容</span></span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="获取数组的长度"><a href="#获取数组的长度" class="headerlink" title="获取数组的长度"></a>获取数组的长度</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if cardinality(array_name)&lt;1 then</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="关联更新表"><a href="#关联更新表" class="headerlink" title="关联更新表"></a>关联更新表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 更新basic_user中的phone ,该phone是来自:basic_account_self的login_name字段</span></span><br><span class="line"><span class="keyword">UPDATE</span>  basic.basic_user</span><br><span class="line"><span class="keyword">SET</span> phone =basic_account_self.login_name</span><br><span class="line"><span class="keyword">from</span>  basic.basic_account_self   <span class="keyword">where</span>  basic_user.uid=basic_account_self.uid</span><br></pre></td></tr></table></figure>
+<h4 id="修改列名"><a href="#修改列名" class="headerlink" title="修改列名"></a>修改列名</h4><p><code>alter table schema.table_name rename old_field_name to new_field_name;</code></p>
+<h4 id="修改列的数据类型"><a href="#修改列的数据类型" class="headerlink" title="修改列的数据类型"></a>修改列的数据类型</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> schema.table_name </span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">column</span> field_name <span class="keyword">type</span> new_type_name;</span><br></pre></td></tr></table></figure>
+<h4 id="将字符串转成数组的方法"><a href="#将字符串转成数组的方法" class="headerlink" title="将字符串转成数组的方法"></a>将字符串转成数组的方法</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v_uids = string_to_array(v_notify_uids, ',');</span><br></pre></td></tr></table></figure>
+<h4 id="将查询结果转换成JSON格式"><a href="#将查询结果转换成JSON格式" class="headerlink" title="将查询结果转换成JSON格式"></a>将查询结果转换成JSON格式</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 关键字: row_to_json</span></span><br><span class="line"><span class="keyword">select</span> row_to_json(AAA) <span class="keyword">from</span> (<span class="keyword">select</span> * <span class="keyword">from</span> frd.frd_msg_text <span class="keyword">where</span> <span class="keyword">mid</span> = _record.mid) <span class="keyword">AS</span> AAA <span class="keyword">INTO</span> v_json;</span><br></pre></td></tr></table></figure>
+<h4 id="为JSON格式的数据添加自定义字段-key-value"><a href="#为JSON格式的数据添加自定义字段-key-value" class="headerlink" title="为JSON格式的数据添加自定义字段(key value)"></a>为JSON格式的数据添加自定义字段(key value)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">关键字: jsonb_set</span><br><span class="line"><span class="keyword">declare</span> old_jsonb jsonb;</span><br><span class="line"><span class="keyword">declare</span> return_json jsonb;</span><br><span class="line"><span class="keyword">declare</span> other_jsonb jsonb;</span><br><span class="line">return_json=jsonb_set(old_jsonb,'&#123;new_field_name&#125;',other_jsonb);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果不在第一层,则</span></span><br><span class="line"><span class="comment">--return_json=jsonb_set(old_jsonb,'&#123;new_field_name.xxxx.xxxx&#125;',other_jsonb);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 更多信息可查看:https://stackoverflow.com/questions/18209625/how-do-i-modify-fields-inside-the-new-postgresql-json-datatype 的回答部分</span></span><br></pre></td></tr></table></figure>
+<h4 id="在函数中执行另外一个函数"><a href="#在函数中执行另外一个函数" class="headerlink" title="在函数中执行另外一个函数"></a>在函数中执行另外一个函数</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 无返回值:</span></span><br><span class="line">reform function_name(params..);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 有返回值:</span></span><br><span class="line">return_val =function_name(params...)</span><br></pre></td></tr></table></figure>
+<h4 id="immutable-stable-volatile-简单理解"><a href="#immutable-stable-volatile-简单理解" class="headerlink" title="immutable stable volatile 简单理解"></a>immutable stable volatile 简单理解</h4><p>具体 postgresql中函数的三种稳定性 immutable volatile stable 三种方式区别:<br>immutable 一成不变 输入决定输出,相同参数获取返回相同的结果<br>stable 稳定,在一个事务中调用时，只要函数的参数不变结果就不变<br>volatile 多变的,相同参数也可能有不同的结果</p>
+<h4 id="自动计算列"><a href="#自动计算列" class="headerlink" title="自动计算列"></a>自动计算列</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 参数 一定是计算列所在的schema.table_name</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> <span class="keyword">REPLACE</span> <span class="keyword">FUNCTION</span> org.org_user_pkid(_record schema.table_name) <span class="keyword">RETURNS</span> <span class="built_in">TEXT</span> <span class="keyword">AS</span> $$</span><br><span class="line">  <span class="keyword">SELECT</span> _record.oid || <span class="string">'-'</span> || _record.uid;</span><br><span class="line">$$ LANGUAGE sql STABLE SECURITY DEFINER;</span><br></pre></td></tr></table></figure>
+<h4 id="将查询结果直接返回"><a href="#将查询结果直接返回" class="headerlink" title="将查询结果直接返回"></a>将查询结果直接返回</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 函数返回值定义为 returns setof xxxx</span></span><br><span class="line">return query <span class="keyword">select</span> * <span class="keyword">from</span> table_name;</span><br></pre></td></tr></table></figure>
+<h4 id="不同的返回类型"><a href="#不同的返回类型" class="headerlink" title="不同的返回类型"></a>不同的返回类型</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 基本数据类型 varchar(length) text,int </span><br><span class="line">2. 对象基本类型 [] </span><br><span class="line">3. 返回对象 json 或 jsonb</span><br><span class="line">    returns json as $$</span><br><span class="line">4. 返回已存在的表 schema.table_name</span><br></pre></td></tr></table></figure>
+<h4 id="在pgl中禁用函数的调用"><a href="#在pgl中禁用函数的调用" class="headerlink" title="在pgl中禁用函数的调用"></a>在pgl中禁用函数的调用</h4><p><code>comment on function schema.function_name is E&#39;@omit&#39;;</code></p>
+<h4 id="例子-函数返回通用错误结构体"><a href="#例子-函数返回通用错误结构体" class="headerlink" title="例子,函数返回通用错误结构体"></a>例子,函数返回通用错误结构体</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 创建通用的错误类型</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TYPE</span> <span class="keyword">if</span> <span class="keyword">EXISTS</span> basic.type_return_bool_error <span class="keyword">CASCADE</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TYPE</span> basic.type_return_bool_error <span class="keyword">AS</span> (</span><br><span class="line">  ok <span class="built_in">BOOLEAN</span>,</span><br><span class="line">  error_string <span class="built_in">TEXT</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建一个函数,更新操作,需要返回 是否正确,如果错误 返回错误原因</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">function</span> function_name() <span class="keyword">returns</span> basic.type_return_bool_error <span class="keyword">as</span> $$</span><br><span class="line"><span class="keyword">declare</span> v_return basic.type_return_bool_error;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">v_return.ok=<span class="literal">true</span>;</span><br><span class="line">if xxx is null then</span><br><span class="line">v_return.ok=false; v_return.error_string='这是错误的原因'; return v_return;</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">return v_return;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">$$ <span class="keyword">language</span> plpgsql VOLATILE <span class="keyword">STRICT</span> <span class="keyword">SECURITY</span> DEFINER;</span><br></pre></td></tr></table></figure>
+<h4 id="判断是否查询到了值"><a href="#判断是否查询到了值" class="headerlink" title="判断是否查询到了值"></a>判断是否查询到了值</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--关键字: found  if exists</span></span><br><span class="line"><span class="comment">-- 方式1: </span></span><br><span class="line">   <span class="keyword">select</span> * <span class="keyword">from</span> schema.table_name where...</span><br><span class="line">   <span class="keyword">if</span> <span class="keyword">found</span> <span class="keyword">then</span> <span class="comment">--表示查询到了数据</span></span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"><span class="comment">-- ps:  google 说 使用perform代替select 但 select 也可以实现.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 方式2:</span></span><br><span class="line">  if exists (   <span class="keyword">select</span> * <span class="keyword">from</span> schema.table_name where...) <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">end</span> <span class="keyword">if</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="行约束"><a href="#行约束" class="headerlink" title="行约束"></a>行约束</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--启动行约束:</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> org.org_info <span class="keyword">ENABLE</span> <span class="keyword">ROW</span> <span class="keyword">LEVEL</span> <span class="keyword">SECURITY</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建行约束:</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">POLICY</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> row_policy_update <span class="keyword">ON</span> org.org_info <span class="keyword">CASCADE</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">POLICY</span> row_policy_update <span class="keyword">ON</span> org.org_info</span><br><span class="line">  <span class="keyword">AS</span> RESTRICTIVE <span class="comment">-- 限制性策略</span></span><br><span class="line">  <span class="keyword">FOR</span> <span class="keyword">UPDATE</span> <span class="keyword">TO</span> app_role</span><br><span class="line"> <span class="keyword">using</span> (<span class="literal">TRUE</span>); <span class="comment">-- 针对查询</span></span><br><span class="line">  <span class="keyword">WITH</span> <span class="keyword">CHECK</span> (org.fn_org_is_admin(<span class="keyword">oid</span>)); <span class="comment">-- 仅管理员可以修改名字和头像 (针对修改)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果不允许修改:WITH CHECK (FALSE); -- 不允许修改</span></span><br></pre></td></tr></table></figure>
+<h4 id="为列添加注释"><a href="#为列添加注释" class="headerlink" title="为列添加注释"></a>为列添加注释</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COMMENT</span> <span class="keyword">ON</span> <span class="keyword">COLUMN</span> schema.table_name.column_name <span class="keyword">IS</span> </span><br><span class="line">  <span class="string">'这是注释的内容'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="获取当前函数所在的schema-table"><a href="#获取当前函数所在的schema-table" class="headerlink" title="获取当前函数所在的schema table"></a>获取当前函数所在的schema table</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 当前函数所在的schma</span></span><br><span class="line">TG_TABLE_SCHEMA</span><br><span class="line"><span class="comment">-- 当前函数所在的tableName</span></span><br><span class="line">TG_TABLE_NAME</span><br></pre></td></tr></table></figure>
+<h4 id="返回一个JSON对象"><a href="#返回一个JSON对象" class="headerlink" title="返回一个JSON对象"></a>返回一个JSON对象</h4><p><code>RETURN &#39;{}&#39;::JSON; 和 return string_to_json(&#39;{}&#39;) 相同</code></p>
+<h4 id="返回刚insert进去的数据"><a href="#返回刚insert进去的数据" class="headerlink" title="返回刚insert进去的数据"></a>返回刚insert进去的数据</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 关键字: RETURNING</span></span><br><span class="line"><span class="keyword">declare</span> v_org_share schema.table_name;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> schema.table_name(<span class="keyword">columns</span>) <span class="keyword">VALUES</span></span><br><span class="line">    (column_values) <span class="keyword">RETURNING</span> * <span class="keyword">INTO</span> v_org_share;</span><br><span class="line">  RETURN v_org_share;</span><br></pre></td></tr></table></figure>
+<h4 id="在函数中使用循环"><a href="#在函数中使用循环" class="headerlink" title="在函数中使用循环"></a>在函数中使用循环</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FOREACH 循环的项变量 IN ARRAY v_direct_lower_oids LOOP</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">loop</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 可在内部使用:CONTINUE</span></span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/18/最近-19年2月18日-使用postgresql-常用语句记录/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/02/02/从lodash源代码中学到的JS代码/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">从lodash源代码中学到的JS代码</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -236,9 +364,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
