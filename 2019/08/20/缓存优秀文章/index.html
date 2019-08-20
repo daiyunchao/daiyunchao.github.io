@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>NODESCHOOL-高阶函数-functional-javascript-workshop-翻译 | daiyunchao&#39;s blog</title>
+  <title>缓存优秀文章 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="高阶函数 NODESCHOOL的高阶函数functional-javascript-workshop翻译和学习">
-<meta name="keywords" content="JAVASCRIPT,后端,NODEJS">
+  <meta name="description" content="文章:https://www.jianshu.com/p/54cc04190252 将的很好收藏">
+<meta name="keywords" content="前端,后端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NODESCHOOL-高阶函数-functional-javascript-workshop-翻译">
-<meta property="og:url" content="http://yoursite.com/2019/01/23/NODESCHOOL-高阶函数-functional-javascript-workshop-翻译/index.html">
+<meta property="og:title" content="缓存优秀文章">
+<meta property="og:url" content="http://yoursite.com/2019/08/20/缓存优秀文章/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
-<meta property="og:description" content="高阶函数 NODESCHOOL的高阶函数functional-javascript-workshop翻译和学习">
+<meta property="og:description" content="文章:https://www.jianshu.com/p/54cc04190252 将的很好收藏">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-23T12:37:06.214Z">
+<meta property="og:updated_time" content="2019-08-20T10:02:40.293Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NODESCHOOL-高阶函数-functional-javascript-workshop-翻译">
-<meta name="twitter:description" content="高阶函数 NODESCHOOL的高阶函数functional-javascript-workshop翻译和学习">
+<meta name="twitter:title" content="缓存优秀文章">
+<meta name="twitter:description" content="文章:https://www.jianshu.com/p/54cc04190252 将的很好收藏">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -165,55 +165,29 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-NODESCHOOL-高阶函数-functional-javascript-workshop-翻译" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-缓存优秀文章" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      NODESCHOOL-高阶函数-functional-javascript-workshop-翻译
+      缓存优秀文章
     </h1>
   
 
         
-        <a href="/2019/01/23/NODESCHOOL-高阶函数-functional-javascript-workshop-翻译/" class="archive-article-date">
-  	<time datetime="2019-01-23T11:17:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-23</time>
+        <a href="/2019/08/20/缓存优秀文章/" class="archive-article-date">
+  	<time datetime="2019-08-20T10:01:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h3><blockquote>
-<p>NODESCHOOL的高阶函数<a href="https://github.com/timoxley/functional-javascript-workshop/blob/master/exercises/higher_order_functions/problem.md" target="_blank" rel="noopener">functional-javascript-workshop</a>翻译和学习</p>
+        <blockquote>
+<p>文章:<a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">https://www.jianshu.com/p/54cc04190252</a> 将的很好收藏</p>
 </blockquote>
-<a id="more"></a>
-<p>高阶函数必须满足下面两点</p>
-<ol>
-<li>一个或多个<code>function</code>作为输入参数</li>
-<li>返回函数<br>其他的函数都非高阶函数(一类函数)</li>
-</ol>
-<p>不像其他的一些语言不同,<code>javascript</code>运行你使用高阶函数因为它是函数是第一类成员(<code>first-class-function</code>).这就意味着函数可以和其他的对象有相同的”待遇”:就像字符串或是数值,函数可以被存储成一个变量,在对象上的属性或是直接当成输入参数被传递到另外一个函数.函数实际上是一个对象(继承自<code>Function.prototype</code>) 所以你甚至可以在函数上面添加属性或存储值,就像普通的对象.<br>(译加:)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用变量存储函数</span></span><br><span class="line"><span class="keyword">let</span> fn=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> other_fn=<span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">  fn();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将函数当成输入参数传递</span></span><br><span class="line">other_fn(fn)</span><br><span class="line"></span><br><span class="line"><span class="comment">//在fn中添加属性</span></span><br><span class="line">fn[<span class="string">"myname"</span>]=<span class="string">"zhangsan"</span>;</span><br><span class="line">fn.myname=<span class="string">"zhangsan"</span></span><br></pre></td></tr></table></figure></p>
-<p>函数和其他对象最大的不同在于,<code>调用语法</code>: 如果是调用函数要再函数名称后添加一对括号和以逗号分隔开的参数列表 就像<br><code>someFunctionValue(arg1, arg2, etc)</code>,然后这个函数体将会被执行.<br>在这个例子中,我们将实战函数可以被当成输入参数被传递到另外一个函数中.</p>
-<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>实现一个函数,将一个函数当成该函数的第一个参数,一个数值类型的<code>num</code> 作为该函数第二个参数,然后执行参数函数<code>num</code>次</p>
-<p>使用以下的模版代码.</p>
-<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ol>
-<li><code>operation</code>: 一个函数,没有任何参数,无返回值</li>
-<li><code>num</code>:调用<code>operation</code>函数的次数</li>
-</ol>
-<h3 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h3><ol>
-<li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions_and_function_scope" target="_blank" rel="noopener">https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions_and_function_scope</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/prototype" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/prototype</a></li>
-</ol>
-<h3 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h3><ol>
-<li>不要思考过度,代码应该尽量简单</li>
-<li>如果使用循环是可行的,如果使用递归,加分!</li>
-<li>你不需要使用<code>console.log</code>打印任何内容</li>
-</ol>
-<h3 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeat</span>(<span class="params">operation, num</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// SOLUTION GOES HERE</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Do not remove the line below</span></span><br><span class="line"><span class="built_in">module</span>.exports = repeat</span><br></pre></td></tr></table></figure>
-<h3 id="回答"><a href="#回答" class="headerlink" title="回答"></a>回答</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//loop代码:</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeat</span>(<span class="params">operation, num</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// SOLUTION GOES HERE</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">1</span>;i&lt;num;i++)&#123;</span><br><span class="line">    operation()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归:</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">repeat</span>(<span class="params">operation, num</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// SOLUTION GOES HERE</span></span><br><span class="line">  <span class="keyword">if</span>(num&lt;=<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">  operation();</span><br><span class="line">  repeat(operation,--num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>更多高阶函数的用法可见:<br><a href="https://segmentfault.com/a/1190000012008266" target="_blank" rel="noopener">https://segmentfault.com/a/1190000012008266</a></p>
 
       
 
@@ -227,15 +201,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NODEJS</a>
         		</li>
       		
 		</ul>
@@ -291,7 +261,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/23/NODESCHOOL-高阶函数-functional-javascript-workshop-翻译/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/20/缓存优秀文章/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -305,18 +275,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/01/28/redis-常用命令学习/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          redis_常用命令学习
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/10/看alipay-Luncher学到的东西/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">看alipay_Luncher学到的东西</div>
+    <a href="/2019/08/15/JS中的Set和Map/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JS中的Set和Map</div>
       <i class="icon-circle-right"></i>
     </a>
   
