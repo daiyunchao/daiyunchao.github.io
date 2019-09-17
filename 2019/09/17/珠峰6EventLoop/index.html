@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: NODEJS | daiyunchao&#39;s blog</title>
+  <title>珠峰6EventLoop | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/NODEJS/index.html">
+  <meta name="description" content="EventLoop基本知识点 先执行宏任务,再执行微任务(因为最先执行的是script脚本中的代码,而script脚本也是一个宏任务)UI的渲染和JS的执行是互斥的每次JS执行主栈完成后都将把微任务进行清空,然后再从宏任务中取出一个任务进行执行  代码是如何运行的 代码读取script脚本中的代码从上到下依次读取依次执行(执行JS的主进程) 当执行栈遇到异步代码(click的函数,setTimeo">
+<meta name="keywords" content="前端,后端,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="珠峰6EventLoop">
+<meta property="og:url" content="http://yoursite.com/2019/09/17/珠峰6EventLoop/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="EventLoop基本知识点 先执行宏任务,再执行微任务(因为最先执行的是script脚本中的代码,而script脚本也是一个宏任务)UI的渲染和JS的执行是互斥的每次JS执行主栈完成后都将把微任务进行清空,然后再从宏任务中取出一个任务进行执行  代码是如何运行的 代码读取script脚本中的代码从上到下依次读取依次执行(执行JS的主进程) 当执行栈遇到异步代码(click的函数,setTimeo">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-09-17T08:40:51.606Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="珠峰6EventLoop">
+<meta name="twitter:description" content="EventLoop基本知识点 先执行宏任务,再执行微任务(因为最先执行的是script脚本中的代码,而script脚本也是一个宏任务)UI的渲染和JS的执行是互斥的每次JS执行主栈完成后都将把微任务进行清空,然后再从宏任务中取出一个任务进行执行  代码是如何运行的 代码读取script脚本中的代码从上到下依次读取依次执行(执行JS的主进程) 当执行栈遇到异步代码(click的函数,setTimeo">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,42 +165,54 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-珠峰6EventLoop" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/23/NODESCHOOL-高阶函数-functional-javascript-workshop-翻译/" class="archive-article-date">
-  	<time datetime="2019-01-23T11:17:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/23/NODESCHOOL-高阶函数-functional-javascript-workshop-翻译/">NODESCHOOL-高阶函数-functional-javascript-workshop-翻译</a>
+    <h1 class="article-title" itemprop="name">
+      珠峰6EventLoop
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/17/珠峰6EventLoop/" class="archive-article-date">
+  	<time datetime="2019-09-17T08:38:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="EventLoop"><a href="#EventLoop" class="headerlink" title="EventLoop"></a>EventLoop</h4><h4 id="基本知识点"><a href="#基本知识点" class="headerlink" title="基本知识点"></a>基本知识点</h4><blockquote>
+<p>先执行宏任务,再执行微任务(因为最先执行的是script脚本中的代码,而script脚本也是一个宏任务)<br>UI的渲染和JS的执行是互斥的<br>每次JS执行主栈完成后都将把微任务进行清空,然后再从宏任务中取出一个任务进行执行</p>
+</blockquote>
+<h4 id="代码是如何运行的"><a href="#代码是如何运行的" class="headerlink" title="代码是如何运行的"></a>代码是如何运行的</h4><ol>
+<li>代码读取<code>script</code>脚本中的代码从上到下依次读取依次执行(执行JS的主进程)</li>
+<li>当执行栈遇到异步代码(<code>click</code>的函数,<code>setTimeout</code>,<code>ajax</code>等)会去开辟另外的线程去执行这些操作</li>
+<li>当settimeout的时间到了,或是<code>ajax</code>的回调完成了,就会把这些回调放入<code>任务队里中(微任务/宏任务)</code></li>
+<li>当主任务(JS执行的主栈)任务全部做完后,JS会从<code>任务队列中(优先是宏任务)</code>拿第一个任务在主任务中执行</li>
+<li>循环罔替<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分析下一下代码:</span></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"1"</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"3"</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"2"</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"4"</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//1. JS执行主栈拿到以上一段代码</span></span><br><span class="line"><span class="comment">//2. 执行时发现第一个异步任务settimeout不去执行</span></span><br><span class="line"><span class="comment">//3. 执行时又发现了第二个异步任务 settimeout 不去执行</span></span><br><span class="line"><span class="comment">//4. 扫描时发现第一个settimeout执行的时间到了,将它放入宏任务队列中</span></span><br><span class="line"><span class="comment">//5. 扫描时发现第二个settimeout执行的时间也到了,也将它放入宏任务队列中</span></span><br><span class="line"><span class="comment">//6. JS执行主栈从宏任务中取出第一个宏队列中的任务(第一个settimeout)开始执行此刻打印了 1</span></span><br><span class="line"><span class="comment">//7. JS执行主栈又发现了一个异步任务 settimeout 不去执行</span></span><br><span class="line"><span class="comment">//8. 此刻JS执行主栈又空了,再从宏队列中获取第一个任务并开始执行 此刻打印了 2</span></span><br><span class="line"><span class="comment">//9. 打印3和4和打印1 2 类似</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="微任务"><a href="#微任务" class="headerlink" title="微任务"></a>微任务</h4><p>微任务:<code>promise.then</code> <code>MutationObserver</code> <code>process.nextTick</code><br>每次当主栈中的任务执行完成后 微任务列表都将被清空</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"time0"</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"then0"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);<span class="comment">//放入宏任务</span></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"time1"</span>);</span><br><span class="line">&#125;);<span class="comment">//放入宏任务</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then1"</span>);</span><br><span class="line">&#125;)<span class="comment">//放入微任务</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then2"</span>);</span><br><span class="line">&#125;)<span class="comment">//放入微任务</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//执行jS主栈 将settimeout放入宏任务 promise.then放入微任务</span></span><br><span class="line"><span class="comment">//js主栈执行完成,清空微任务列表 then1 then2 被执行</span></span><br><span class="line"><span class="comment">//从宏任务中拿出第一个settimeout并执行 打印time0 并将then0 放入微任务</span></span><br><span class="line"><span class="comment">//js主栈执行完成,清空微任务列表 then0被执行</span></span><br><span class="line"><span class="comment">//从宏任务中拿出第二个settimeout并执行打印time1</span></span><br></pre></td></tr></table></figure>
+<h4 id="宏任务"><a href="#宏任务" class="headerlink" title="宏任务"></a>宏任务</h4><p>微任务:<code>script</code> <code>ajax</code> <code>事件(click)</code> <code>requestFrameAnimation</code> <code>setTimeout</code> <code>setInterval</code> <code>setImmediate(IE的方法)</code> <code>MessageChannel</code> <code>I/O</code> <code>UI rendering</code><br>每次只取一个队列中的任务出来执行</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -203,67 +220,112 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NODEJS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/17/珠峰6EventLoop/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/10/看alipay-Luncher学到的东西/" class="archive-article-date">
-  	<time datetime="2019-01-10T10:46:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/17/珠峰6自己实现模版引擎/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">珠峰6自己实现模版引擎</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/10/看alipay-Luncher学到的东西/">看alipay_Luncher学到的东西</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NODEJS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -286,9 +348,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
