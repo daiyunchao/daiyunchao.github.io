@@ -162,6 +162,106 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-珠峰6Node基础" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/19/珠峰6Node基础/">珠峰6Node基础</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/19/珠峰6Node基础/" class="archive-article-date">
+  	<time datetime="2019-09-19T10:48:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Nodejs的基础"><a href="#Nodejs的基础" class="headerlink" title="Nodejs的基础"></a>Nodejs的基础</h3><h4 id="Node中的全局属性"><a href="#Node中的全局属性" class="headerlink" title="Node中的全局属性"></a>Node中的全局属性</h4><blockquote>
+<p><code>global</code> 全局对象<br><code>global</code>中的属性是全局属性<br><code>nodejs</code>单文件中的<code>this</code>代表的是<code>module.exports</code>,原因是因为在<code>node</code>中会将该文件进行包装 <code>(function xxx(exports,module,require,__dirname,__filename){})...</code></p>
+</blockquote>
+<blockquote>
+<p><code>process</code>进程<br>  当前进程的一些信息<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用platform判断当前平台</span></span><br><span class="line">process.platform <span class="comment">//win32(windows) darwin(mac)</span></span><br><span class="line">process.argv <span class="comment">//获取用户传入的参数 前两个参数, 1.node执行文件的位置 2.启动node文件的绝对路径</span></span><br><span class="line">process.chdir process.cwd()<span class="comment">//current working directory</span></span><br><span class="line">process.env <span class="comment">//环境变量</span></span><br><span class="line">process.nextTick <span class="comment">//node中的微任务</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//或可执行使用 commander包 还可以提供--helper功能</span></span><br><span class="line"><span class="comment">//获取process.argv 用户传入的参数,该方法只使用于 参数 -e -port</span></span><br><span class="line"><span class="keyword">let</span> arr = process.argv.slice(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">let</span> argvConfigs=arr.reduce(<span class="function">(<span class="params">pre, current, index, arr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (current.includes(<span class="string">'-'</span>)) &#123;</span><br><span class="line">    pre[current.slice(<span class="number">1</span>)] = arr[index + <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> pre;</span><br><span class="line">&#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(argvConfigs);</span><br></pre></td></tr></table></figure>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//commander + chalk 可实现 有色彩的命令行</span></span><br><span class="line"><span class="keyword">const</span> program = <span class="built_in">require</span>(<span class="string">'commander'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//配置属性</span></span><br><span class="line">program </span><br><span class="line">  .option(<span class="string">'-p, --port &lt;val&gt;'</span>, <span class="string">'set port'</span>)<span class="comment">//自定义设置参数</span></span><br><span class="line">  .version(<span class="string">'1.0.0'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//配置命令</span></span><br><span class="line">program </span><br><span class="line">    .command(<span class="string">'create'</span>).alias(<span class="string">'c'</span>).description(<span class="string">'create new project'</span>).action(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"in create project"</span>);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//监听命令,自定义输出内容</span></span><br><span class="line">program.on(<span class="string">'--help'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"自定义输出的内容"</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"自定义输出的内容"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//解析 process.argv</span></span><br><span class="line">program.parse(process.argv);</span><br><span class="line">  <span class="built_in">console</span>.log(program.port);</span><br></pre></td></tr></table></figure>
+<h4 id="process-cwd-当前工作文件夹"><a href="#process-cwd-当前工作文件夹" class="headerlink" title="process.cwd 当前工作文件夹"></a>process.cwd 当前工作文件夹</h4><blockquote>
+<p>cwd=&gt; current working directiory 当前工作目录 指的是:在哪执行命令的目录<br><code>process.cwd()</code> 功能和<code>path.reslove()</code>相同<br>比如我在 <code>a/b/c</code> 目录下执行命令 <code>node index.js</code> 此时的<code>cwd</code>就是 <code>a/b/c</code><br>再比如我在 <code>a/b</code> 目录下执行命令 <code>node ./c/index.js</code> 此时的<code>cwd</code>就是 <code>a/b</code> 而不是<code>a/b/c</code><br><code>Buffer</code> 缓冲区<br><code>clearInterval</code> <code>setInterval</code> 宏任务<br><code>clearTimeout</code> <code>setTimeout</code> 宏任务<br><code>clearImmedite</code> <code>setImmediate</code> 宏任务</p>
+</blockquote>
+<h4 id="process-env-环境变量"><a href="#process-env-环境变量" class="headerlink" title="process.env 环境变量"></a>process.env 环境变量</h4><p>作用: 可根据环境变量不同,执行不同的操作,如<code>webpack</code>在<code>development</code>中不压缩代码,在<code>produection</code>中压缩代码<br>如何设置环境变量呢?</p>
+<p>设置临时变量:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在mac中是</span></span><br><span class="line"><span class="keyword">export</span> a=<span class="number">1</span> &amp;&amp; node index.js <span class="comment">//这个时候就将a=1这个变量放到了process.env对象中去了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在windows中是 </span></span><br><span class="line"><span class="comment">//set a=1  node index.js </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以使用包 cross-env</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="process-nextTick-微任务"><a href="#process-nextTick-微任务" class="headerlink" title="process.nextTick 微任务"></a>process.nextTick 微任务</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"time1"</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"then1"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then2"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">process.nextTick(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"nextTick"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印的结果是:</span></span><br><span class="line"><span class="comment">// nextTick then2 time1 then1 原因是因为在微任务中,nextTick的优先级是最高的</span></span><br></pre></td></tr></table></figure>
+<h4 id="nodeJs的EventLoop"><a href="#nodeJs的EventLoop" class="headerlink" title="nodeJs的EventLoop"></a>nodeJs的<code>EventLoop</code></h4><p><code>Nodejs</code>的<code>EventLoop</code>和浏览器的基本相同,不同的在于 <code>Node</code>将宏任务列表分成了 <code>timer队列(setTimeout)</code> <code>poll队列(IO)</code> <code>check(setImmdiate)</code></p>
+<blockquote>
+<p><code>setTimeout</code>和<code>setImmidiate</code>的执行顺序是不一定的</p>
+</blockquote>
+<p>经典面试题:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async1 start"</span>);</span><br><span class="line">  <span class="keyword">await</span> async2();</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async1 end"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async2"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"script start"</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setTimeout"</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">reslove</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"promise1"</span>);</span><br><span class="line">  reslove();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"promise2"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"script end"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//在浏览器中</span></span><br><span class="line"><span class="comment">//在浏览器中,await解析出来的结果是: async2().then(()=&gt;&#123;log('async1 end')&#125;)</span></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// async1 start</span></span><br><span class="line"><span class="comment">// async2</span></span><br><span class="line"><span class="comment">// promise1</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// async1 end</span></span><br><span class="line"><span class="comment">// promise2</span></span><br><span class="line"><span class="comment">// setTimeout</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Node10以上版本中</span></span><br><span class="line"><span class="comment">//在浏览器中,await解析出来的结果是: async2().then(()=&gt;&#123;return&#125;).then(()=&gt;&#123;log('async1 end')&#125;)</span></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// async1 start</span></span><br><span class="line"><span class="comment">// async2</span></span><br><span class="line"><span class="comment">// promise1</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// promise2</span></span><br><span class="line"><span class="comment">// async1 end</span></span><br><span class="line"><span class="comment">// setTimeout</span></span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/19/珠峰6Node基础/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-珠峰6Node模块" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -927,102 +1027,9 @@
 
 
   
-    <article id="post-https通讯流程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/21/https通讯流程/">https通讯流程</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/21/https通讯流程/" class="archive-article-date">
-  	<time datetime="2019-08-21T08:06:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>一篇文章从加密算法开始讲起,一步一步的引入对称加密,非对称加密,CA认证.写的很好懂的一篇HTTPS通讯流程<br>总结如下: </p>
-<ol>
-<li>浏览器向服务器端请求加密公钥,服务器端将公钥+CA的数字签名一并返回给浏览器</li>
-<li>浏览器使用内置的CA公钥对返回的数据进行解密,获取服务器端的公钥,并且也验证提供了公钥的服务器的正确性</li>
-<li>浏览器使用第2步获取的服务器公钥将传输内容使用的对称加密key进行加密,传递给服务器端</li>
-<li>服务器端收到加密的key后使用自己的私钥进行解密,从而获取了内容通讯的对称加密key</li>
-<li>服务器端和浏览器就可以开始通讯了,在通讯的过程中会将内容生成一个hash签名,从而判断内容是否被破坏或是不完整</li>
-</ol>
-</blockquote>
-<p>原文标题<br>&lt;&lt;一次安全可靠的通信——HTTPS原理&gt;&gt;</p>
-<p>原文地址:<br><a href="https://developers.weixin.qq.com/community/develop/article/doc/000046a5fdc7802a15f7508b556413" target="_blank" rel="noopener">https://developers.weixin.qq.com/community/develop/article/doc/000046a5fdc7802a15f7508b556413</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络通讯</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/21/https通讯流程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1141,11 +1148,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">

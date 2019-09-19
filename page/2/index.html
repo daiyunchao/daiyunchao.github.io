@@ -162,6 +162,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-https通讯流程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/21/https通讯流程/">https通讯流程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/21/https通讯流程/" class="archive-article-date">
+  	<time datetime="2019-08-21T08:06:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>一篇文章从加密算法开始讲起,一步一步的引入对称加密,非对称加密,CA认证.写的很好懂的一篇HTTPS通讯流程<br>总结如下: </p>
+<ol>
+<li>浏览器向服务器端请求加密公钥,服务器端将公钥+CA的数字签名一并返回给浏览器</li>
+<li>浏览器使用内置的CA公钥对返回的数据进行解密,获取服务器端的公钥,并且也验证提供了公钥的服务器的正确性</li>
+<li>浏览器使用第2步获取的服务器公钥将传输内容使用的对称加密key进行加密,传递给服务器端</li>
+<li>服务器端收到加密的key后使用自己的私钥进行解密,从而获取了内容通讯的对称加密key</li>
+<li>服务器端和浏览器就可以开始通讯了,在通讯的过程中会将内容生成一个hash签名,从而判断内容是否被破坏或是不完整</li>
+</ol>
+</blockquote>
+<p>原文标题<br>&lt;&lt;一次安全可靠的通信——HTTPS原理&gt;&gt;</p>
+<p>原文地址:<br><a href="https://developers.weixin.qq.com/community/develop/article/doc/000046a5fdc7802a15f7508b556413" target="_blank" rel="noopener">https://developers.weixin.qq.com/community/develop/article/doc/000046a5fdc7802a15f7508b556413</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络通讯</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/21/https通讯流程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-缓存优秀文章" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -968,104 +1061,9 @@
 
 
   
-    <article id="post-看alipay-Luncher学到的东西" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/10/看alipay-Luncher学到的东西/">看alipay_Luncher学到的东西</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/10/看alipay-Luncher学到的东西/" class="archive-article-date">
-  	<time datetime="2019-01-10T10:46:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>alipay的<a href="https://github.com/Luncher/alipay" target="_blank" rel="noopener">GIT地址</a>,这个库是我在集成支付宝的时候使用到的,感觉用着挺方便的,所以想看看他的源代码,下面是我再看他的代码时候学到的一些东西</p>
-</blockquote>
-<h4 id="如何在Nodejs中使用ES6的语法-例如-import等"><a href="#如何在Nodejs中使用ES6的语法-例如-import等" class="headerlink" title="如何在Nodejs中使用ES6的语法,例如(import等)?"></a>如何在Nodejs中使用ES6的语法,例如(import等)?</h4><p>使用<code>babel</code>进行编译<br>如项目中:package.json的script中有这样一句<code>compile&quot;: &quot;babel src -d lib,</code>使用 babel进行编译<br>项目中依赖的babel库有:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">"babel-cli": "^6.24.0",</span><br><span class="line">"babel-eslint": "^7.1.1",</span><br><span class="line">"babel-plugin-add-module-exports": "^0.2.1",</span><br><span class="line">"babel-plugin-istanbul": "^5.1.0",</span><br><span class="line">"babel-plugin-root-import": "^5.1.0",</span><br><span class="line">"babel-preset-es2015": "^6.24.0",</span><br><span class="line">"babel-preset-power-assert": "^1.0.0",</span><br><span class="line">"babel-register": "^6.24.0",</span><br></pre></td></tr></table></figure></p>
-<p>根目录的<code>.babelrc</code>文件为:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"env"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: &#123;</span><br><span class="line">      <span class="string">"presets"</span>: [</span><br><span class="line">        <span class="string">"babel-preset-power-assert"</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="string">"plugins"</span>: [</span><br><span class="line">        [<span class="string">"istanbul"</span>]</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"presets"</span>: [</span><br><span class="line">    <span class="string">"es2015"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"plugins"</span>: [</span><br><span class="line">    [<span class="string">"babel-plugin-root-import"</span>, &#123;</span><br><span class="line">      <span class="string">"rootPathSuffix"</span>: <span class="string">"lib/"</span></span><br><span class="line">    &#125;],</span><br><span class="line">    <span class="string">"add-module-exports"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="如何在npm-install-时候就执行一段一个命令"><a href="#如何在npm-install-时候就执行一段一个命令" class="headerlink" title="如何在npm install 时候就执行一段一个命令?"></a>如何在npm install 时候就执行一段一个命令?</h4><p>在<code>package.json</code>中的<code>script</code>中添加命令:<code>prepublish</code><br>如:源代码中的:<br><code>&quot;prepublish&quot;: &quot;npm run compile&quot;</code> 就是在<code>npm install</code>后立即执行一编译命令<br><strong>注意，prepublish这个钩子不仅会在npm publish命令之前运行，还会在npm install（不带任何参数）命令之前运行。这种行为很容易让用户感到困惑，所以 npm 4 引入了一个新的钩子prepare，行为等同于prepublish，而从 npm 5 开始，prepublish将只在npm publish命令之前运行</strong><br>还有另外的一些钩子函数 可以看<a href="https://docs.npmjs.com/misc/scripts" target="_blank" rel="noopener">这里</a></p>
-<blockquote>
-<p>2019年1月14日</p>
-</blockquote>
-<h4 id="cross-env-兼容windows-设置全局变量"><a href="#cross-env-兼容windows-设置全局变量" class="headerlink" title="cross-env 兼容windows 设置全局变量"></a>cross-env 兼容windows 设置全局变量</h4><p>在 <code>package.json</code> -&gt; <code>script</code>中:<br><code>&quot;lint&quot;: &quot;cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=test ./node_modules/.bin/eslint src/*&quot;,</code></p>
-<p>在代码中使用:<br><code>const isTest = process.env.NODE_ENV === &#39;test&#39;</code></p>
-<h5 id="去掉对象中指定的key"><a href="#去掉对象中指定的key" class="headerlink" title="去掉对象中指定的key"></a>去掉对象中指定的key</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要去掉的字段名:</span></span><br><span class="line"><span class="keyword">const</span> omit = [<span class="string">'appPrivKeyFile'</span>, <span class="string">'alipayPubKeyFile'</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//原始对象</span></span><br><span class="line"><span class="keyword">let</span> options=&#123;</span><br><span class="line">	app_id:<span class="string">"123456"</span>,</span><br><span class="line">	appPrivKeyFile:<span class="string">"sdfdfdf"</span>,</span><br><span class="line">	alipayPubKeyFile:<span class="string">"wwwwwwwwwwwwwwww"</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">let</span> newOptions = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="built_in">Object</span>.keys(options).reduce(<span class="function">(<span class="params">acc, val</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (omit.indexOf(val) === <span class="number">-1</span>) &#123;</span><br><span class="line">        acc[val] = options[val]</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> acc</span><br><span class="line">    &#125;, &#123;&#125;));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//newOptions 去掉appPrivKeyFile和alipayPubKeyFile字段的options对象</span></span><br><span class="line">	<span class="built_in">console</span>.log(newOptions)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>2019年1月18日</p>
-</blockquote>
-<h5 id="从数组中获取元素并赋值到新的变量中"><a href="#从数组中获取元素并赋值到新的变量中" class="headerlink" title="从数组中获取元素并赋值到新的变量中"></a>从数组中获取元素并赋值到新的变量中</h5><p>我比较常用的方式是:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> user=&#123;</span><br><span class="line">  name:<span class="string">"zhangsan"</span>,</span><br><span class="line">  age:<span class="number">18</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//从user中获取name,age属性并赋予name和age两个单独变量中</span></span><br><span class="line"><span class="keyword">let</span> &#123;name,age&#125;=user;</span><br></pre></td></tr></table></figure></p>
-<p>其实该方法在数组中也是适用的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> user=[<span class="string">"zhangsan"</span>,<span class="string">"lisi"</span>,<span class="string">"wangwu"</span>];</span><br><span class="line"><span class="keyword">let</span> [zhangsan,lisi, ...wuangwu]=user;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(zhangsan)<span class="comment">//zhangsan</span></span><br><span class="line"><span class="built_in">console</span>.log(lisi);<span class="comment">//lisi</span></span><br><span class="line"><span class="built_in">console</span>.log(wangwu);<span class="comment">//["wangwu"]</span></span><br></pre></td></tr></table></figure></p>
-<p>(未完待续)</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NODEJS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/10/看alipay-Luncher学到的东西/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1184,11 +1182,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
