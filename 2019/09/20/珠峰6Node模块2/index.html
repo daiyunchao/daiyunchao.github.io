@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: NODEJS | daiyunchao&#39;s blog</title>
+  <title>珠峰6Node模块2 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/NODEJS/index.html">
+  <meta name="description" content="Node的模块加载回顾 简易版的模块加载1234567891011121314151617181920212223242526272829303132333435363738const fs = require(&apos;fs&apos;);const path = require(&apos;path&apos;);const vm = require(&apos;vm&apos;)class Module &amp;#123;  constructor(fi">
+<meta name="keywords" content="前端,后端,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="珠峰6Node模块2">
+<meta property="og:url" content="http://yoursite.com/2019/09/20/珠峰6Node模块2/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="Node的模块加载回顾 简易版的模块加载1234567891011121314151617181920212223242526272829303132333435363738const fs = require(&apos;fs&apos;);const path = require(&apos;path&apos;);const vm = require(&apos;vm&apos;)class Module &amp;#123;  constructor(fi">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-09-20T06:53:55.029Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="珠峰6Node模块2">
+<meta name="twitter:description" content="Node的模块加载回顾 简易版的模块加载1234567891011121314151617181920212223242526272829303132333435363738const fs = require(&apos;fs&apos;);const path = require(&apos;path&apos;);const vm = require(&apos;vm&apos;)class Module &amp;#123;  constructor(fi">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,42 +165,66 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-珠峰6Node模块2" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/23/NODESCHOOL-高阶函数-functional-javascript-workshop-翻译/" class="archive-article-date">
-  	<time datetime="2019-01-23T11:17:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/23/NODESCHOOL-高阶函数-functional-javascript-workshop-翻译/">NODESCHOOL-高阶函数-functional-javascript-workshop-翻译</a>
+    <h1 class="article-title" itemprop="name">
+      珠峰6Node模块2
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/20/珠峰6Node模块2/" class="archive-article-date">
+  	<time datetime="2019-09-20T06:53:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Node的模块加载"><a href="#Node的模块加载" class="headerlink" title="Node的模块加载"></a>Node的模块加载</h3><h4 id="回顾-简易版的模块加载"><a href="#回顾-简易版的模块加载" class="headerlink" title="回顾 简易版的模块加载"></a>回顾 简易版的模块加载</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> vm = <span class="built_in">require</span>(<span class="string">'vm'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Module</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(filepath) &#123;</span><br><span class="line">    <span class="keyword">this</span>.id = filepath;</span><br><span class="line">    <span class="keyword">this</span>.exports = &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  load() &#123;</span><br><span class="line">    <span class="comment">//读取文件:</span></span><br><span class="line">    <span class="keyword">let</span> fileContent = fs.readFileSync(<span class="keyword">this</span>.id, <span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//包装文件</span></span><br><span class="line">    fileContent = <span class="string">'(function(exports,module,require)&#123;'</span> + fileContent + <span class="string">'&#125;)'</span>;</span><br><span class="line">    <span class="keyword">let</span> fn = vm.runInThisContext(fileContent);</span><br><span class="line">    fn(<span class="keyword">this</span>.exports, <span class="keyword">this</span>, req);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.exports;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">req</span>(<span class="params">filepath</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//文件的路径:</span></span><br><span class="line">  <span class="keyword">let</span> absolutepath = path.join(__dirname, filepath);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> <span class="built_in">module</span> = <span class="keyword">new</span> Module(absolutepath);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">//加载模块</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.load();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = req(<span class="string">'./a.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">//hello</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="升级版"><a href="#升级版" class="headerlink" title="升级版"></a>升级版</h4><p>添加对json的处理<br>添加缓存<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> vm = <span class="built_in">require</span>(<span class="string">'vm'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ModuleCache = &#123;&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Module</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.id = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">this</span>.exports = &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  processFile() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="string">".js"</span>:<span class="function">(<span class="params">filepath</span>)=&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> fileContent = fs.readFileSync(filepath, <span class="string">'utf8'</span>);</span><br><span class="line">        fileContent = <span class="string">`(function(module,exports,require,__filename,__dirname)&#123;<span class="subst">$&#123;fileContent&#125;</span>&#125;)`</span>;</span><br><span class="line">        <span class="keyword">let</span> fn = vm.runInThisContext(fileContent);</span><br><span class="line">        fn(<span class="keyword">this</span>, <span class="keyword">this</span>.exports, req, filepath, path.dirname(filepath));</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">".json"</span>:<span class="function">(<span class="params">filepath</span>)=&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> fileContent = fs.readFileSync(filepath, <span class="string">'utf8'</span>);</span><br><span class="line">        <span class="keyword">this</span>.exports = <span class="built_in">JSON</span>.parse(fileContent);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  load(filepath) &#123;</span><br><span class="line">    filepath = <span class="keyword">this</span>.getFileAbsoultePath(filepath);</span><br><span class="line">    <span class="keyword">this</span>.id = filepath;</span><br><span class="line">    <span class="comment">//判断是否缓存过了</span></span><br><span class="line">    <span class="keyword">if</span> (ModuleCache[<span class="keyword">this</span>.id]) &#123;</span><br><span class="line">      <span class="comment">//加载过了</span></span><br><span class="line">      <span class="keyword">return</span> ModuleCache[<span class="keyword">this</span>.id].exports;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> extname = path.extname(filepath);</span><br><span class="line">    <span class="keyword">this</span>.processFile()[extname](filepath);</span><br><span class="line">    <span class="comment">//添加缓存</span></span><br><span class="line">    ModuleCache[<span class="keyword">this</span>.id] = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.exports;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getFileAbsoultePath(filepath) &#123;</span><br><span class="line">    <span class="comment">//判断是否有后缀名</span></span><br><span class="line">    <span class="comment">//如果有直接使用</span></span><br><span class="line">    <span class="comment">//如果没有 匹配后缀</span></span><br><span class="line">    <span class="keyword">if</span> (filepath.indexOf(<span class="string">'/'</span>) != <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">//传入的是相对路径</span></span><br><span class="line">      filepath = path.join(__dirname, filepath);</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"filepath===&gt;"</span>,filepath);</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> extname = path.extname(filepath);</span><br><span class="line">    <span class="keyword">if</span> (!extname) &#123;</span><br><span class="line">      <span class="keyword">let</span> canProcessExtnames = <span class="built_in">Reflect</span>.ownKeys(<span class="keyword">this</span>.processFile());</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> index = <span class="number">0</span>; index &lt; canProcessExtnames.length; index++) &#123;</span><br><span class="line">        <span class="keyword">const</span> currentExtname = canProcessExtnames[index];</span><br><span class="line">        filepath += currentExtname;</span><br><span class="line">        <span class="keyword">if</span> (fs.existsSync(filepath)) &#123;</span><br><span class="line">          <span class="comment">//找到文件了</span></span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          filepath = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//自带了后缀名</span></span><br><span class="line">      <span class="keyword">if</span> (!fs.existsSync(filepath)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"not find file"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (filepath) &#123;</span><br><span class="line">      <span class="keyword">return</span> filepath;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'not find file'</span>)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">req</span>(<span class="params">filepath</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> <span class="built_in">module</span> = <span class="keyword">new</span> Module();</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.load(filepath);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = req(<span class="string">"./a"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">//hello</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="exports-和-module-exports的关系"><a href="#exports-和-module-exports的关系" class="headerlink" title="exports 和 module.exports的关系"></a>exports 和 module.exports的关系</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(exports===<span class="built_in">module</span>.exports);<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实际上的形参 和实参 是这样的</span></span><br><span class="line"><span class="keyword">let</span> fn=<span class="function"><span class="keyword">function</span>(<span class="params">module,exports,require,__filename,__dirname</span>)</span>&#123;xxxx&#125;</span><br><span class="line"></span><br><span class="line">fn(<span class="built_in">module</span>,<span class="built_in">module</span>.exports,<span class="built_in">require</span>,xx,xx);</span><br><span class="line"></span><br><span class="line"><span class="comment">//可以看到 exports就是module的属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//但问题是 为什么不能写成</span></span><br><span class="line"><span class="comment">//a.js文件</span></span><br><span class="line"></span><br><span class="line">exports <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//根据关系我们可以模拟出下面的代码</span></span><br><span class="line"><span class="keyword">var</span> obj=&#123;<span class="attr">arr</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]&#125;</span><br><span class="line"><span class="keyword">var</span> arr=obj.arr;</span><br><span class="line">arr=[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这时候的arr和obj.arr还相同吗</span></span><br><span class="line"><span class="comment">// 我们用obj.arr能用到[4,5,6]吗</span></span><br></pre></td></tr></table></figure>
+<h4 id="模块的加载顺序"><a href="#模块的加载顺序" class="headerlink" title="模块的加载顺序"></a>模块的加载顺序</h4><blockquote>
+<p>文件模块</p>
+<ol>
+<li>通过文件的路径找对应的文件 如果文件存在,则加载文件</li>
+<li>如果文件不存在,则找同名文件夹/index.js文件</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>第三方模块</p>
+<ol>
+<li>通过名称在自己的目录的<code>node_modules</code>中找对应的文件夹</li>
+<li>找到该文件夹下的package.json文件中的main字段对应的文件加载文件</li>
+<li>如果没有package.json 或是没有main字段,则会默认找文件夹下的<code>index.js或index.json</code>文件并加载</li>
+<li>如果还找不到,则再向上一层查找<code>node_modules</code>文件夹</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>内置模块</p>
+<ol>
+<li>通过名称引用 优先引用</li>
+</ol>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -203,67 +232,112 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NODEJS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/20/珠峰6Node模块2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/10/看alipay-Luncher学到的东西/" class="archive-article-date">
-  	<time datetime="2019-01-10T10:46:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/19/珠峰6Node基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">珠峰6Node基础</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/10/看alipay-Luncher学到的东西/">看alipay_Luncher学到的东西</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">NODEJS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -286,9 +360,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
