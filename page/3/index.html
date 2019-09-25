@@ -162,6 +162,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-从lodash源代码中学到的JS代码" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/02/从lodash源代码中学到的JS代码/">从lodash源代码中学到的JS代码</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/02/从lodash源代码中学到的JS代码/" class="archive-article-date">
+  	<time datetime="2019-02-02T06:13:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近开始看看lodash的源代码,一次不图太多,能看两个方法的源代码并且有一定的收获就好<br>下面就是我看 <code>get</code> <code>chunk</code> <code>compact</code> <code>concat</code> 几个方法的一些总结内容</p>
+</blockquote>
+<h3 id="巧用-amp-amp-代替-if"><a href="#巧用-amp-amp-代替-if" class="headerlink" title="巧用 || &amp;&amp; 代替 if"></a>巧用 || &amp;&amp; 代替 if</h3><p>先看看使用<code>if</code>的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//使用if 检查 postMessage方法是否存在</span></span><br><span class="line"> <span class="keyword">if</span>(<span class="built_in">window</span>.postMessage)&#123;</span><br><span class="line">   <span class="comment">// 如果存在则发一个命令</span></span><br><span class="line">   <span class="built_in">window</span>.postMessage(<span class="string">'some string data'</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>再看看 使用 <code>&amp;&amp;</code>的代码<br><code>window.postMessage&amp;&amp;window.postMessage(&#39;some string data&#39;)</code></p>
+<p>再看一个复杂一点的例子(例子来自:<a href="https://www.cnblogs.com/kester/p/6231328.html)" target="_blank" rel="noopener">https://www.cnblogs.com/kester/p/6231328.html)</a>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用if:</span></span><br><span class="line"><span class="keyword">var</span> add_level = <span class="number">0</span>; </span><br><span class="line"><span class="keyword">if</span>(add_step == <span class="number">5</span>)&#123; </span><br><span class="line">add_level = <span class="number">1</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(add_step == <span class="number">10</span>)&#123; </span><br><span class="line">add_level = <span class="number">2</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(add_step == <span class="number">12</span>)&#123; </span><br><span class="line">add_level = <span class="number">3</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(add_step == <span class="number">15</span>)&#123; </span><br><span class="line">add_level = <span class="number">4</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">else</span> &#123; </span><br><span class="line">add_level = <span class="number">0</span>; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">//使用 ||&amp;&amp;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> add_level=(add_step==<span class="number">5</span> &amp;&amp; <span class="number">1</span>)||</span><br><span class="line">  (add_step==<span class="number">10</span> &amp;&amp; <span class="number">2</span>)||</span><br><span class="line">  (add_step==<span class="number">12</span> &amp;&amp; <span class="number">3</span>)||</span><br><span class="line">  (add_step == <span class="number">15</span> &amp;&amp; <span class="number">4</span>)||</span><br><span class="line">  <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>嗯,<code>||&amp;&amp;</code>版代码的清晰度确实没有<code>if</code>版的高,这里只是提供另外一种实现的方案,方便在于代码量少很多.</p>
+<h3 id="将属性转换成数组的代码片段"><a href="#将属性转换成数组的代码片段" class="headerlink" title="将属性转换成数组的代码片段"></a>将属性转换成数组的代码片段</h3><p><code>.get</code>函数的思路是<br>先将属性转换成数组 eg:<code>a[0].b.c</code>转换成<code>[&#39;a&#39;, &#39;0&#39;, &#39;b&#39;, &#39;c&#39;]</code><br>再使用while循环 不断的从对象中一级一级的查询对应的属性,如果找不到就返回 传入的默认值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> object = &#123; <span class="string">'a'</span>: [&#123; <span class="string">'b'</span>: &#123; <span class="string">'c'</span>: <span class="number">3</span> &#125; &#125;] &#125;;</span><br><span class="line">_.get(object, <span class="string">'a[0].b.c'</span>);</span><br><span class="line"><span class="comment">// =&gt; 3</span></span><br><span class="line">_.get(object, [<span class="string">'a'</span>, <span class="string">'0'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]);</span><br><span class="line"><span class="comment">// =&gt; 3</span></span><br><span class="line">_.get(object, <span class="string">'a.b.c'</span>, <span class="string">'default'</span>);</span><br><span class="line"><span class="comment">// =&gt; 'default'</span></span><br></pre></td></tr></table></figure></p>
+<p>其中将属性转换成数组(<code>a[0].b.c</code>转换成<code>[&#39;a&#39;, &#39;0&#39;, &#39;b&#39;, &#39;c&#39;]</code>)的代码片段我提取出来封装了一个方法:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">converPropsToArr</span>(<span class="params">prop_string</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> rePropName= <span class="built_in">RegExp</span>(</span><br><span class="line">	  <span class="comment">// Match anything that isn't a dot or bracket.</span></span><br><span class="line">	  <span class="string">'[^.[\\]]+'</span> + <span class="string">'|'</span> +</span><br><span class="line">	  <span class="comment">// Or match property names within brackets.</span></span><br><span class="line">	  <span class="string">'\\[(?:'</span> +</span><br><span class="line">		<span class="comment">// Match a non-string expression.</span></span><br><span class="line">		<span class="string">'([^"\'].*)'</span> + <span class="string">'|'</span> +</span><br><span class="line">		<span class="comment">// Or match strings (supports escaping characters).</span></span><br><span class="line">		<span class="string">'(["\'])((?:(?!\\2)[^\\\\]|\\\\.)*?)\\2'</span> +</span><br><span class="line">	  <span class="string">')\\]'</span>+ <span class="string">'|'</span> +</span><br><span class="line">	  <span class="comment">// Or match "" as the space between consecutive dots or empty brackets.</span></span><br><span class="line">	  <span class="string">'(?=(?:\\.|\\[\\])(?:\\.|\\[\\]|$))'</span></span><br><span class="line">	, <span class="string">'g'</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">let</span> result=[];</span><br><span class="line">	prop_string.replace(rePropName, (match, expression, quote, subString) =&gt; &#123;</span><br><span class="line">		<span class="keyword">let</span> key = match</span><br><span class="line">		<span class="keyword">if</span> (quote) &#123;</span><br><span class="line">		  key = subString.replace(reEscapeChar, <span class="string">'$1'</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (expression) &#123;</span><br><span class="line">		  key = expression.trim()</span><br><span class="line">		&#125;</span><br><span class="line">		result.push(key)</span><br><span class="line">	  &#125;)</span><br><span class="line">	  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> propArrs=converPropsToArr(<span class="string">'a[0].b.c'</span>)</span><br><span class="line"><span class="comment">//propArrs=[a,0,b,c]</span></span><br><span class="line">propArrs=converPropsToArr(<span class="string">'a.b.c'</span>)</span><br><span class="line"><span class="comment">//propArrs=[a,b,c]</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="获取数组中的元素-可以使用a-0-也可以使用a-“0”"><a href="#获取数组中的元素-可以使用a-0-也可以使用a-“0”" class="headerlink" title="获取数组中的元素 可以使用a[0] 也可以使用a[“0”]"></a>获取数组中的元素 可以使用a[0] 也可以使用a[“0”]</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">arr[<span class="number">0</span>]==arr[<span class="string">"0"</span>]&amp;&amp; <span class="built_in">console</span>.log(<span class="string">'result:arr[0]==arr["0"]'</span>)</span><br></pre></td></tr></table></figure>
+<p>有的时候 我们拿到的是字符串,确实根本不需要再次转换成<code>Number</code>获取数组中的元素</p>
+<h3 id="不破坏原有数组的基础上获取数组中的一部分数据"><a href="#不破坏原有数组的基础上获取数组中的一部分数据" class="headerlink" title="不破坏原有数组的基础上获取数组中的一部分数据"></a>不破坏原有数组的基础上获取数组中的一部分数据</h3><p>这是<code>.slice</code>函数的源代码,作用是在不破坏原有数组的基础上获取数组中的一部分数据<br>提取出来当代码片段使用<br>其中需要注意的是:<br><code>&gt;&gt;&gt;</code> 是无符号的右移,在该函数中的作用就 转换成<code>Number</code>类型的整数(向上取整)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">slice</span>(<span class="params">array, start, end</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> length = array == <span class="literal">null</span> ? <span class="number">0</span> : array.length</span><br><span class="line">  <span class="keyword">if</span> (!length) &#123;</span><br><span class="line">    <span class="keyword">return</span> []</span><br><span class="line">  &#125;</span><br><span class="line">  start = start == <span class="literal">null</span> ? <span class="number">0</span> : start</span><br><span class="line">  end = end === <span class="literal">undefined</span> ? length : end</span><br><span class="line">​</span><br><span class="line">  <span class="keyword">if</span> (start &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    start = -start &gt; length ? <span class="number">0</span> : (length + start)</span><br><span class="line">  &#125;</span><br><span class="line">  end = end &gt; length ? length : end</span><br><span class="line">  <span class="keyword">if</span> (end &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    end += length</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//&gt;&gt;&gt; 0 Number转换并且获取整数(向下取整) 但 end-start要是正数否则值会变的非常大</span></span><br><span class="line">  <span class="comment">//相当于: Math.floor(Number(end - start)) </span></span><br><span class="line">  length = start &gt; end ? <span class="number">0</span> : ((end - start) &gt;&gt;&gt; <span class="number">0</span>)</span><br><span class="line">  start &gt;&gt;&gt;= <span class="number">0</span></span><br><span class="line">​</span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">-1</span></span><br><span class="line">​</span><br><span class="line">  <span class="comment">//从原数组中获取一部分元素,并构建成新的数组</span></span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>(length)</span><br><span class="line">  <span class="keyword">while</span> (++index &lt; length) &#123;</span><br><span class="line">    result[index] = array[index + start]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="for-of-和-for-in"><a href="#for-of-和-for-in" class="headerlink" title="for of  和 for in"></a>for of  和 for in</h3><p>如果循环的都是数组,则<code>for in</code> 是: <code>for (index in arr)</code> 而 <code>for of</code> 是<code>for(value of arr)</code><br>注意: <code>for in</code> 从数组中获取的是<code>index</code> 而<code>for of</code>直接获取的是值<br>一个<code>for of</code>相当于 <code>for in</code>+ <code>let value=arr[index]</code></p>
+<p>如果循环的是<code>Map</code>, <code>for of</code>还可以同时取出<code>key</code>和<code>value</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map=<span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">map.set(<span class="string">'name'</span>,<span class="string">'zhangsan'</span>)</span><br><span class="line">map.set(<span class="string">'age'</span>,<span class="number">19</span>)</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key,value] <span class="keyword">of</span> map)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"key==&gt;"</span>,key)</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"value==&gt;"</span>,value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="compact方法对比"><a href="#compact方法对比" class="headerlink" title="compact方法对比"></a><code>compact</code>方法对比</h3><p><code>.compact</code>方法是压缩数组,将数组中的 <code>0 null undefind &quot;&quot; false</code> 去掉</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我的版本</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compact</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!arr)&#123;</span><br><span class="line">		<span class="keyword">return</span> [];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">Array</span>.isArray(arr))&#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"arr is not arrary"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">let</span> retArr=[];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">		<span class="keyword">let</span> item=arr[i]</span><br><span class="line">		<span class="keyword">if</span>(item)&#123;</span><br><span class="line">			retArr.push(item)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> retArr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//lodash的实现思路差不多,只是循环的时候稍有不同</span></span><br><span class="line"><span class="comment">//lodash的实现方式:</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> value <span class="keyword">of</span> array) &#123;</span><br><span class="line">    <span class="keyword">if</span> (value) &#123;</span><br><span class="line">      result[resIndex++] = value</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>比较:for of 比 for 简单</p>
+<h3 id="concat方法对比"><a href="#concat方法对比" class="headerlink" title="concat方法对比"></a>concat方法对比</h3><p><code>.concat</code>是数组的追加 例子:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> other = _.concat(array, <span class="number">2</span>, [<span class="number">3</span>], [[<span class="number">4</span>]]);</span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(other);</span><br><span class="line"><span class="comment">// =&gt; [1, 2, 3, [4]]</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(array);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我的版本</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">my_concat</span>(<span class="params">arr,...append_params</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> val <span class="keyword">of</span> append_params)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">Array</span>.isArray(val))&#123;</span><br><span class="line">			arr.push(val)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">let</span> val_item_val <span class="keyword">of</span> val)&#123;</span><br><span class="line">				arr.push(val_item_val)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//lodash</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">concat</span>(<span class="params">arr,...append_params</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">let</span> val <span class="keyword">of</span> append_params)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">Array</span>.isArray(val))&#123;</span><br><span class="line">			arr.push(val)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			arr.push(...val)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对比:<br>我的实现中 批量<code>push</code>的方法使用的是 f<code>or of</code> 循环一个数组每一个添加<br>而<code>lodash</code>中 使用 <code>arr.push(...val)</code> 这种方式更简单而且代码更容易懂</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/02/从lodash源代码中学到的JS代码/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-redis-常用命令学习" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -885,92 +987,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/11/26/关系数据全貌和SQL常用总结-百度脑图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JS的Class如何实现实例GET和SET方法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">JS的Class如何实现实例GET和SET方法?</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/23/JS的Class如何实现实例GET和SET方法/" class="archive-article-date">
-  	<time datetime="2018-11-23T09:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文章来实现的是一个简单的需求,在JS中如何实现计算属性,eg: 如有string的name属性和number类型的age属性,现在需要一个name_age属性返回的是:name_age的值</p>
-</blockquote>
-<h3 id="如何实现计算属性"><a href="#如何实现计算属性" class="headerlink" title="如何实现计算属性?"></a>如何实现计算属性?</h3><p>因为ES6提供了GET和SET方法,其实要想实现该需求很简单<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//定义:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name,age)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">    <span class="keyword">this</span>.name_age;</span><br><span class="line">  &#125;</span><br><span class="line">  get name_age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>_<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用:</span></span><br><span class="line"><span class="keyword">let</span> zhangsan=<span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>,<span class="number">18</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line">zhangsan.age=<span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line"><span class="comment">//执行结果为:</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_18</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_20</span></span><br></pre></td></tr></table></figure></p>
-<p><em>注:上面的代码可以放到支持ES6语法的浏览器中进行测试</em></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">展开全文 >></a>
         </p>
       
 
