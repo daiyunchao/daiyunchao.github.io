@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 后端 | daiyunchao&#39;s blog</title>
+  <title>珠峰6第七节Buffer | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/后端/index.html">
+  <meta name="description" content="Buffer经典面试题: 为什么0.1+0.2!=0.3定义变量时会将值存放当内存中 (内存中都是二进制的)0.1的内存中的值是:0.00011001100110011001100110011001100110011001100110011010.2的内存中的值是:0.001100110011001100110011001100110011001100110011001101所以0.1+0.2&amp;g">
+<meta name="keywords" content="前端,后端,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="珠峰6第七节Buffer">
+<meta property="og:url" content="http://yoursite.com/2019/10/10/珠峰6第七节Buffer/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="Buffer经典面试题: 为什么0.1+0.2!=0.3定义变量时会将值存放当内存中 (内存中都是二进制的)0.1的内存中的值是:0.00011001100110011001100110011001100110011001100110011010.2的内存中的值是:0.001100110011001100110011001100110011001100110011001101所以0.1+0.2&amp;g">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-10T10:00:56.655Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="珠峰6第七节Buffer">
+<meta name="twitter:description" content="Buffer经典面试题: 为什么0.1+0.2!=0.3定义变量时会将值存放当内存中 (内存中都是二进制的)0.1的内存中的值是:0.00011001100110011001100110011001100110011001100110011010.2的内存中的值是:0.001100110011001100110011001100110011001100110011001101所以0.1+0.2&amp;g">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,36 +165,65 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-珠峰6第七节Buffer" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      珠峰6第七节Buffer
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/10/珠峰6第七节Buffer/" class="archive-article-date">
+
+        
+        <a href="/2019/10/10/珠峰6第七节Buffer/" class="archive-article-date">
   	<time datetime="2019-10-10T10:00:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/10/珠峰6第七节Buffer/">珠峰6第七节Buffer</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h3><p>经典面试题: 为什么<code>0.1+0.2!=0.3</code><br>定义变量时会将值存放当内存中 (内存中都是二进制的)<br><code>0.1</code>的内存中的值是:<code>0.0001100110011001100110011001100110011001100110011001101</code><br><code>0.2</code>的内存中的值是:<code>0.001100110011001100110011001100110011001100110011001101</code><br>所以<code>0.1+0.2&gt;0.3</code></p>
+<a id="more"></a>
+<p>十进制转换二进制的方法 小数(*2 取整)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0.1的十进制如何转换成二进制的</span></span><br><span class="line"><span class="number">0.1</span>*<span class="number">2</span>=<span class="number">0.2</span>=&gt;<span class="number">0</span></span><br><span class="line"><span class="number">0.2</span>*<span class="number">2</span>=<span class="number">0.4</span>=&gt;<span class="number">0</span></span><br><span class="line"><span class="number">0.4</span>*<span class="number">2</span>=<span class="number">0.8</span>=&gt;<span class="number">0</span></span><br><span class="line"><span class="number">0.8</span>*<span class="number">2</span>=<span class="number">1.6</span>=&gt;<span class="number">1</span></span><br><span class="line"><span class="comment">//1.6取了整数后剩下0.6</span></span><br><span class="line"><span class="number">0.6</span>*<span class="number">2</span>=<span class="number">1.2</span>=&gt;<span class="number">1</span></span><br><span class="line"><span class="number">0.2</span>*<span class="number">2</span>=<span class="number">0.4</span>=&gt;<span class="number">0</span></span><br><span class="line"><span class="number">0.4</span>*<span class="number">2</span>=<span class="number">0.8</span>=&gt;<span class="number">0</span></span><br><span class="line"><span class="number">0.8</span>*<span class="number">2</span>=<span class="number">1.6</span>=&gt;<span class="number">1</span></span><br><span class="line"><span class="number">0.6</span>*<span class="number">2</span>=<span class="number">1.2</span>=&gt;<span class="number">1</span></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure></p>
+<p>方式1:整数的二进制如何转换成十进制(进制的值+进制*进制的N次方)(从右开始)<br>方式2:进制的N次方-1<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二进制的1111转换成十进制</span></span><br><span class="line"><span class="comment">//1*2的0次方+1*2的1次方+1*2的2次方+1*2的3次方</span></span><br><span class="line"><span class="number">1</span>+<span class="number">2</span>+<span class="number">4</span>+<span class="number">8</span>=<span class="number">15</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//方式2</span></span><br><span class="line"><span class="number">2</span>**<span class="number">4</span><span class="number">-1</span>=<span class="number">15</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h4><ol>
+<li>ASCII 最早的编码格式,1个字节代表一个符号,1个字节=8个位(bit),最大长度是255(2**8-1)已经能满足最基本的需要了 \r=13 \n=10</li>
+<li>但随着发展有的字符不能再一个字节中表示完了,就出现了新的编码方式 <code>gb2312 gb18030 gbk</code>等 但还是不能满足全部的字符</li>
+<li>出现了新的可变长的编码<code>utf8</code> 可变长 如果字符&lt;255 就用一个字节表示 如果是大于255 就用两个字节表示 以此类推</li>
+</ol>
+<h4 id="在JS中转换的方法"><a href="#在JS中转换的方法" class="headerlink" title="在JS中转换的方法"></a>在JS中转换的方法</h4><ol>
+<li>10进制转换成其他进制 <code>100..toString(2)</code></li>
+<li>其他进制的转换成10进制 <code>parseInt(&#39;ff&#39;,16)</code></li>
+<li>在chrome控制中直接输入 <code>0xff</code>就能出来10进制对应的值(8进制是 0o 2进制0b)</li>
+</ol>
+<h4 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h4><p><code>base64</code>不是加密解密的方式,只是一种编码,缺点是会比原始文件(2进制资源)大1/3<br>为什么会大呢?<br>来个例子:<br>将”张”转换成base64的过程</p>
+<ol>
+<li>将张转换成2进制  <buffer e5="" bc="" a0=""> (使用方法<code>Buffer.form(&#39;张&#39;)</code>)</buffer></li>
+<li>将Buffer的16进制表示成2进制  <code>11100101 10111100 10100000</code> (使用方法  0xe5.toString(2))</li>
+<li>将8位的二进制转换成6位 <code>111001 011011 110010 100000</code></li>
+<li>原来2进制8位可以表示一个字节 改成了6位表示一个字节 所以比原来的字符大了1/3</li>
+</ol>
+<p>todo: 自己实现一个base64的转化功能<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h4 id="Node中如何使用Buffer"><a href="#Node中如何使用Buffer" class="headerlink" title="Node中如何使用Buffer"></a>Node中如何使用Buffer</h4><p><code>buffer就是内存的代表 特点是不能扩容</code><br>声明方式:<br><code>let buf =Buffer.alloc(5)</code>申请5个字符的容量<br><code>let buf=Buffer.allocUnsafe(5)</code>申请5个不安全的字符容量,不安全的含义是,获取刚被释放的内存,速度较快<br><code>Buffer.callocUnsafe+Buffer.fill=Buffer.alloc</code><br><code>Buffer.fill</code>手动填充Buffer中的内容</p>
+<p>使用字符串声明:<br><code>Buffer.from(&#39;这是中文&#39;)</code></p>
+<p>使用数组<br><code>Buffer.from([1,2,3,4])</code></p>
+<p>判断是否是buffer:<br><code>Buffer.isBuffer(Buffer.from(&#39;张三&#39;))</code></p>
+<p>copy Buffer<br>因为分配内存都是连续的,并且分配好的内存是不能扩展的,所以想增大原来的一个内存不能再原来的基础上扩展,只能使用一块新的更大的内存来保存<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> buff1=Buffer.from(<span class="string">'张'</span>);</span><br><span class="line"><span class="keyword">let</span> buff2=Buffer.from(<span class="string">'三'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//现在的目标是 想要将 张三放到一块去</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//一个中文三个字节</span></span><br><span class="line"><span class="comment">//两个字分配6个字节</span></span><br><span class="line"><span class="keyword">let</span> buff=Buffer.alloc(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//新的buffer.copy(目标buffer,新的buffer的开始位置,目标buffer的开始位置,目标buffer的结束位置)</span></span><br><span class="line">buff1.copy(buff,<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>);</span><br><span class="line">buff2.copy(buff,<span class="number">3</span>,<span class="number">0</span>,<span class="number">3</span>);</span><br><span class="line"><span class="built_in">console</span>.log(buff.toString());</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自己实现 Buffer的copy函数:</span></span><br><span class="line">Buffer.prototype.copy = <span class="function"><span class="keyword">function</span> (<span class="params">targetBuffer, start, oldBufferStart, oldBufferEnd</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> postion = start;</span><br><span class="line">  <span class="keyword">for</span> (;oldBufferStart &lt; oldBufferEnd; oldBufferStart++ , postion++) &#123;</span><br><span class="line">    <span class="keyword">const</span> buffer = <span class="keyword">this</span>[oldBufferStart];</span><br><span class="line">    targetBuffer[postion] = buffer;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> buff1 = Buffer.from(<span class="string">'张'</span>);</span><br><span class="line"><span class="keyword">let</span> buff2 = Buffer.from(<span class="string">'三'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> buff = Buffer.alloc(<span class="number">6</span>);</span><br><span class="line">buff1.copy(buff, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line">buff2.copy(buff, <span class="number">3</span>, <span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line"><span class="built_in">console</span>.log(buff.toString());</span><br></pre></td></tr></table></figure>
+<p>buffer的拼接 <code>Buffer.concat(数组,拼接的buffer,生成新的buffer的长度)</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> buff1 = Buffer.from(<span class="string">'张'</span>);</span><br><span class="line"><span class="keyword">let</span> buff2 = Buffer.from(<span class="string">'三'</span>);</span><br><span class="line"><span class="keyword">let</span> newBuffer=Buffer.concat([buff1,buff2]);</span><br><span class="line"><span class="built_in">console</span>.log(newBuffer.toString());</span><br></pre></td></tr></table></figure></p>
+<h4 id="扩展Buffer的split方法"><a href="#扩展Buffer的split方法" class="headerlink" title="扩展Buffer的split方法"></a>扩展Buffer的split方法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Buffer.prototype.split = <span class="function"><span class="keyword">function</span> (<span class="params">splitTag</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//找到分隔符的长度:</span></span><br><span class="line">  <span class="keyword">let</span> len = Buffer.from(splitTag).length;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//用于标记开始位置:</span></span><br><span class="line">  <span class="keyword">let</span> offset = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//用于判断是否执行循环</span></span><br><span class="line">  <span class="keyword">let</span> doWhile = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> res = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (doWhile) &#123;</span><br><span class="line">    <span class="comment">//结束位置:</span></span><br><span class="line">    <span class="keyword">let</span> endPoint = <span class="keyword">this</span>.indexOf(splitTag, offset);</span><br><span class="line">    <span class="keyword">if</span> (endPoint &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      doWhile = <span class="literal">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      res.push(<span class="keyword">this</span>.slice(offset, endPoint));</span><br><span class="line">      <span class="comment">//新的偏移量:</span></span><br><span class="line">      offset = endPoint + len;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  res.push(<span class="keyword">this</span>.slice(offset));</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> arr = buffer.split(<span class="string">'\n'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arr.length);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> index = <span class="number">0</span>; index &lt; arr.length; index++) &#123;</span><br><span class="line">  <span class="keyword">const</span> element = arr[index];</span><br><span class="line">  <span class="built_in">console</span>.log(element.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="自己实现Base64加密解密"><a href="#自己实现Base64加密解密" class="headerlink" title="自己实现Base64加密解密"></a>自己实现Base64加密解密</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//有Bug...</span></span><br><span class="line"><span class="keyword">const</span> Base64CodeLib = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="</span>.split(<span class="string">''</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//加密的方法:</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">base64EnCode</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> buff = Buffer.from(str);</span><br><span class="line">  <span class="keyword">let</span> bStr = <span class="string">""</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(buff);</span><br><span class="line"></span><br><span class="line">  buff.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> newB = (item).toString(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">while</span> (newB.length &lt; <span class="number">8</span>) &#123;</span><br><span class="line">      newB = <span class="string">"0"</span> + newB;</span><br><span class="line">    &#125;</span><br><span class="line">    bStr += newB;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> baseStr = <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">let</span> baseStrArr = [];</span><br><span class="line">  <span class="keyword">let</span> hasMoreLen = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (hasMoreLen) &#123;</span><br><span class="line">    <span class="keyword">let</span> startNumber = index * <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">let</span> str = bStr.substr(startNumber, <span class="number">6</span>);</span><br><span class="line">    str.length &gt; <span class="number">0</span> &amp;&amp; baseStrArr.push(str);</span><br><span class="line">    index += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (index * <span class="number">6</span> &gt; bStr.length) &#123;</span><br><span class="line">      hasMoreLen = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(baseStrArr);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  baseStrArr.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    baseStr += Base64CodeLib[<span class="built_in">parseInt</span>(<span class="string">"00"</span>+item, <span class="number">2</span>)];</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> baseStr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(base64EnCode(<span class="string">'dankogai'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用Node自带的方法验证</span></span><br><span class="line"><span class="built_in">console</span>.log(Buffer.from(<span class="string">'dankogai'</span>).toString(<span class="string">'base64'</span>));</span><br></pre></td></tr></table></figure>
+<h4 id="drag拖拽预览图片功能"><a href="#drag拖拽预览图片功能" class="headerlink" title="drag拖拽预览图片功能"></a>drag拖拽预览图片功能</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'drag'</span>).ondragover = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      e.preventDefault();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'drag'</span>).ondrop = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      e.preventDefault();</span><br><span class="line">      <span class="keyword">let</span> fr = <span class="keyword">new</span> FileReader();</span><br><span class="line">      fr.readAsDataURL(e.dataTransfer.files[<span class="number">0</span>])</span><br><span class="line">      fr.onload = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> base64 = e.target.result;</span><br><span class="line">        <span class="keyword">let</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">        img.style=<span class="string">"width:200px"</span>;</span><br><span class="line">        img.src = base64;</span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">'drag'</span>).appendChild(img);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
 
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -209,436 +243,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/10/珠峰6第七节Buffer/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/26/珠峰6第七节复习篇/" class="archive-article-date">
-  	<time datetime="2019-09-26T11:43:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/26/珠峰6第七节复习篇/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">珠峰6第七节复习篇</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/26/珠峰6第七节复习篇/">珠峰6第七节复习篇</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/25/珠峰6node核心模块/" class="archive-article-date">
-  	<time datetime="2019-09-25T12:47:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/25/珠峰6node核心模块/">珠峰6node核心模块</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/24/珠峰6npm的使用/" class="archive-article-date">
-  	<time datetime="2019-09-24T12:12:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/24/珠峰6npm的使用/">珠峰6npm的使用</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/20/珠峰6Node模块2/" class="archive-article-date">
-  	<time datetime="2019-09-20T06:53:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/20/珠峰6Node模块2/">珠峰6Node模块2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/19/珠峰6Node基础/" class="archive-article-date">
-  	<time datetime="2019-09-19T10:48:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/19/珠峰6Node基础/">珠峰6Node基础</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/17/珠峰6Node模块/" class="archive-article-date">
-  	<time datetime="2019-09-17T10:53:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/17/珠峰6Node模块/">珠峰6Node模块</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/17/珠峰6EventLoop/" class="archive-article-date">
-  	<time datetime="2019-09-17T08:38:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/17/珠峰6EventLoop/">珠峰6EventLoop</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/17/珠峰6自己实现模版引擎/" class="archive-article-date">
-  	<time datetime="2019-09-17T06:56:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/17/珠峰6自己实现模版引擎/">珠峰6自己实现模版引擎</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/16/珠峰6箭头函数和数组reduce的常用笔记/" class="archive-article-date">
-  	<time datetime="2019-09-16T11:01:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/16/珠峰6箭头函数和数组reduce的常用笔记/">珠峰6箭头函数和数组reduce的常用笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/tags/后端/page/2/">2</a><a class="page-number" href="/tags/后端/page/3/">3</a><a class="extend next" rel="next" href="/tags/后端/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -662,9 +365,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

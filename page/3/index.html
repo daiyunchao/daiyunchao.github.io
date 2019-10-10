@@ -162,6 +162,127 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-python2019-3-4常用方法总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/04/python2019-3-4常用方法总结/">python2019-3-4常用方法总结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/04/python2019-3-4常用方法总结/" class="archive-article-date">
+  	<time datetime="2019-03-04T07:21:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近学完了＜笨办法学习python＞(第三版)<a href="https://github.com/daiyunchao/stupid_way_learn_python" target="_blank" rel="noopener">这是我我的笔记</a>但感觉如果要熟练的使用<code>python</code>还有很远的路要走,最近把一些脚本翻了出来,觉得里面的方法还是可以通用的.</p>
+</blockquote>
+<blockquote>
+<p>调用系统的方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, sys, commands, re, pwd, time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用方法,如果成功go on 如果失败了则退出</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callSys</span><span class="params">(cmdString)</span>:</span></span><br><span class="line">	<span class="keyword">print</span> <span class="string">"\n"</span></span><br><span class="line">	<span class="keyword">print</span> <span class="string">"Start: "</span>, cmdString</span><br><span class="line">	ret = os.system(cmdString)</span><br><span class="line">	<span class="keyword">if</span> ret != <span class="number">0</span>:</span><br><span class="line">		<span class="keyword">print</span> <span class="string">"Error :"</span>, cmdString</span><br><span class="line">		exit()</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"Finish: "</span>, cmdString</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行命令 不问结果:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">runSys</span><span class="params">(cmdString)</span>:</span></span><br><span class="line">	<span class="keyword">print</span> <span class="string">"\n"</span></span><br><span class="line">	<span class="keyword">print</span> <span class="string">"Start: "</span>, cmdString</span><br><span class="line">	ret = os.system(cmdString)</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"Finish: "</span>, cmdString</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用方法</span></span><br><span class="line">callSys(<span class="string">"yarn install"</span>)</span><br><span class="line">runSys(<span class="string">"npm install -d "</span>)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>写入文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">writeFile</span><span class="params">(filePath, content)</span>:</span></span><br><span class="line">	<span class="keyword">print</span> <span class="string">"\n"</span></span><br><span class="line">	<span class="keyword">print</span> <span class="string">"Start writeFile: "</span>, filePath</span><br><span class="line">	fo = open(filePath, <span class="string">"w"</span>)</span><br><span class="line">	fo.write(content)</span><br><span class="line">	fo.close()</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"Finish writeFile: "</span>, filePath</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>输入Y继续程序</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">needYes</span><span class="params">(description)</span>:</span></span><br><span class="line">  str=raw_input(<span class="string">"%s (Y/n)"</span>)</span><br><span class="line">  <span class="keyword">if</span> str==<span class="string">"Y"</span> <span class="keyword">or</span> str==<span class="string">"y"</span> <span class="keyword">or</span> str=<span class="string">""</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"您已同意,程序继续"</span></span><br><span class="line">    <span class="keyword">return</span> TRUE</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"你已拒绝,程序停止"</span></span><br><span class="line">    exit()</span><br><span class="line">    <span class="keyword">return</span> FALSE</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>获取脚本的文件夹路径</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取脚本文件的当前路径</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cur_file_dir</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="comment">#获取脚本路径</span></span><br><span class="line">  path = sys.path[<span class="number">0</span>]</span><br><span class="line">  <span class="keyword">if</span> os.path.isdir(path):</span><br><span class="line">    <span class="keyword">return</span> path</span><br><span class="line">  <span class="keyword">elif</span> os.path.isfile(path):</span><br><span class="line">    <span class="keyword">return</span> os.path.dirname(path)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>获取当前liunx的用户名<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_username</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">return</span> pwd.getpwuid(os.getuid())[<span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>进程睡眠(单位秒)<code>time.sleep(10)</code></p>
+</blockquote>
+<blockquote>
+<p>进入指定文件夹 </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 调用 os的方法:</span></span><br><span class="line">os.chdir(/home/wbxac/)</span><br><span class="line"></span><br><span class="line"><span class="comment">#调用上文的方法:</span></span><br><span class="line">callSys(<span class="string">"cd /home/wbxac/"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#自定义一个方法:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cd_dir</span><span class="params">(path)</span>:</span></span><br><span class="line">  os.chdir(path)</span><br><span class="line">  cwdDir = os.getcwd()</span><br><span class="line">  <span class="keyword">print</span> <span class="string">"current dir ="</span>, cwdDir</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>获取当前文件夹的路径<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">current_dir</span><span class="params">()</span>:</span></span><br><span class="line">  cwdDir = os.getcwd()</span><br><span class="line">  <span class="keyword">print</span> <span class="string">"current dir ="</span>, cwdDir</span><br><span class="line">  <span class="keyword">return</span> cwdDir</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>发送POST请求</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib, urllib2</span><br><span class="line"><span class="comment">#http post application/json数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">http_post_application_json</span><span class="params">(url, data)</span>:</span></span><br><span class="line">  headers = &#123;<span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>&#125;</span><br><span class="line">  request = urllib2.Request(url=url, headers=headers, data=json.dumps(data))</span><br><span class="line">  response = urllib2.urlopen(request)</span><br><span class="line">  res = response.read()</span><br><span class="line">  jsonObj = json.loads(res)</span><br><span class="line">  <span class="keyword">return</span> jsonObj</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下载文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib, urllib2</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">downloadFile</span><span class="params">(url, file_name)</span>:</span></span><br><span class="line">  u = urllib2.urlopen(url)</span><br><span class="line">  f = open(file_name, <span class="string">'wb'</span>)</span><br><span class="line">  meta = u.info()</span><br><span class="line">  file_size = int(meta.getheaders(<span class="string">"Content-Length"</span>)[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">  file_size_dl = <span class="number">0</span></span><br><span class="line">  block_sz = <span class="number">8192</span></span><br><span class="line">  <span class="comment"># 循环写入指定文件中</span></span><br><span class="line">  <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    buffer = u.read(block_sz)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> buffer:</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    file_size_dl += len(buffer)</span><br><span class="line">    f.write(buffer)</span><br><span class="line">  f.close()</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>unzip 解压zip文件<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> zipfile,os</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">un_zip</span><span class="params">(file_name)</span>:</span></span><br><span class="line">    <span class="string">"""unzip zip file"""</span></span><br><span class="line">    zip_file = zipfile.ZipFile(file_name)</span><br><span class="line">    <span class="keyword">if</span> os.path.isdir(file_name + <span class="string">"_files"</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        os.mkdir(file_name + <span class="string">"_files"</span>)</span><br><span class="line">    <span class="keyword">for</span> names <span class="keyword">in</span> zip_file.namelist():</span><br><span class="line">        zip_file.extract(names,file_name + <span class="string">"_files/"</span>)</span><br><span class="line">    zip_file.close()</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>修改文件行</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改文件行</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">changeFileLine</span><span class="params">(fileName, oldString, newString)</span>:</span></span><br><span class="line">  change_file_dir = fileName</span><br><span class="line">  changeLines = []</span><br><span class="line">  file = open(change_file_dir, <span class="string">'r'</span>)</span><br><span class="line">  <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    lines = file.readlines(<span class="number">100000</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lines:</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">      newLine = line.replace(oldString, newString)</span><br><span class="line">      changeLines.append(newLine)</span><br><span class="line">  file.close()</span><br><span class="line">  file = open(change_file_dir, <span class="string">'w'</span>)</span><br><span class="line">  file.writelines(changeLines)</span><br><span class="line">  file.close()</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">PYTHON</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/04/python2019-3-4常用方法总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-最近-19年2月18日-使用postgresql-常用语句记录" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -897,95 +1018,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/12/04/数据库SQL汇总/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nginx原理及配置_百度脑图" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/30/nginx原理及配置_百度脑图/">nginx原理及配置_百度脑图</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/30/nginx原理及配置_百度脑图/" class="archive-article-date">
-  	<time datetime="2018-11-30T07:36:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>平时用<code>NGINX</code>也不少,感觉它简单并且强大.但始终没有去系统的了解<code>NGINX</code>的详细配置,于是有了这张百度脑图,算是一个对<code>NGINX</code>的总结,也能在不知道怎么配置的时候一目了然的看一看.</p>
-</blockquote>
-<p>脑图分为:</p>
-<ol>
-<li>什么是<code>nginx</code> 解释了 代理服务器和反向代理服务器的区别</li>
-<li>他的原理是什么 ,基本了解了他的原理后,发现他和<code>node</code>同出一辙</li>
-<li><code>nginx</code>的优势和特点,居于多work 单进程的特点+事件模型 让他少了上下文的切换减少了CPU和内存的消耗</li>
-<li>详细的配置信息</li>
-</ol>
-<p>看完了这些我发现,在程序中做了太多不应该做的事情,就像原本数据库可以很好解决的功能一样,如果我们放到程序中去做,不仅不好处理而且会浪费内存(加载数据到内存中程序处理). 为什么想不到? 归结到一点 知识面太窄了!</p>
-<p>下面是脑图的地址:<br><a href="http://naotu.baidu.com/file/2e31394a3e0de889fad54ed53b31cba9?token=1f9d173d9bca989e" target="_blank" rel="noopener">nginx百度脑图</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NGINX</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/30/nginx原理及配置_百度脑图/">展开全文 >></a>
         </p>
       
 
