@@ -162,6 +162,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-珠峰6第九节HTTP2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/27/珠峰6第九节HTTP2/">珠峰6第九节HTTP2</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/27/珠峰6第九节HTTP2/" class="archive-article-date">
+  	<time datetime="2019-11-27T06:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="http-压缩和缓存"><a href="#http-压缩和缓存" class="headerlink" title="http 压缩和缓存"></a>http 压缩和缓存</h3><p>使用http模块仿写一个http-server<br>代码已传到git:<a href="https://github.com/daiyunchao/dychttpserver中" target="_blank" rel="noopener">https://github.com/daiyunchao/dychttpserver中</a></p>
+<p>流可分为 可读流 可写流 双共流(可读可写流) 转换流(压缩就是使用的转换流)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可写流,标准输出功能同 console.log('字符串')</span></span><br><span class="line"><span class="comment">//作用是将文本输出到控制台</span></span><br><span class="line">process.stdout.write(<span class="string">'字符串'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//可读流,接收用户输入的内容</span></span><br><span class="line">process.stdin.on(<span class="string">'data'</span>,()=&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//转换流的小例子:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可写流</span></span><br><span class="line"><span class="comment">// process.stdout.write('这是一段内容')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可写流</span></span><br><span class="line"><span class="comment">// process.stdin.on('data', (data) =&gt; &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//通过可读流和可写流实现回声效果:</span></span><br><span class="line"><span class="comment">//就像 createReadStream(filepath).pipe(res) 相同功能</span></span><br><span class="line"><span class="comment">//process.stdin.pipe(process.stdout)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//添加需求,如何才能将我的回声效果中输入的小写字母转换成大写字母呢</span></span><br><span class="line"><span class="comment">//就需要我们的转换流</span></span><br><span class="line"><span class="comment">//调用就变成了</span></span><br><span class="line"><span class="comment">//process.stdin.pipe(charTransform).pipe(process.stdout) 如何实现呢</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123; Transform &#125; = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CharTransform</span> <span class="keyword">extends</span> <span class="title">Transform</span> </span>&#123;</span><br><span class="line">  _transform(chunk, encoding, callback) &#123;</span><br><span class="line">    chunk = chunk.toString().toUpperCase();</span><br><span class="line">    <span class="comment">// console.log("chunk==&gt;",chunk);</span></span><br><span class="line">    <span class="keyword">this</span>.push(chunk)</span><br><span class="line">    callback();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> charTransform = <span class="keyword">new</span> CharTransform();</span><br><span class="line">process.stdin.pipe(charTransform).pipe(process.stdout)</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/27/珠峰6第九节HTTP2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-珠峰6第九节HTTP" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1019,90 +1103,6 @@
 
 
   
-    <article id="post-珠峰6自己实现模版引擎" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/17/珠峰6自己实现模版引擎/">珠峰6自己实现模版引擎</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/17/珠峰6自己实现模版引擎/" class="archive-article-date">
-  	<time datetime="2019-09-17T06:56:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="模版引擎"><a href="#模版引擎" class="headerlink" title="模版引擎"></a>模版引擎</h3><blockquote>
-<p>自己实现一个类似于EJS的模版引擎<br>核心原理是:<br>1.正则表达式代替字符串<br>2.使用with包裹作用域<br>3.为了作用域的干净使用new Function()形成一个独立的函数作用域<br>4.各种代替字符串</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">let</span> templateContent = fs.readFileSync(<span class="string">'./template.html'</span>).toString();</span><br><span class="line"><span class="comment">// console.log(templateContent);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 最基本的字符串代替:&lt;%%&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">content, obj</span>) </span>&#123;</span><br><span class="line">  content = content.replace(<span class="regexp">/\&lt;\%(.+?)\%\&gt;/g</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> obj[<span class="built_in">arguments</span>[<span class="number">1</span>]];</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> content;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//有 &lt;%=%&gt;js函数的模版引擎</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">content, obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> head = <span class="string">``</span>;</span><br><span class="line">  <span class="keyword">let</span> body = <span class="string">``</span>;</span><br><span class="line">  <span class="keyword">let</span> tail = <span class="string">``</span>;</span><br><span class="line">  head = <span class="string">`</span></span><br><span class="line"><span class="string">    let str = ''</span></span><br><span class="line"><span class="string">    with (obj) &#123;</span></span><br><span class="line"><span class="string">  `</span>;</span><br><span class="line"></span><br><span class="line">  body = <span class="string">'str+=`'</span> + content + <span class="string">'`'</span>;</span><br><span class="line">  body = body.replace(<span class="regexp">/\&lt;\%([^=]+?)\%\&gt;/g</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'$&#123;'</span>+<span class="built_in">arguments</span>[<span class="number">1</span>]+<span class="string">'&#125;'</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  body = body.replace(<span class="regexp">/\&lt;\%\=(.+?)\%\&gt;/g</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'`;'</span> + <span class="built_in">arguments</span>[<span class="number">1</span>] + <span class="string">'\r\n str+=`'</span>;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  tail = <span class="string">` &#125;; return str; `</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> fn = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'obj'</span>, head + body + tail);</span><br><span class="line">  <span class="keyword">return</span> fn(obj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> newContent = render(templateContent, &#123; <span class="attr">name</span>: <span class="string">"zhangsan"</span>, <span class="attr">age</span>: <span class="number">19</span>,<span class="attr">list</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] &#125;);</span><br><span class="line"><span class="built_in">console</span>.log(newContent);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/17/珠峰6自己实现模版引擎/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1216,11 +1216,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">REDIS</a>
+                <a href="javascript:void(0)" class="js-tag color2">PYTHON</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">PYTHON</a>
+                <a href="javascript:void(0)" class="js-tag color1">REDIS</a>
               </li>
              
               <li class="article-tag-list-item">
