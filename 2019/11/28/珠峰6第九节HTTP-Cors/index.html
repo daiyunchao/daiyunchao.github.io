@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/9 | daiyunchao&#39;s blog</title>
+  <title>珠峰6第九节HTTP_Cors | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/09/page/2/index.html">
+  <meta name="description" content="http跨域 常见的跨域解决方案 jsonp cors websocket 跨域包含 协议不同 域名不同 端口不同  cors 使用cors处理跨域的问题,是在响应中设置Access-Control-Allow-Origin 例子:res.setHeader(&amp;#39;Access-Control-Allow-Origin&amp;#39;,&amp;#39;*&amp;#39;) req.headers.origin">
+<meta name="keywords" content="前端,后端,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="珠峰6第九节HTTP_Cors">
+<meta property="og:url" content="http://yoursite.com/2019/11/28/珠峰6第九节HTTP-Cors/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="http跨域 常见的跨域解决方案 jsonp cors websocket 跨域包含 协议不同 域名不同 端口不同  cors 使用cors处理跨域的问题,是在响应中设置Access-Control-Allow-Origin 例子:res.setHeader(&amp;#39;Access-Control-Allow-Origin&amp;#39;,&amp;#39;*&amp;#39;) req.headers.origin">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-28T02:56:50.321Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="珠峰6第九节HTTP_Cors">
+<meta name="twitter:description" content="http跨域 常见的跨域解决方案 jsonp cors websocket 跨域包含 协议不同 域名不同 端口不同  cors 使用cors处理跨域的问题,是在响应中设置Access-Control-Allow-Origin 例子:res.setHeader(&amp;#39;Access-Control-Allow-Origin&amp;#39;,&amp;#39;*&amp;#39;) req.headers.origin">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,36 +165,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-珠峰6第九节HTTP-Cors" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      珠峰6第九节HTTP_Cors
+    </h1>
+  
+
+        
+        <a href="/2019/11/28/珠峰6第九节HTTP-Cors/" class="archive-article-date">
+  	<time datetime="2019-11-28T02:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="http跨域"><a href="#http跨域" class="headerlink" title="http跨域"></a>http跨域</h3><ul>
+<li>常见的跨域解决方案 <code>jsonp</code> <code>cors</code> <code>websocket</code></li>
+<li>跨域包含 <code>协议不同</code> <code>域名不同</code> <code>端口不同</code></li>
+</ul>
+<h4 id="cors"><a href="#cors" class="headerlink" title="cors"></a>cors</h4><ul>
+<li>使用cors处理跨域的问题,是在响应中设置<code>Access-Control-Allow-Origin</code> 例子:<code>res.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;)</code> req.headers.origin 表示谁访问我就允许谁跨域,作用和*相同</li>
+<li>如果是复杂请求(一般请求添加了自定义的header就是复杂请求,复杂请求会先发一次options请求(options只是试探是否可以访问),) 如果设置了自定义的头需要在返回中设置 <code>Access-Control-Allow-Headers</code>来允许头的跨域 例子: <code>res.setHeader(&#39;Access-Control-Allow-Headers&#39;,&#39;token,my_uid&#39;)</code></li>
+<li>如果发送了一个非<code>get</code> <code>post</code>的请求也是一个复杂的请求,也需要设置服务器端允许的方法 <code>Access-Control-Allow-Methods</code> 例子: <code>res.setHeader(&#39;Access-Control-Allow-Methods&#39;,&#39;GET,POST,DELETE,UPDATE&#39;)</code></li>
+<li>如果是跨域并且是复杂请求会先发一个<code>options</code>的请求去试探可不可以进行请求,这个<code>options</code>的时间也是可以设置的 单位是秒:<code>res.setHeader(&#39;Access-Control-Max-Age&#39;,1800)</code> 这样这个试探的<code>options</code>就会间隔1800秒再次询问</li>
+<li><p>如果是跨域需要携带<code>cookie</code>,则需要在服务器端设置 允许携带凭证 <code>Access-Control-Allow-Credentials</code> 例子: <code>res.setHeader(&#39;Access-Control-Allow-Credentials&#39;,true)</code> 注:fetch请求需要添加特定的参数才能携带cookie</p>
+</li>
+<li><p>写起来很麻烦，当然也可以使用 第三方库<code>cors</code>来使用很简单</p>
+</li>
+</ul>
+<h4 id="反向代理-amp-正向代理"><a href="#反向代理-amp-正向代理" class="headerlink" title="反向代理&amp;正向代理"></a>反向代理&amp;正向代理</h4><ul>
+<li>什么是正向代理： 代理服务器和客户端是一头的，对服务器而已代理是透明的，比如翻墙使用的代理，就是正向代理 这个时候代理服务器的作用多数是认证、权限验证</li>
+<li>什么是反向代理： 代理服务器和服务器是一头的，对客户端而已代理是透明的，比如nginx webpack proxy 这个时候代理服务器的作用多数是 缓存</li>
+<li>webpack proxy的原理 其实就是一个中转服务器，可使用<code>http-proxy</code>第三方库实现<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用http-proxy的小例子</span></span><br><span class="line"><span class="comment">//也是反向代理的一个小例子</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"><span class="keyword">const</span> httpProxy=<span class="built_in">require</span>(<span class="string">'http-proxy'</span>);</span><br><span class="line"><span class="keyword">let</span> hp=httpProxy.createProxyServer();</span><br><span class="line">http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">//将全部的请求都代理到目标baidu服务器上去进行处理</span></span><br><span class="line">  hp.web(req,res,&#123;<span class="attr">target</span>:<span class="string">'http://www.baidu.com'</span>&#125;)</span><br><span class="line">&#125;).listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用httpProxy实现最基本的反向代理功能</span></span><br><span class="line"><span class="comment">//需求：假如一台服务器是www.abc.com 和 www.bcd.com两个域名的主机，现在要通过反向代理的方式将两个域名的请求区分开</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"><span class="keyword">const</span> httpProxy=<span class="built_in">require</span>(<span class="string">'http-proxy'</span>)</span><br><span class="line"><span class="keyword">let</span> serverProxys=&#123;</span><br><span class="line">  <span class="string">"www.abc.com"</span>:<span class="string">"http://localhost:3000"</span>,</span><br><span class="line">  <span class="string">"www.bcd.com"</span>:<span class="string">"http://localhost:3001"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> hp=httpProxy.createProxyServer();</span><br><span class="line">http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">  hp.web(req,res,&#123;<span class="attr">target</span>:serverProxys[req.headers.host]&#125;)</span><br><span class="line">&#125;).listen(<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="agent-通过user-agent进行转向"><a href="#agent-通过user-agent进行转向" class="headerlink" title="agent 通过user-agent进行转向"></a>agent 通过user-agent进行转向</h4><ul>
+<li>主要是针对目前 pc和手机端不是相同的进程</li>
+<li>客户端通过判断agent也能实现这个效果，不过看到的response不是302<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例子：如果是手机页面跳转到百度 如果不是手机则跳转到bing</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line">http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> agent=req.headers[<span class="string">"user-agent"</span>];</span><br><span class="line">  <span class="keyword">if</span>(agent.includes(<span class="string">"iPhone"</span>))&#123;</span><br><span class="line">    res.statusCode=<span class="number">302</span>;</span><br><span class="line">    res.setHeader(<span class="string">'Location'</span>,<span class="string">"http://www.baidu.com"</span>);</span><br><span class="line">    res.end()</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    res.statusCode=<span class="number">302</span>;</span><br><span class="line">    res.setHeader(<span class="string">'Location'</span>,<span class="string">"http://www.bing.com"</span>);</span><br><span class="line">    res.end()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/12/珠峰6常用数据结构/" class="archive-article-date">
-  	<time datetime="2019-09-12T09:36:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/12/珠峰6常用数据结构/">珠峰6常用数据结构</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -209,114 +238,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/28/珠峰6第九节HTTP-Cors/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/珠峰6ES2笔记/" class="archive-article-date">
-  	<time datetime="2019-09-10T11:18:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/27/珠峰6第九节HTTP2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">珠峰6第九节HTTP2</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/10/珠峰6ES2笔记/">珠峰6ES2笔记</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/09/珠峰6ES笔记/" class="archive-article-date">
-  	<time datetime="2019-09-09T10:02:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/09/珠峰6ES笔记/">珠峰6ES笔记(01)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/09/">&laquo; Prev</a><a class="page-number" href="/archives/2019/09/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -340,8 +360,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
