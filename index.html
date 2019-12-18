@@ -162,6 +162,187 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-珠峰6第十三节webpack配置" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/18/珠峰6第十三节webpack配置/">珠峰6第十三节webpack配置</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/18/珠峰6第十三节webpack配置/" class="archive-article-date">
+  	<time datetime="2019-12-18T07:29:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="WEBPACK-配置"><a href="#WEBPACK-配置" class="headerlink" title="WEBPACK 配置"></a>WEBPACK 配置</h3><ul>
+<li>webpack是什么?</li>
+<li>webpack是js的静态模块打包器</li>
+<li>webpack-cli的作用是 解析用户输入的参数然后在传给webpack去打包 webpack4.0后成了一个必须品</li>
+<li>webpack-merge 用于合并配置文件的模块 为什么不用<code>object.assign</code>去合并呢?因为<code>assign</code>只能合并一层,但该模块循环合并</li>
+<li><p>webpack的核心内容</p>
+<ol>
+<li>入口(entry)</li>
+<li>输出(output)</li>
+<li>loader</li>
+<li>插件(plugins)</li>
+</ol>
+</li>
+<li><p>安装 <code>yarn add webpack yarn add webpack-cli</code></p>
+</li>
+<li>webpack是既支持nodejs的模块语法(commonjs)也支持es6的模块语法(es6module)(这也就是,我们在前端中引用了node的模块使用require(‘xxx’)webpack也认识)</li>
+<li><p>使用webpack打包的两种方式</p>
+<ol>
+<li>使用npx (npx是npm5.2版本后新增加的命令,用于执行node_modules/.bin/目录下的文件<code>npx webpack</code>)使用npx 可避免全局安装一些库</li>
+<li>在package.json的scripts中添加执行命令 <code>build:webpack --mode production</code> (为什么在命令行中输入webpack 得到的结果是没有这个命令,但是在package.json中就能执行呢?? 原因是:我们在执行 npm run xxx时,它会把当前项目node_modules/.bin目录下的文件链接到全局中去(这样就能执行webpack命令了),但这只是一瞬间的,当执行完了后就取消了连接)</li>
+</ol>
+</li>
+<li><p>webpack的默认配置文件 webpack.config.js webpack.file.js 因为webpack是基于nodejs的所以 webpack.config.js应该使用nodejs的语法 所以在根目录中添加文件<code>webpack.config.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最基本的使用方法: 导出一个对象</span></span><br><span class="line"><span class="comment">//问题: 如果是导出一个对象,则如果想区分 开发/产品 则可能会需要多个webpack的配置(可以在package.json中指定配置文件路径)</span></span><br><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="comment">//指定模式</span></span><br><span class="line">    mode:<span class="string">'development'</span></span><br><span class="line">    <span class="comment">//入口文件</span></span><br><span class="line">    entry:path.join(__dirname,<span class="string">'./src/index.js'</span>)</span><br><span class="line">    <span class="comment">//出口文件</span></span><br><span class="line">    output:&#123;</span><br><span class="line">        path:path.join(__dirname,<span class="string">'./dist'</span>),</span><br><span class="line">        filename:<span class="string">'main.js'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>webpack.config.js</code>导出一个函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="comment">//导出一个函数</span></span><br><span class="line"><span class="comment">//要求: 这个函数必须返回一个webpack的配置 </span></span><br><span class="line"><span class="comment">//在package.json中配置: "start2":"webpack --env.development", "build":"webpack --env.production" 这样会将env传入配置函数中</span></span><br><span class="line"><span class="comment">//为环境传入多个参数: webpack --env.development --env.a xxxx</span></span><br><span class="line"><span class="built_in">module</span>.exports=<span class="function">(<span class="params">env</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"env==&gt;"</span>,env);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定配置文件位置:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//package.json文件中</span></span><br><span class="line">scripts:&#123;</span><br><span class="line">    <span class="string">"start"</span>:<span class="string">"webpack --env.development --config ./config/webpack.base.js"</span> <span class="comment">//外挂env环境为:development 指定配置文件位置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>webpack-dev-server 开发服务器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最简单的使用</span></span><br><span class="line"><span class="comment">//在package.json中将webpack 代替成 webpack-dev-server </span></span><br><span class="line">scripts:&#123;</span><br><span class="line">    <span class="string">"start"</span>:<span class="string">"webpack-dev-server --config ./config.js"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>webpack-dev-server 如何配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    entry:path.join(__dirname,<span class="string">'./src/index.js'</span>),</span><br><span class="line">    output:&#123;</span><br><span class="line">        path:path.join(__dirname,<span class="string">'./dist'</span>),</span><br><span class="line">        filename:<span class="string">"index.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//配置devserver</span></span><br><span class="line">    devServer:&#123;</span><br><span class="line">        port:<span class="number">3000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>webpack的html打包插件 <code>html-webpack-plugin</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> HtmlWebPlugin=<span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>);</span><br><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> HtmlWebPlugin(&#123;</span><br><span class="line">        template:path.join(__dirname,<span class="string">'../public'</span>),</span><br><span class="line">        filename:<span class="string">'index.html'</span>,</span><br><span class="line">        <span class="comment">//压缩文件</span></span><br><span class="line">        minify:&#123;</span><br><span class="line">            removeAttributeQuotes:<span class="literal">true</span>,<span class="comment">//去掉双引号</span></span><br><span class="line">            collapseWhitespace:<span class="literal">true</span>,<span class="comment">//将代码压缩到一行</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>webpack 自动清除打包目录 <code>clean-webpack-plugin</code></p>
+</li>
+</ul>
+<ul>
+<li>扩展: <code>publicPath</code> 和 <code>contentBase</code></li>
+</ul>
+<p>在 webpack的根<code>/output</code>有一个<code>publicPath</code>配置 在<code>devServer</code>中也有一个<code>publicPath</code><br>区别:output中的publicPath:访问静态资源的路径，devServer中的publicPath影响资源在本地开发环境中的访问<br>一般将两个地方的output配置成相同的值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//配置例子:</span></span><br><span class="line"><span class="built_in">module</span>.exports=  &#123;</span><br><span class="line">  dev:&#123;</span><br><span class="line">    ...,</span><br><span class="line">    publicPath:<span class="string">"/assets/"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  build:&#123;</span><br><span class="line">    publicPath:<span class="string">"https://csdn.cdn.cn/"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">   entry:&#123;</span><br><span class="line">      ...</span><br><span class="line">   &#125;,</span><br><span class="line">   output:&#123;</span><br><span class="line">      ...,</span><br><span class="line">      publicPath:process.env.NODE_ENV==<span class="string">'development'</span>?config.dev.publicPath:config.build.publicPath</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>contentbase代表html页面所在的相对目录，如果我们不配置项，devServer默认html所在的目录就是项目的根目录<br>配置: index.html在哪 contentbase就应该配置到对应的目录</li>
+<li>这里需要注意一点，contentBase的路径是相对与webpack.config.js文件所在的目录的，有的时候，我们习惯将webpack配置文件统一放着一个build文件下，这个时候我们在写contentBase路径的时候就需要注意了</li>
+<li><p>总结: </p>
+<ol>
+<li>publicPath是访问静态资源的路径</li>
+<li>contentBase是用来指定被访问html页面所在目录的</li>
+</ol>
+</li>
+<li><p>webpack 解析css的两个loader</p>
+<ol>
+<li>css-loader 识别css</li>
+<li>style-loader 将css插入到html的style标签中</li>
+<li>如果要解析sass文件 需要安装 node-sass和sass-loader (webpack配置为 [‘style-loader’,’css-loader’,’sass-loader’])</li>
+<li>如果要解析less文件 需要安装less和less-loader</li>
+<li>为css添加前缀 postcss-loader autoprefixer</li>
+<li>避免css放到页面的style标签中可使用 <code>mini-css-extract-plugin</code>将样式进行抽离到单独的css文件中</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在webpack配置中,loader的配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//简单写法:</span></span><br><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/.css$/</span>,</span><br><span class="line">            use:[<span class="string">'style-loader'</span>,<span class="string">'css-loader'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//给loader传递参数</span></span><br><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/.css$/</span>,</span><br><span class="line">            use:[<span class="string">'style-loader'</span>,&#123;</span><br><span class="line">                loader:<span class="string">'css-loader'</span>,</span><br><span class="line">                options:&#123;</span><br><span class="line">                    <span class="comment">//这里放的css-loader的参数</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例子,如果我们在css文件中@import了一个sass文件在webpack中如何配置呢?</span></span><br><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/.css$/</span>,</span><br><span class="line">            use:[<span class="string">'style-loader'</span>,&#123;</span><br><span class="line">                loader:<span class="string">'css-loader'</span>,</span><br><span class="line">                options:&#123;</span><br><span class="line">                    <span class="comment">//这里放的css-loader的参数</span></span><br><span class="line">                    <span class="comment">//如果该文件中有@import样式,则使用下面[1]个来执行@import进来的文件</span></span><br><span class="line">                    importLoaders:<span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,<span class="string">'sass-loader'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//mini-css-extract-plugin 使用例子:</span></span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin=<span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/.css$/</span>,</span><br><span class="line">            </span><br><span class="line">            use:[</span><br><span class="line">                <span class="comment">//使用MiniCssExtractPlugin.loader进行处理,style-loader是将全部的样式放到html的style标签中,所有使用新的loader代替</span></span><br><span class="line">                MiniCssExtractPlugin.loader,&#123;</span><br><span class="line">                loader:<span class="string">'css-loader'</span>,</span><br><span class="line">                options:&#123;</span><br><span class="line">                    <span class="comment">//这里放的css-loader的参数</span></span><br><span class="line">                    <span class="comment">//如果该文件中有@import样式,则使用下面[1]个来执行@import进来的文件</span></span><br><span class="line">                    importLoaders:<span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,<span class="string">'sass-loader'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">        filename:<span class="string">'css/main.css'</span><span class="comment">//打包到独立文件的文件名,可以是路径</span></span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>webpack的优化项 <code>optimization</code></li>
+<li>如果需要压缩css文件可以在 <code>optimization</code>中使用<code>optimize-css-asserts-plugin</code>,但问题是如果使用了,js文件也需要手动压缩</li>
+<li><p>如果需要压缩js文件可以在<code>optimization</code>中使用<code>terser-webpack-plugin</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> OptimizeCssAssertsPlugin=<span class="built_in">require</span>(<span class="string">'optimize-css-asserts-plugin'</span>)</span><br><span class="line"><span class="keyword">const</span> TerserWebpackPlugin=<span class="built_in">require</span>(<span class="string">'terser-webpack-plugin'</span>)</span><br><span class="line">mode:<span class="string">'xxxx'</span>,</span><br><span class="line">optimization:&#123;</span><br><span class="line">    minimizer:[</span><br><span class="line">        <span class="keyword">new</span> OptimizeCssAssertsPlugin(),</span><br><span class="line">        <span class="keyword">new</span> TerserWebpackPlugin()</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>webpack 处理文件的loader <code>file-loader</code> 自动拷贝文件 如果需要转换成base64 使用<code>url-loader</code> </p>
+</li>
+<li><p>webpack去转换js 主要会使用到的是babel</p>
+</li>
+<li><code>@babel/core</code> babel的核心模块</li>
+<li><code>@babel/presets-env</code> 包含将es6转换成es5的全部包的集合(就是插件的集合)</li>
+<li><code>babel-loader</code> 是webpack的loader</li>
+<li>它们三者的关系是 webpack打包的时候使用 <code>babel-loader</code>去调用<code>@babel/core</code>去转换,而在<code>@babel/core</code>转换过程中也需要调用到<code>@babel/presets-env</code></li>
+<li>为什么babel7前面会有一个@? 是因为它使用了 <code>npm private scope</code> 将<code>@babel</code>变成了一个作用域,将它的相关库都放到了<code>@babel</code>作用域下,防止重名</li>
+<li><p><code>.babelrc</code>文件是干嘛的? <code>.babelrc</code>文件就是 <code>babel-loader</code>的<code>options</code>选项,如果觉得webpack.config文件中写的过多,则可以使用<code>.babelrc</code>文件进行分离</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//.babelrc文件示例:</span></span><br><span class="line"><span class="comment">//presets 中放的是插件的集合</span></span><br><span class="line"><span class="comment">//plugins 中放的是单个插件</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"presets"</span>:[</span><br><span class="line">        <span class="string">"@babel/preset-env"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>:[</span><br><span class="line"></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>babelrc</code>文件中的 presets执行顺序是从下向上执行 而 plugins的执行顺序是从上向下执行的</p>
+</li>
+<li><p>在 babel7中 <code>babel-polyfill</code>已经废弃,代替它的方法是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"presets"</span>:[</span><br><span class="line">        [</span><br><span class="line">            <span class="string">"@babel/preset-env"</span>,&#123;</span><br><span class="line">                <span class="string">"useBuiltIns"</span>:<span class="string">"usage"</span>,<span class="comment">//按需加载一些使用到的库</span></span><br><span class="line">                <span class="string">"corejs"</span>:<span class="number">2</span>,<span class="comment">//使用corejs的版本二</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>:[</span><br><span class="line"></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>@babel/plugin-transform-runtime</code> 都以导入的方式使用Babel的帮助函数，而不是每个文件都复制一份帮助函数的代码</p>
+<ol>
+<li>提高代码重用性，缩小编译后的代码体积</li>
+<li>防止污染全局作用域。（启用corejs配置）</li>
+</ol>
+</li>
+<li><p><code>@babel/preset-typescript</code> 可以用于解析 <code>typescript</code>语法</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/18/珠峰6第十三节webpack配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-珠峰6第十一节KOA应用" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1038,109 +1219,9 @@
 
 
   
-    <article id="post-珠峰6Node基础" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/19/珠峰6Node基础/">珠峰6Node基础</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/19/珠峰6Node基础/" class="archive-article-date">
-  	<time datetime="2019-09-19T10:48:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Nodejs的基础"><a href="#Nodejs的基础" class="headerlink" title="Nodejs的基础"></a>Nodejs的基础</h3><h4 id="Node中的全局属性"><a href="#Node中的全局属性" class="headerlink" title="Node中的全局属性"></a>Node中的全局属性</h4><blockquote>
-<p><code>global</code> 全局对象<br><code>global</code>中的属性是全局属性<br><code>nodejs</code>单文件中的<code>this</code>代表的是<code>module.exports</code>,原因是因为在<code>node</code>中会将该文件进行包装 <code>(function xxx(exports,module,require,__dirname,__filename){})...</code></p>
-</blockquote>
-<blockquote>
-<p><code>process</code>进程<br>  当前进程的一些信息<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用platform判断当前平台</span></span><br><span class="line">process.platform <span class="comment">//win32(windows) darwin(mac)</span></span><br><span class="line">process.argv <span class="comment">//获取用户传入的参数 前两个参数, 1.node执行文件的位置 2.启动node文件的绝对路径</span></span><br><span class="line">process.chdir process.cwd()<span class="comment">//current working directory</span></span><br><span class="line">process.env <span class="comment">//环境变量</span></span><br><span class="line">process.nextTick <span class="comment">//node中的微任务</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//或可执行使用 commander包 还可以提供--helper功能</span></span><br><span class="line"><span class="comment">//获取process.argv 用户传入的参数,该方法只使用于 参数 -e -port</span></span><br><span class="line"><span class="keyword">let</span> arr = process.argv.slice(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">let</span> argvConfigs=arr.reduce(<span class="function">(<span class="params">pre, current, index, arr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (current.includes(<span class="string">'-'</span>)) &#123;</span><br><span class="line">    pre[current.slice(<span class="number">1</span>)] = arr[index + <span class="number">1</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> pre;</span><br><span class="line">&#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(argvConfigs);</span><br></pre></td></tr></table></figure>
-  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//commander + chalk 可实现 有色彩的命令行</span></span><br><span class="line"><span class="keyword">const</span> program = <span class="built_in">require</span>(<span class="string">'commander'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//配置属性</span></span><br><span class="line">program </span><br><span class="line">  .option(<span class="string">'-p, --port &lt;val&gt;'</span>, <span class="string">'set port'</span>)<span class="comment">//自定义设置参数</span></span><br><span class="line">  .version(<span class="string">'1.0.0'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//配置命令</span></span><br><span class="line">program </span><br><span class="line">    .command(<span class="string">'create'</span>).alias(<span class="string">'c'</span>).description(<span class="string">'create new project'</span>).action(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"in create project"</span>);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//监听命令,自定义输出内容</span></span><br><span class="line">program.on(<span class="string">'--help'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"自定义输出的内容"</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"自定义输出的内容"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//解析 process.argv</span></span><br><span class="line">program.parse(process.argv);</span><br><span class="line">  <span class="built_in">console</span>.log(program.port);</span><br></pre></td></tr></table></figure>
-<h4 id="process-cwd-当前工作文件夹"><a href="#process-cwd-当前工作文件夹" class="headerlink" title="process.cwd 当前工作文件夹"></a>process.cwd 当前工作文件夹</h4><blockquote>
-<p>cwd=&gt; current working directiory 当前工作目录 指的是:在哪执行命令的目录<br><code>process.cwd()</code> 功能和<code>path.reslove()</code>相同<br>比如我在 <code>a/b/c</code> 目录下执行命令 <code>node index.js</code> 此时的<code>cwd</code>就是 <code>a/b/c</code><br>再比如我在 <code>a/b</code> 目录下执行命令 <code>node ./c/index.js</code> 此时的<code>cwd</code>就是 <code>a/b</code> 而不是<code>a/b/c</code><br><code>Buffer</code> 缓冲区<br><code>clearInterval</code> <code>setInterval</code> 宏任务<br><code>clearTimeout</code> <code>setTimeout</code> 宏任务<br><code>clearImmedite</code> <code>setImmediate</code> 宏任务</p>
-</blockquote>
-<h4 id="process-env-环境变量"><a href="#process-env-环境变量" class="headerlink" title="process.env 环境变量"></a>process.env 环境变量</h4><p>作用: 可根据环境变量不同,执行不同的操作,如<code>webpack</code>在<code>development</code>中不压缩代码,在<code>produection</code>中压缩代码<br>如何设置环境变量呢?</p>
-<p>设置临时变量:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在mac中是</span></span><br><span class="line"><span class="keyword">export</span> a=<span class="number">1</span> &amp;&amp; node index.js <span class="comment">//这个时候就将a=1这个变量放到了process.env对象中去了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在windows中是 </span></span><br><span class="line"><span class="comment">//set a=1  node index.js </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以使用包 cross-env</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="process-nextTick-微任务"><a href="#process-nextTick-微任务" class="headerlink" title="process.nextTick 微任务"></a>process.nextTick 微任务</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"time1"</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"then1"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then2"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">process.nextTick(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"nextTick"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印的结果是:</span></span><br><span class="line"><span class="comment">// nextTick then2 time1 then1 原因是因为在微任务中,nextTick的优先级是最高的</span></span><br></pre></td></tr></table></figure>
-<h4 id="nodeJs的EventLoop"><a href="#nodeJs的EventLoop" class="headerlink" title="nodeJs的EventLoop"></a>nodeJs的<code>EventLoop</code></h4><p><code>Nodejs</code>的<code>EventLoop</code>和浏览器的基本相同,不同的在于 <code>Node</code>将宏任务列表分成了 <code>timer队列(setTimeout)</code> <code>poll队列(IO)</code> <code>check(setImmdiate)</code></p>
-<blockquote>
-<p><code>setTimeout</code>和<code>setImmidiate</code>的执行顺序是不一定的</p>
-</blockquote>
-<p>经典面试题:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async1 start"</span>);</span><br><span class="line">  <span class="keyword">await</span> async2();</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async1 end"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"async2"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"script start"</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setTimeout"</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">reslove</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"promise1"</span>);</span><br><span class="line">  reslove();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"promise2"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"script end"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//在浏览器中</span></span><br><span class="line"><span class="comment">//在浏览器中,await解析出来的结果是: async2().then(()=&gt;&#123;log('async1 end')&#125;)</span></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// async1 start</span></span><br><span class="line"><span class="comment">// async2</span></span><br><span class="line"><span class="comment">// promise1</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// async1 end</span></span><br><span class="line"><span class="comment">// promise2</span></span><br><span class="line"><span class="comment">// setTimeout</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Node10以上版本中</span></span><br><span class="line"><span class="comment">//在浏览器中,await解析出来的结果是: async2().then(()=&gt;&#123;return&#125;).then(()=&gt;&#123;log('async1 end')&#125;)</span></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// async1 start</span></span><br><span class="line"><span class="comment">// async2</span></span><br><span class="line"><span class="comment">// promise1</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// promise2</span></span><br><span class="line"><span class="comment">// async1 end</span></span><br><span class="line"><span class="comment">// setTimeout</span></span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/19/珠峰6Node基础/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
