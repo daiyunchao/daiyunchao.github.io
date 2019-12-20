@@ -162,6 +162,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-珠峰6Node模块2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/20/珠峰6Node模块2/">珠峰6Node模块2</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/20/珠峰6Node模块2/" class="archive-article-date">
+  	<time datetime="2019-09-20T06:53:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Node的模块加载"><a href="#Node的模块加载" class="headerlink" title="Node的模块加载"></a>Node的模块加载</h3><h4 id="回顾-简易版的模块加载"><a href="#回顾-简易版的模块加载" class="headerlink" title="回顾 简易版的模块加载"></a>回顾 简易版的模块加载</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> vm = <span class="built_in">require</span>(<span class="string">'vm'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Module</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(filepath) &#123;</span><br><span class="line">    <span class="keyword">this</span>.id = filepath;</span><br><span class="line">    <span class="keyword">this</span>.exports = &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  load() &#123;</span><br><span class="line">    <span class="comment">//读取文件:</span></span><br><span class="line">    <span class="keyword">let</span> fileContent = fs.readFileSync(<span class="keyword">this</span>.id, <span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//包装文件</span></span><br><span class="line">    fileContent = <span class="string">'(function(exports,module,require)&#123;'</span> + fileContent + <span class="string">'&#125;)'</span>;</span><br><span class="line">    <span class="keyword">let</span> fn = vm.runInThisContext(fileContent);</span><br><span class="line">    fn(<span class="keyword">this</span>.exports, <span class="keyword">this</span>, req);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.exports;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">req</span>(<span class="params">filepath</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//文件的路径:</span></span><br><span class="line">  <span class="keyword">let</span> absolutepath = path.join(__dirname, filepath);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> <span class="built_in">module</span> = <span class="keyword">new</span> Module(absolutepath);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">//加载模块</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.load();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = req(<span class="string">'./a.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">//hello</span></span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/20/珠峰6Node模块2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-珠峰6Node基础" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -914,90 +996,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/09/珠峰6ES笔记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JS中的AST" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/22/JS中的AST/">JS中的AST</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/22/JS中的AST/" class="archive-article-date">
-  	<time datetime="2019-08-22T08:33:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>看过两个题目,问的是:a.b.c.d快 还是 a[b][c][d]快? 还有一个就是 <code>babel</code>是如何实现将<code>ES6</code>代码转换成<code>ES5</code>代码的?<br>其中涉及到了一个重要的基础知识<code>AST</code><br>&lt;&lt;AST抽象语法树——最基础的javascript重点知识，99%的人根本不了解&gt;&gt;讲的还不错<br><a href="https://segmentfault.com/a/1190000016231512?utm_source=tag-newest" target="_blank" rel="noopener">https://segmentfault.com/a/1190000016231512?utm_source=tag-newest</a></p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/22/JS中的AST/">展开全文 >></a>
         </p>
       
 

@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 前端 | daiyunchao&#39;s blog</title>
+  <title>珠峰6第十三节webpack优化 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/前端/index.html">
+  <meta name="description" content="webpack优化 purgecss-webpack-plugin 优化css,将没用到的css样式去掉,但需要配合mini-css-extra-plugin 没被引用的样式会被删除(但是不见得全部会被删除) 123456789//用于获取文件路径的库const glob=require(&apos;glob&apos;);const PrugeCssWebpackPlugin=require(&apos;purgecss-w">
+<meta name="keywords" content="前端,后端,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="珠峰6第十三节webpack优化">
+<meta property="og:url" content="http://yoursite.com/2019/12/20/珠峰6第十三节webpack优化/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="webpack优化 purgecss-webpack-plugin 优化css,将没用到的css样式去掉,但需要配合mini-css-extra-plugin 没被引用的样式会被删除(但是不见得全部会被删除) 123456789//用于获取文件路径的库const glob=require(&apos;glob&apos;);const PrugeCssWebpackPlugin=require(&apos;purgecss-w">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-20T06:59:21.272Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="珠峰6第十三节webpack优化">
+<meta name="twitter:description" content="webpack优化 purgecss-webpack-plugin 优化css,将没用到的css样式去掉,但需要配合mini-css-extra-plugin 没被引用的样式会被删除(但是不见得全部会被删除) 123456789//用于获取文件路径的库const glob=require(&apos;glob&apos;);const PrugeCssWebpackPlugin=require(&apos;purgecss-w">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,36 +165,80 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-珠峰6第十三节webpack优化" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      珠峰6第十三节webpack优化
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/20/珠峰6第十三节webpack优化/" class="archive-article-date">
+
+        
+        <a href="/2019/12/20/珠峰6第十三节webpack优化/" class="archive-article-date">
   	<time datetime="2019-12-20T06:58:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-20</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/20/珠峰6第十三节webpack优化/">珠峰6第十三节webpack优化</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="webpack优化"><a href="#webpack优化" class="headerlink" title="webpack优化"></a>webpack优化</h3><ul>
+<li><code>purgecss-webpack-plugin</code> 优化css,将没用到的css样式去掉,但需要配合<code>mini-css-extra-plugin</code></li>
+<li><p>没被引用的样式会被删除(但是不见得全部会被删除)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于获取文件路径的库</span></span><br><span class="line"><span class="keyword">const</span> glob=<span class="built_in">require</span>(<span class="string">'glob'</span>);</span><br><span class="line"><span class="keyword">const</span> PrugeCssWebpackPlugin=<span class="built_in">require</span>(<span class="string">'purgecss-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> PrugeCssWebpackPlugin(&#123;</span><br><span class="line">        paths:glob.sync(<span class="string">'./src/**/*'</span>,&#123;<span class="attr">nodir</span>:<span class="literal">true</span>&#125;)<span class="comment">//指定需要优化的样式路径</span></span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>image-webpack-loader</code>压缩图片,可配合<code>file-loader</code>一起使用,具体使用例子在:<a href="https://www.npmjs.com/package/image-webpack-loader" target="_blank" rel="noopener">https://www.npmjs.com/package/image-webpack-loader</a></p>
+</li>
+<li><p>webpack配置的<code>externals</code>外部变量,这是为了有的库不用打包到大的js中,而是用的cdn,或是外部直接引用的方式 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">externals:&#123;</span><br><span class="line">    <span class="comment">//格式'报名':'变量名'</span></span><br><span class="line">    <span class="string">'jquery'</span>:<span class="string">'$'</span><span class="comment">//这里的意思就是不去打包代码中的jquery</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>tree-sharking</code>webpack去掉无用代码特点:</p>
+<ol>
+<li>只支持es的导入<code>import xx from xxx</code>类似这种</li>
+<li>只能在生产环境下使用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">optimization:&#123;</span><br><span class="line">    <span class="comment">//如果开启了该功能在生产环境中将会自动的去掉没有引用到的代码</span></span><br><span class="line">    usedExports:<span class="literal">true</span>,<span class="comment">//在打包的文件中会标记文件哪些被导出了,哪些被用到了`exports used:xxxx`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//有下面这段代码:</span></span><br><span class="line"><span class="comment">//test.js </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello"</span>)</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> test;</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> test <span class="keyword">from</span> <span class="string">'./test.js'</span> <span class="comment">//这段代码只是引用了,但没有使用到,叫着副作用代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//这时候在生成代码,test会被当成是有意义的代码保留下来(因为内部执行了test方法)</span></span><br><span class="line"><span class="comment">//但是可能我们想删除这个只引用了但没使用的代码怎么办呢?</span></span><br><span class="line"><span class="comment">//在package.json中加入</span></span><br><span class="line">sideEffects:<span class="literal">true</span> <span class="comment">//就能删除这段代码了</span></span><br><span class="line"><span class="comment">//但设置了这个有一个问题 我们一般引用样式 import './index.css' 这样设置了就会被删除</span></span><br><span class="line"><span class="comment">//但是可以解决的, </span></span><br><span class="line"><span class="comment">//1.将import 修改成require</span></span><br><span class="line"><span class="comment">//2.将sideEffects配置成一个数组</span></span><br><span class="line">sideEffects:[</span><br><span class="line">    <span class="string">"**/*.css"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p><code>scope-hoisting</code> 减少作用域 这是webpack4 自带的功能,在生成环境中自动会使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> c=<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> d=a+b+c;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> d;</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> d <span class="keyword">from</span> <span class="string">'./a.js'</span></span><br><span class="line"><span class="built_in">console</span>.log(d)</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面这段代码会被优化成</span></span><br><span class="line"><span class="comment">// import d from './a.js'</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>dllPlugin</code>动态链接库 可以提升打包的速度</p>
+</li>
+<li><p>webpack打包第三方库</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打包 react react-dom</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">'react-dom'</span></span><br><span class="line">render(&lt;h1&gt;123&lt;/h1&gt; , <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//引用库文件,在打包的过程中就会去查找配置的缓存文件,如果文件中有指定的库,就不会再打包了</span></span><br><span class="line"><span class="keyword">const</span> DllReferencePlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllReferencePlugin;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成html</span></span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//向html中添加标签(dll文件需要引用到html中,因为现在打包的文件中没有打包react)</span></span><br><span class="line"><span class="keyword">const</span> AddAssetHtmlPlugin = <span class="built_in">require</span>(<span class="string">'add-asset-html-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: path.join(__dirname, <span class="string">'./src/index.js'</span>),</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.join(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">        filename: <span class="string">"main.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">'test'</span>: <span class="regexp">/\.js/</span>,</span><br><span class="line">                <span class="string">'use'</span>: &#123;</span><br><span class="line">                    loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        presets: [</span><br><span class="line">                            <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">                            <span class="string">"@babel/preset-react"</span></span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">//指定缓存文件位置</span></span><br><span class="line">        <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">            manifest: path.join(__dirname, <span class="string">'./dll/react-manifest.json'</span>)</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: path.join(__dirname, <span class="string">'./public/index.html'</span>),</span><br><span class="line">            filename: <span class="string">'index.html'</span></span><br><span class="line">        &#125;),</span><br><span class="line"></span><br><span class="line">        <span class="comment">//添加第三方库到html中</span></span><br><span class="line">        <span class="keyword">new</span> AddAssetHtmlPlugin(&#123;</span><br><span class="line">            filepath: path.resolve(__dirname, <span class="string">'./dll/react.dll.js'</span>),</span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//webpack.dll.js </span></span><br><span class="line"><span class="comment">//打包第三方库 react 和react-dom</span></span><br><span class="line"><span class="comment">//将 react 和react-dom 生成一个文件</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> DllPlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllPlugin;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: [<span class="string">'react'</span>, <span class="string">'react-dom'</span>],</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: <span class="string">"react"</span>,</span><br><span class="line">        filename: <span class="string">"react.dll.js"</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">"./dll"</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用这个会生成一个react-manifest.json的缓存文件</span></span><br><span class="line">        <span class="keyword">new</span> DllPlugin(&#123;</span><br><span class="line">            name:<span class="string">'react'</span>,</span><br><span class="line">            path:path.join(__dirname,<span class="string">'./dll/react-manifest.json'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如何打包一个前端的包让nodejs使用呢</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建了一个webpack.dll.js的webpack配置文件</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: path.join(__dirname, <span class="string">"./src/calc.js"</span>),</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: <span class="string">"calc"</span>,<span class="comment">//打包成一个立即执行函数,这个函数的返回值被赋到calc这个变量上</span></span><br><span class="line">        libraryTarget: <span class="string">"commonjs2"</span>,<span class="comment">// 可以使用 var(默认值) commonjs commonjs2</span></span><br><span class="line">        filename: <span class="string">"calc.js"</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">"./dll"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>import()</code> es草案语法动态导入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原来代码:</span></span><br><span class="line"><span class="keyword">import</span> &#123;add&#125; <span class="keyword">from</span> <span class="string">'./calc.js'</span>;</span><br><span class="line"><span class="keyword">let</span> button=<span class="built_in">document</span>.createElement(<span class="string">'button'</span>);</span><br><span class="line">button.innerHTML=<span class="string">'我是按钮'</span></span><br><span class="line">button.addEventListener(<span class="string">'click'</span>,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(add(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(button);</span><br><span class="line"><span class="comment">//但这种方式会有问题,因为 import是先执行的,会将calc文件先加载,</span></span><br><span class="line"><span class="comment">//现在的需求是: 如果我想在点击按钮的时候才去加载js 实现一个赖加载如何实现</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可以使用懒加载的方式</span></span><br><span class="line"><span class="comment">//修改后的代码</span></span><br><span class="line"><span class="keyword">let</span> button=<span class="built_in">document</span>.createElement(<span class="string">'button'</span>);</span><br><span class="line">button.innerHTML=<span class="string">'我是按钮'</span></span><br><span class="line">button.addEventListener(<span class="string">'click'</span>,()=&gt;&#123;</span><br><span class="line">    <span class="comment">//使用import()的方法,使用jsonp动态的加载js文件</span></span><br><span class="line">    <span class="comment">//1.不指定名称</span></span><br><span class="line">    <span class="keyword">import</span>(<span class="string">'./calc.js'</span>).then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data.add(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2. 可以指定jsonp加载问文件的名称,指定名称 video 最后生成的分包文件名就成了 video.min.js</span></span><br><span class="line">    <span class="comment">//这种写法叫"魔术字符串"</span></span><br><span class="line">    <span class="keyword">import</span>(<span class="comment">/* webpackChunkName:'video' */</span>,<span class="string">'./calc.js'</span>).then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data.add(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(button);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在webpack的output中可配置 chunkFilename 字段指定分包的名称<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output:&#123;</span><br><span class="line">    filename:<span class="string">"index.js"</span><span class="comment">//打包生成的主包的文件名</span></span><br><span class="line">    chunkFilename:<span class="string">"[name].min.js"</span>,<span class="comment">//分包的文件名 [name] 默认是从0开始的,但可以在import(/* webpackChunkName:'video'*/,'./calc.js')修改文件名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>配置多入口分包</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">entry:&#123;</span><br><span class="line">    <span class="string">'index'</span>:<span class="string">'./src/index.js'</span>,</span><br><span class="line">    <span class="string">'login'</span>:<span class="string">'./src/login.js'</span></span><br><span class="line">&#125;</span><br><span class="line">output:&#123;</span><br><span class="line">    filename:<span class="string">'[name].min.js'</span>,</span><br><span class="line">    path:path.join(__dirname,<span class="string">'./dist'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这样就会出现两个打包文件</span></span><br><span class="line"><span class="comment">//同样也需要在htmlwebpackplugin中指定代码块</span></span><br><span class="line"></span><br><span class="line">plugins:[</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成两个html文件并且都加载各自的代码块</span></span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">        template:<span class="string">'./src/index.html'</span>,</span><br><span class="line">        filename:<span class="string">'index.html'</span>,</span><br><span class="line">        chunks:[<span class="string">'index'</span>]</span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">        template:<span class="string">'./src/login.html'</span>,</span><br><span class="line">        filename:<span class="string">'login.html'</span>,</span><br><span class="line">        chunks:[<span class="string">'login'</span>]</span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    <span class="comment">//再生成一个需要引用两个js块的html</span></span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">        template:<span class="string">'./src/dashboard.html'</span>,</span><br><span class="line">        filename:<span class="string">'dashboard.html'</span>,</span><br><span class="line">        chunksSortMode:<span class="string">'manual'</span>,<span class="comment">//修改默认的script标签引用顺序,manual:通过数组的顺序来定义</span></span><br><span class="line">        chunks:[<span class="string">'login'</span>,<span class="string">'index'</span>],<span class="comment">//默认的script标签引用顺序是通过entry的规则来定义的</span></span><br><span class="line">    &#125;), </span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>webpack-bundle-analyzer</code> 打包文件的分析工具</p>
+</li>
+<li><p><code>splitChunks</code>webpack将第三方包进行抽离 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">optimization:&#123;</span><br><span class="line">    splitChunks:&#123;</span><br><span class="line">      chunks: <span class="string">'async'</span>,<span class="comment">//支持异步分隔代码 import() 可选参数:initial (同步的) all 部分 同步异步全部打包 async:只打包异步的</span></span><br><span class="line">      minSize: <span class="number">30000</span>,<span class="comment">//文件最小需要30k才会被抽离</span></span><br><span class="line">      minRemainingSize: <span class="number">0</span>,</span><br><span class="line">      maxSize: <span class="number">0</span>,</span><br><span class="line">      minChunks: <span class="number">1</span>,<span class="comment">//最少被引用了1次</span></span><br><span class="line">      maxAsyncRequests: <span class="number">6</span>, <span class="comment">//最多6个请求</span></span><br><span class="line">      maxInitialRequests: <span class="number">4</span>,<span class="comment">//首屏最多4个请求</span></span><br><span class="line">      automaticNameDelimiter: <span class="string">'~'</span>,<span class="comment">//名字中间的分隔符 </span></span><br><span class="line">      automaticNameMaxLength: <span class="number">30</span>,<span class="comment">//最长的名称长度不超过30</span></span><br><span class="line">      cacheGroups: &#123; <span class="comment">//缓存组(就是匹配规则)</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//如果在node_modules中使用</span></span><br><span class="line">        vendors: &#123;</span><br><span class="line">          test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">          priority: <span class="number">-10</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//如果没有匹配到其他缓存组策略时使用:</span></span><br><span class="line">        <span class="keyword">default</span>: &#123;</span><br><span class="line">          minChunks: <span class="number">2</span>,<span class="comment">//最少被引用次数</span></span><br><span class="line">          priority: <span class="number">-20</span>,</span><br><span class="line">          reuseExistingChunk: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>speed-measure-webpack-plugin</code>webpack费时分析,在打包时计算每一步loader和plugin 的消耗时间<br><code>`</code>javascript<br>const SpeedMeasureWebpackPlugin=require(‘speed-measure-webpack-plugin’);</p>
+</li>
+</ul>
+<p>//用法和一般的plugin不同<br>let smw=new SpeedMeasureWebpackPlugin()<br>module.exports=(env)=&gt;{<br>    return smw.wrap({<br>        mode:xxx<br>        entry:xxxx<br>    })<br>}<br><code>`</code> </p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -209,436 +258,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/20/珠峰6第十三节webpack优化/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/18/珠峰6第十三节webpack配置/" class="archive-article-date">
-  	<time datetime="2019-12-18T07:29:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/18/珠峰6第十三节webpack配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">珠峰6第十三节webpack配置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/18/珠峰6第十三节webpack配置/">珠峰6第十三节webpack配置</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/28/珠峰6第九节HTTP-Cors/" class="archive-article-date">
-  	<time datetime="2019-11-28T02:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/28/珠峰6第九节HTTP-Cors/">珠峰6第九节HTTP_Cors</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/27/珠峰6第九节HTTP2/" class="archive-article-date">
-  	<time datetime="2019-11-27T06:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/27/珠峰6第九节HTTP2/">珠峰6第九节HTTP2</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/25/珠峰6第九节HTTP/" class="archive-article-date">
-  	<time datetime="2019-11-25T09:03:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/25/珠峰6第九节HTTP/">珠峰6第九节HTTP</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/10/珠峰6第七节Buffer/" class="archive-article-date">
-  	<time datetime="2019-10-10T10:00:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/10/珠峰6第七节Buffer/">珠峰6第七节Buffer</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/26/珠峰6第七节复习篇/" class="archive-article-date">
-  	<time datetime="2019-09-26T11:43:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/26/珠峰6第七节复习篇/">珠峰6第七节复习篇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/25/珠峰6node核心模块/" class="archive-article-date">
-  	<time datetime="2019-09-25T12:47:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/25/珠峰6node核心模块/">珠峰6node核心模块</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/24/珠峰6npm的使用/" class="archive-article-date">
-  	<time datetime="2019-09-24T12:12:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/24/珠峰6npm的使用/">珠峰6npm的使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/20/珠峰6Node模块2/" class="archive-article-date">
-  	<time datetime="2019-09-20T06:53:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/20/珠峰6Node模块2/">珠峰6Node模块2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/tags/前端/page/2/">2</a><a class="page-number" href="/tags/前端/page/3/">3</a><a class="extend next" rel="next" href="/tags/前端/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -662,9 +380,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
