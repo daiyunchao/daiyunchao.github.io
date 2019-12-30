@@ -162,6 +162,92 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JS的Class如何实现实例GET和SET方法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">JS的Class如何实现实例GET和SET方法?</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/23/JS的Class如何实现实例GET和SET方法/" class="archive-article-date">
+  	<time datetime="2018-11-23T09:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文章来实现的是一个简单的需求,在JS中如何实现计算属性,eg: 如有string的name属性和number类型的age属性,现在需要一个name_age属性返回的是:name_age的值</p>
+</blockquote>
+<h3 id="如何实现计算属性"><a href="#如何实现计算属性" class="headerlink" title="如何实现计算属性?"></a>如何实现计算属性?</h3><p>因为ES6提供了GET和SET方法,其实要想实现该需求很简单<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//定义:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name,age)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">    <span class="keyword">this</span>.name_age;</span><br><span class="line">  &#125;</span><br><span class="line">  get name_age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>_<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用:</span></span><br><span class="line"><span class="keyword">let</span> zhangsan=<span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>,<span class="number">18</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line">zhangsan.age=<span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line"><span class="comment">//执行结果为:</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_18</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_20</span></span><br></pre></td></tr></table></figure></p>
+<p><em>注:上面的代码可以放到支持ES6语法的浏览器中进行测试</em></p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关系数据库-or-vs-in-效率到底谁高" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -502,11 +588,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
+                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,11 +604,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
