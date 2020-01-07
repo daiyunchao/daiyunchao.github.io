@@ -162,6 +162,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-珠峰6第二一节Docker最常用操作" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/07/珠峰6第二一节Docker最常用操作/">珠峰6第二一节Docker最常用操作</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/07/珠峰6第二一节Docker最常用操作/" class="archive-article-date">
+  	<time datetime="2020-01-07T06:25:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Docker最常规操作"><a href="#Docker最常规操作" class="headerlink" title="Docker最常规操作"></a>Docker最常规操作</h3><ul>
+<li>Docker</li>
+<li>Docker 让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中,然后发布到任何服务器上去,容器之间都是沙盒状态</li>
+<li>Docker分为企业版(EE)和社区版(CE)</li>
+<li>安装Docker安装官方文档步骤安装</li>
+<li><p>Docker的理解: Docker就像一个虚拟机,在每一个容器中有这个项目的依赖,这就避免了相同的代码在不同的环境中出现的问题<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1578376208889&amp;di=18321b200b9cb9701f25258dc54d8040&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg.dongcoder.com%2Fup%2Finfo%2F201807%2F20180715132007371540.png" alt="Docker构架图"></p>
+</li>
+<li><p>Docker核心的命令:<code>docker build 通过配置文件构建自己的景象</code> <code>docker pull 下载景象到本地</code> <code>docker run 通过景象启动容器</code></p>
+</li>
+<li>查看当前启动的docker容器 <code>docker container ls</code> <code>docker container ls -a 查看全部</code></li>
+<li>删除容器 <code>docker container rm (-f 强行删除) 容器ID</code></li>
+<li>查看当前的景象 <code>docker image ls</code></li>
+</ul>
+<h4 id="自己配置一个镜像启动Node进程"><a href="#自己配置一个镜像启动Node进程" class="headerlink" title="自己配置一个镜像启动Node进程"></a>自己配置一个镜像启动Node进程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当前有项目docker,项目中包含文件 dockerenv/app/server.js</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">let</span> app=http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    res.end(<span class="string">'hello world'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//项目中包含文件 dockerenv/app/package.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>:&#123;</span><br><span class="line">        <span class="string">"start"</span>:<span class="string">"node server.js"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个dockerfile,用于创建镜像 DOCKERFile</span></span><br><span class="line">FROM node:last <span class="comment">//居于node的最新版本的镜像</span></span><br><span class="line">COPY ./app /app <span class="comment">//将当前目录的./app文件夹copy到镜像中的app文件夹中</span></span><br><span class="line">WORKDIR /app <span class="comment">//镜像的执行目录</span></span><br><span class="line">RUN npm install <span class="comment">//当启动镜像时执行的命令</span></span><br><span class="line">EXPOSE <span class="number">3000</span> <span class="comment">//暴露当前镜像的3000端口</span></span><br><span class="line">CMD npm start <span class="comment">//当容器启动时执行命令</span></span><br><span class="line"><span class="comment">//然后在app外层 执行命令进行docker对image的编译</span></span><br><span class="line"><span class="comment">// 参数 -t 是指定镜像的名称 . 是指编译的目录 "."表示当前目录 </span></span><br><span class="line">docker build -t dockertest .</span><br><span class="line"></span><br><span class="line"><span class="comment">//编译镜像完成后,再执行docker run 启动一个刚编译好的容器</span></span><br><span class="line"><span class="comment">//参数 -p 端口映射 当访问本机的3333端口时将映射到docker的3000端口(相当于访问的时候访问3333端口了) -it将容器的shell映射到当前的shell中,在当前执行的shell中执行的命令将会在容器中执行, dockertest是使用镜像的名称 /bin/bash 容器启动后执行的第一个命令,这里启动了bash容器以便执行脚本 -d 后台运行</span></span><br><span class="line">docker run -p <span class="number">3333</span>:<span class="number">3000</span> -it dockertest /bin/bash</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/07/珠峰6第二一节Docker最常用操作/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-珠峰6第二十节ast语法树" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1130,88 +1220,6 @@ age is 18&quot;&quot;&quot;</code><br>Boolean true false<br>List <code>List name
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/11/25/珠峰6第九节HTTP/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-珠峰6第七节Buffer" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/10/珠峰6第七节Buffer/">珠峰6第七节Buffer</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/10/珠峰6第七节Buffer/" class="archive-article-date">
-  	<time datetime="2019-10-10T10:00:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h3><p>经典面试题: 为什么<code>0.1+0.2!=0.3</code><br>定义变量时会将值存放当内存中 (内存中都是二进制的)<br><code>0.1</code>的内存中的值是:<code>0.0001100110011001100110011001100110011001100110011001101</code><br><code>0.2</code>的内存中的值是:<code>0.001100110011001100110011001100110011001100110011001101</code><br>所以<code>0.1+0.2&gt;0.3</code></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/10/珠峰6第七节Buffer/">展开全文 >></a>
         </p>
       
 

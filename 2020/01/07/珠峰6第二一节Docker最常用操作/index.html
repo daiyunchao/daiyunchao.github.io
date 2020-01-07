@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>daiyunchao&#39;s blog</title>
+  <title>珠峰6第二一节Docker最常用操作 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/page/5/index.html">
+  <meta name="description" content="Docker最常规操作 Docker Docker 让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中,然后发布到任何服务器上去,容器之间都是沙盒状态 Docker分为企业版(EE)和社区版(CE) 安装Docker安装官方文档步骤安装 Docker的理解: Docker就像一个虚拟机,在每一个容器中有这个项目的依赖,这就避免了相同的代码在不同的环境中出现的问题  Docker核心的命令:d">
+<meta name="keywords" content="后端,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="珠峰6第二一节Docker最常用操作">
+<meta property="og:url" content="http://yoursite.com/2020/01/07/珠峰6第二一节Docker最常用操作/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="Docker最常规操作 Docker Docker 让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中,然后发布到任何服务器上去,容器之间都是沙盒状态 Docker分为企业版(EE)和社区版(CE) 安装Docker安装官方文档步骤安装 Docker的理解: Docker就像一个虚拟机,在每一个容器中有这个项目的依赖,这就避免了相同的代码在不同的环境中出现的问题  Docker核心的命令:d">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578376208889&di=18321b200b9cb9701f25258dc54d8040&imgtype=jpg&src=http%3A%2F%2Fimg.dongcoder.com%2Fup%2Finfo%2F201807%2F20180715132007371540.png">
+<meta property="og:updated_time" content="2020-01-07T06:31:41.031Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="珠峰6第二一节Docker最常用操作">
+<meta name="twitter:description" content="Docker最常规操作 Docker Docker 让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中,然后发布到任何服务器上去,容器之间都是沙盒状态 Docker分为企业版(EE)和社区版(CE) 安装Docker安装官方文档步骤安装 Docker的理解: Docker就像一个虚拟机,在每一个容器中有这个项目的依赖,这就避免了相同的代码在不同的环境中出现的问题  Docker核心的命令:d">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578376208889&di=18321b200b9cb9701f25258dc54d8040&imgtype=jpg&src=http%3A%2F%2Fimg.dongcoder.com%2Fup%2Finfo%2F201807%2F20180715132007371540.png">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,41 +167,40 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-nginx原理及配置_百度脑图" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-珠峰6第二一节Docker最常用操作" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/30/nginx原理及配置_百度脑图/">nginx原理及配置_百度脑图</a>
+    <h1 class="article-title" itemprop="name">
+      珠峰6第二一节Docker最常用操作
     </h1>
   
 
         
-        <a href="/2018/11/30/nginx原理及配置_百度脑图/" class="archive-article-date">
-  	<time datetime="2018-11-30T07:36:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-30</time>
+        <a href="/2020/01/07/珠峰6第二一节Docker最常用操作/" class="archive-article-date">
+  	<time datetime="2020-01-07T06:25:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>平时用<code>NGINX</code>也不少,感觉它简单并且强大.但始终没有去系统的了解<code>NGINX</code>的详细配置,于是有了这张百度脑图,算是一个对<code>NGINX</code>的总结,也能在不知道怎么配置的时候一目了然的看一看.</p>
-</blockquote>
-<p>脑图分为:</p>
-<ol>
-<li>什么是<code>nginx</code> 解释了 代理服务器和反向代理服务器的区别</li>
-<li>他的原理是什么 ,基本了解了他的原理后,发现他和<code>node</code>同出一辙</li>
-<li><code>nginx</code>的优势和特点,居于多work 单进程的特点+事件模型 让他少了上下文的切换减少了CPU和内存的消耗</li>
-<li>详细的配置信息</li>
-</ol>
-<p>看完了这些我发现,在程序中做了太多不应该做的事情,就像原本数据库可以很好解决的功能一样,如果我们放到程序中去做,不仅不好处理而且会浪费内存(加载数据到内存中程序处理). 为什么想不到? 归结到一点 知识面太窄了!</p>
-<p>下面是脑图的地址:<br><a href="http://naotu.baidu.com/file/2e31394a3e0de889fad54ed53b31cba9?token=1f9d173d9bca989e" target="_blank" rel="noopener">nginx百度脑图</a></p>
-
+        <h3 id="Docker最常规操作"><a href="#Docker最常规操作" class="headerlink" title="Docker最常规操作"></a>Docker最常规操作</h3><ul>
+<li>Docker</li>
+<li>Docker 让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中,然后发布到任何服务器上去,容器之间都是沙盒状态</li>
+<li>Docker分为企业版(EE)和社区版(CE)</li>
+<li>安装Docker安装官方文档步骤安装</li>
+<li><p>Docker的理解: Docker就像一个虚拟机,在每一个容器中有这个项目的依赖,这就避免了相同的代码在不同的环境中出现的问题<br><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1578376208889&amp;di=18321b200b9cb9701f25258dc54d8040&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg.dongcoder.com%2Fup%2Finfo%2F201807%2F20180715132007371540.png" alt="Docker构架图"></p>
+</li>
+<li><p>Docker核心的命令:<code>docker build 通过配置文件构建自己的景象</code> <code>docker pull 下载景象到本地</code> <code>docker run 通过景象启动容器</code></p>
+</li>
+<li>查看当前启动的docker容器 <code>docker container ls</code> <code>docker container ls -a 查看全部</code></li>
+<li>删除容器 <code>docker container rm (-f 强行删除) 容器ID</code></li>
+<li>查看当前的景象 <code>docker image ls</code></li>
+</ul>
+<h4 id="自己配置一个镜像启动Node进程"><a href="#自己配置一个镜像启动Node进程" class="headerlink" title="自己配置一个镜像启动Node进程"></a>自己配置一个镜像启动Node进程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当前有项目docker,项目中包含文件 dockerenv/app/server.js</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">let</span> app=http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    res.end(<span class="string">'hello world'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//项目中包含文件 dockerenv/app/package.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>:&#123;</span><br><span class="line">        <span class="string">"start"</span>:<span class="string">"node server.js"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个dockerfile,用于创建镜像 DOCKERFile</span></span><br><span class="line">FROM node:last <span class="comment">//居于node的最新版本的镜像</span></span><br><span class="line">COPY ./app /app <span class="comment">//将当前目录的./app文件夹copy到镜像中的app文件夹中</span></span><br><span class="line">WORKDIR /app <span class="comment">//镜像的执行目录</span></span><br><span class="line">RUN npm install <span class="comment">//当启动镜像时执行的命令</span></span><br><span class="line">EXPOSE <span class="number">3000</span> <span class="comment">//暴露当前镜像的3000端口</span></span><br><span class="line">CMD npm start <span class="comment">//当容器启动时执行命令</span></span><br><span class="line"><span class="comment">//然后在app外层 执行命令进行docker对image的编译</span></span><br><span class="line"><span class="comment">// 参数 -t 是指定镜像的名称 . 是指编译的目录 "."表示当前目录 </span></span><br><span class="line">docker build -t dockertest .</span><br><span class="line"></span><br><span class="line"><span class="comment">//编译镜像完成后,再执行docker run 启动一个刚编译好的容器</span></span><br><span class="line"><span class="comment">//参数 -p 端口映射 当访问本机的3333端口时将映射到docker的3000端口(相当于访问的时候访问3333端口了) -it将容器的shell映射到当前的shell中,在当前执行的shell中执行的命令将会在容器中执行, dockertest是使用镜像的名称 /bin/bash 容器启动后执行的第一个命令,这里启动了bash容器以便执行脚本 -d 后台运行</span></span><br><span class="line">docker run -p <span class="number">3333</span>:<span class="number">3000</span> -it dockertest /bin/bash</span><br></pre></td></tr></table></figure>
       
 
       
@@ -211,7 +217,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NGINX</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		
 		</ul>
@@ -220,16 +226,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/30/nginx原理及配置_百度脑图/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/07/珠峰6第二一节Docker最常用操作/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/06/珠峰6第二十节ast语法树/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">珠峰6第二十节ast语法树</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -249,414 +314,14 @@
 
 
 
-
-  
-    <article id="post-关系数据全貌和SQL常用总结-百度脑图" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/26/关系数据全貌和SQL常用总结-百度脑图/">关系数据全貌和SQL常用总结_百度脑图</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/26/关系数据全貌和SQL常用总结-百度脑图/" class="archive-article-date">
-  	<time datetime="2018-11-26T06:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>最近因为在接触一个新的关系型数据库,所以把原来的数据库的东西算是复习了一次,按照<a href="http://blog.jobbole.com/100349/" target="_blank" rel="noopener">如果有人问你数据库的原理，叫他看这篇文章</a>和SQL必知必会(第4版)进行的总结<br>我发现,程序员做了太多数据库该做的事情了…数据库不只是一个数据仓库,他的功能太强大了!!! 善用数据库,可能会节约很多很多的时间和复杂度,而且性能上还会高于原来的逻辑.</p>
-</blockquote>
-<p><em>不得不安利一波百度脑图,确实很好</em></p>
-<p>ps:刚安利了百度脑图,发现导出png有bug…</p>
-<p>详情可点下面的连接:</p>
-<p><a href="http://naotu.baidu.com/file/4d3cc2fe3c1846b316367d7bc294da9c?token=8d6b7fa1ffbc5c09" target="_blank" rel="noopener">关系数据库原理总结脑图</a></p>
-<p><a href="http://naotu.baidu.com/file/8a93089c39e9387b6b6b0ee05145c115?token=ff13099c829f05dd" target="_blank" rel="noopener">关系数据库SQL汇总</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/26/关系数据全貌和SQL常用总结-百度脑图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JS的Class如何实现实例GET和SET方法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">JS的Class如何实现实例GET和SET方法?</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/23/JS的Class如何实现实例GET和SET方法/" class="archive-article-date">
-  	<time datetime="2018-11-23T09:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文章来实现的是一个简单的需求,在JS中如何实现计算属性,eg: 如有string的name属性和number类型的age属性,现在需要一个name_age属性返回的是:name_age的值</p>
-</blockquote>
-<h3 id="如何实现计算属性"><a href="#如何实现计算属性" class="headerlink" title="如何实现计算属性?"></a>如何实现计算属性?</h3><p>因为ES6提供了GET和SET方法,其实要想实现该需求很简单<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//定义:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name,age)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">    <span class="keyword">this</span>.name_age;</span><br><span class="line">  &#125;</span><br><span class="line">  get name_age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>_<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用:</span></span><br><span class="line"><span class="keyword">let</span> zhangsan=<span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>,<span class="number">18</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line">zhangsan.age=<span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"张三的name_age是:"</span>,zhangsan.name_age)</span><br><span class="line"><span class="comment">//执行结果为:</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_18</span></span><br><span class="line"><span class="comment">//张三的name_age是: zhangsan_20</span></span><br></pre></td></tr></table></figure></p>
-<p><em>注:上面的代码可以放到支持ES6语法的浏览器中进行测试</em></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/23/JS的Class如何实现实例GET和SET方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关系数据库-or-vs-in-效率到底谁高" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/">关系数据库 or vs in 效率到底谁高?</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/" class="archive-article-date">
-  	<time datetime="2018-11-16T09:29:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>之前在心里一直觉得关系型数据库中 or的效率会比in的效率更高…,昨天偶然看到一篇文章,说到<em>in</em>的时间复杂度是 O(logn) 而 <em>or</em>的时间复杂度是 O(n),这么说来 <em>in</em>的效率应该会高于<em>or</em><br>所以就查询了一些资料</p>
-</blockquote>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/16/关系数据库-or-vs-in-效率到底谁高/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-你应该知道这些React-js理论-当你学了React基础自后" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">你应该知道这些React.js理论(当你学了React基础自后)</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/" class="archive-article-date">
-  	<time datetime="2018-11-15T11:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文翻译来自:<a href="https://medium.freecodecamp.org/these-are-the-concepts-you-should-know-in-react-js-after-you-learn-the-basics-ee1d2f4b8030" target="_blank" rel="noopener">https://medium.freecodecamp.org/these-are-the-concepts-you-should-know-in-react-js-after-you-learn-the-basics-ee1d2f4b8030</a></p>
-<p>这是我第一次翻译英文的文章,如果有什么不对或是不妥当的地方可以在:<a href="https://github.com/daiyunchao/daiyunchao.github.io" target="_blank" rel="noopener">https://github.com/daiyunchao/daiyunchao.github.io</a> 提交issues</p>
-<p>本文面向的是React初学者,不过复习下也挺好.</p>
-</blockquote>
-<p>当你学习了React的最初指导教程以后感觉React还不错.那么后面学习什么呢?<br>跟随这篇文章,我们将一去讨论4个能让你的提高技能并且到另外一个更高的层次的React理论.</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/15/你应该知道这些React-js理论-当你学了React基础自后/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于我和我的Blog" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/13/关于我和我的Blog/">关于我和我的Blog</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/13/关于我和我的Blog/" class="archive-article-date">
-  	<time datetime="2018-11-13T07:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><p>我是程序员,貌似会的东西还不少<br>(React)/后端(NodeJs C#)/数据库(MySql MongoDB SqlServer PostgresQL)<br>但 细细一品….啧!其实只是会用而已.</p>
-<h3 id="看看别人"><a href="#看看别人" class="headerlink" title="看看别人"></a>看看别人</h3><p>看到阮一峰大神还在定期的更新着自己的博客,我也是挺羞愧的,比我聪明的人还比我努力…</p>
-<h3 id="关于我的Blog"><a href="#关于我的Blog" class="headerlink" title="关于我的Blog"></a>关于我的Blog</h3><p>大家都说现在的编程变化快,学习成本高,确实如此.这种变化在前端表现的更加的明显,<br>框架层出不穷,新特性,新思路,感觉一段时间就推倒从来. 然而为什么我学的这么累呢?<br>说到底还不是因为没有理解到本质,所谓”万变不离其宗”的宗没有看明白.<br>于是有了补全思想的打算. 好好的去看看我学过的.从里找到这个”宗”.<br>就像孙悟空有72变,但尾巴怎么也隐藏不了,希望通过我的总结和积累,找到这条尾巴.</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/13/关于我和我的Blog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -679,8 +344,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
