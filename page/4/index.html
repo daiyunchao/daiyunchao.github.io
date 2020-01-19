@@ -162,6 +162,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-graphql-compose-mongoose实际体验" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/29/graphql-compose-mongoose实际体验/">graphql-compose-mongoose实际体验</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/29/graphql-compose-mongoose实际体验/" class="archive-article-date">
+  	<time datetime="2019-05-29T03:33:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>之前对<code>graphql</code>有一定的了解,但只是停留在理论,只是知道他的好处是</p>
+<ol>
+<li>客户端可以自由的选择需要的字段,从而达到复用和去掉数据冗余的问题.</li>
+<li>客户端通过关系可以查询到实体相关的信息,如学生可以通过学生和课程的关系查询到学生和课程列表信息. </li>
+<li>在RestAPI中 业务逻辑控制基本都在后端,而<code>graphql</code>则更偏向于前端去控制逻辑,显示什么,不显示什么.这就要去前端人员也需要理解数据结构</li>
+</ol>
+</blockquote>
+<p>不得不说<code>graphql</code>有他的好的地方,所以就开始实际操作操作,这次选择的数据库是 <code>mongodb</code> 因为我想在非关系数据库中用关系去查询数据(当然是用schmea的模型关系)</p>
+<p>在看这篇文章前,可以先看:<br><a href="https://blog.csdn.net/qq_41882147/article/details/82966783" target="_blank" rel="noopener">https://blog.csdn.net/qq_41882147/article/details/82966783</a> 是一篇很好的入门,不过要注意的是 用bable转换的时候 请使用:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yarn add babel-plugin-transform-object-rest-spread babel-plugin-transform-runtime</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'babel-register'</span>)(&#123;</span><br><span class="line">  presets: [<span class="string">'env'</span>],</span><br><span class="line">  <span class="string">"plugins"</span>: [</span><br><span class="line">    <span class="string">"transform-runtime"</span>,</span><br><span class="line">    <span class="string">"transform-object-rest-spread"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'babel-polyfill'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="built_in">require</span>(<span class="string">'./server.js'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>目标:</p>
+<ol>
+<li>使用<code>graphql-compose-mongoose</code>实现单Schema的增删改查功能</li>
+<li>添加自定义的query/mutaion方法</li>
+<li>多scheam的基础功能</li>
+<li>添加关系,并实现关系查询</li>
+<li>调用控制,有的api只能管理员调用</li>
+<li>隐藏关联scheam的一些字段(只能查看到好友的基本资料,隐私资料不能查询)</li>
+<li>显示/隐藏scheam的内部字段(隐藏用户数据中的_id)</li>
+</ol>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/29/graphql-compose-mongoose实际体验/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mongodb常用方法总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -966,90 +1063,6 @@
 
 
   
-    <article id="post-对JS中异步执行的知识点回顾和补充" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/12/对JS中异步执行的知识点回顾和补充/">对JS中异步执行的知识点回顾和补充</a>
-    </h1>
-  
-
-        
-        <a href="/2018/12/12/对JS中异步执行的知识点回顾和补充/" class="archive-article-date">
-  	<time datetime="2018-12-12T09:46:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>看了一篇名为:<a href="https://segmentfault.com/a/1190000017224799#articleHeader0" target="_blank" rel="noopener">8张图让你一步步看清 async/await 和 promise 的执行顺序</a>的文章,原本以为我能很清楚的解释JS中事件循环和异步,但没想到还是有很多理解上的偏差,于是便想做一些关于异步执行的理解</p>
-</blockquote>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/12/对JS中异步执行的知识点回顾和补充/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1155,15 +1168,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">PYTHON</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1171,11 +1180,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color2">PYTHON</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">

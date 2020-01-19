@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 后端 | daiyunchao&#39;s blog</title>
+  <title>第二十六节vue组件 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/后端/page/3/index.html">
+  <meta name="description" content="vue组件组件的声明周期 vm.$mount()挂载到页面,如果是空参数,则会将内容渲染到内存中 123456789////el:&quot;#root&quot;的功能等于同://vm.$mount(),没有参数的话,是将内容渲染到内存中//拿到内存中渲染的内容,插入到我想要的html节点中vm.$mount();document.body.appendChild(vm.$el);//或是直接等价于:vm.$mou">
+<meta name="keywords" content="前端,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第二十六节vue组件">
+<meta property="og:url" content="http://yoursite.com/2020/01/19/珠峰6第二十六节vue组件/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="vue组件组件的声明周期 vm.$mount()挂载到页面,如果是空参数,则会将内容渲染到内存中 123456789////el:&quot;#root&quot;的功能等于同://vm.$mount(),没有参数的话,是将内容渲染到内存中//拿到内存中渲染的内容,插入到我想要的html节点中vm.$mount();document.body.appendChild(vm.$el);//或是直接等价于:vm.$mou">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-01-19T11:34:38.593Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="第二十六节vue组件">
+<meta name="twitter:description" content="vue组件组件的声明周期 vm.$mount()挂载到页面,如果是空参数,则会将内容渲染到内存中 123456789////el:&quot;#root&quot;的功能等于同://vm.$mount(),没有参数的话,是将内容渲染到内存中//拿到内存中渲染的内容,插入到我想要的html节点中vm.$mount();document.body.appendChild(vm.$el);//或是直接等价于:vm.$mou">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,46 +165,123 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-珠峰6第二十六节vue组件" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/珠峰6ES2笔记/" class="archive-article-date">
-  	<time datetime="2019-09-10T11:18:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/10/珠峰6ES2笔记/">珠峰6ES2笔记</a>
+    <h1 class="article-title" itemprop="name">
+      第二十六节vue组件
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/01/19/珠峰6第二十六节vue组件/" class="archive-article-date">
+  	<time datetime="2020-01-19T11:33:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="vue组件"><a href="#vue组件" class="headerlink" title="vue组件"></a>vue组件</h3><h4 id="组件的声明周期"><a href="#组件的声明周期" class="headerlink" title="组件的声明周期"></a>组件的声明周期</h4><ul>
+<li><p><code>vm.$mount()</code>挂载到页面,如果是空参数,则会将内容渲染到内存中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//el:"#root"的功能等于同:</span></span><br><span class="line"><span class="comment">//vm.$mount(),没有参数的话,是将内容渲染到内存中</span></span><br><span class="line"><span class="comment">//拿到内存中渲染的内容,插入到我想要的html节点中</span></span><br><span class="line">vm.$mount();</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(vm.$el);</span><br><span class="line"></span><br><span class="line"><span class="comment">//或是直接等价于:</span></span><br><span class="line">vm.$mount(<span class="string">"#app"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vue组件的生命周期和暴露的钩子函数</p>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">            <span class="comment">//创建前执行,一般可以在该函数中为vm添加一些特点属性</span></span><br><span class="line">            <span class="comment">//但该方法不能获取到vm的data这类的值,无法改变这些值</span></span><br><span class="line">            beforeCreate() &#123;</span><br><span class="line">                <span class="comment">//创建前,不能拿到data/methods等等</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//this这个this就是vm实例</span></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="keyword">this</span>, <span class="string">"beforeCreate"</span>);</span><br><span class="line"></span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="comment">//实例创建完成执行,</span></span><br><span class="line">            <span class="comment">//当执行到了该方法,说明vm这个实例已经产生了,数据已经被劫持了(添加了get set方法,能监控了) 同时computed属性也添加到了该实例中</span></span><br><span class="line">            <span class="comment">//不能获取到真实的dom元素,所以不能操作dom</span></span><br><span class="line">            created() &#123;</span><br><span class="line">                <span class="comment">//这个时候的this中就有data属性并且已赋值了</span></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"created"</span>);</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="comment">//该方法在beforeMount会被调用</span></span><br><span class="line">            render() &#123;</span><br><span class="line"></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"render"</span>);</span><br><span class="line"></span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="comment">//挂载之前,该方法会调用render方法或是template属性(如果没有render方法,vue会将template转换成render方法)</span></span><br><span class="line">            beforeMount() &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"beforeMount"</span>);</span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="comment">//当前组件挂载完成,组件已经挂载到了html中</span></span><br><span class="line">            <span class="comment">//在该函数中就能拿到真实的dom元素</span></span><br><span class="line">            <span class="comment">//该方法调用结束后,挂载的流程就完成了</span></span><br><span class="line">            mounted() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="comment">//数据(data)更新了,视图更新之前被执行</span></span><br><span class="line">            <span class="comment">//如果视图没变(该数据没显示到页面上),该方法是不会执行的</span></span><br><span class="line">            beforeUpdate() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="comment">//更新完成,尽量不要在该函数中更新数据,更新数据可能会导致死循环</span></span><br><span class="line">            updated() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="comment">//销毁前,当路由改变或是手动销毁的时候会被调用到</span></span><br><span class="line">            <span class="comment">//手动调用的方法:vm.destory()</span></span><br><span class="line">            beforeDestory() &#123;</span><br><span class="line">                <span class="comment">//</span></span><br><span class="line">            &#125;,</span><br><span class="line"></span><br><span class="line">            <span class="comment">//销毁完成</span></span><br><span class="line">            destoryed() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//手动销毁监听,该监听会移除监听事件,让数据变化不会导致ui的变化(但并不会将页面上的内容移除掉)</span></span><br><span class="line">        vm.destory();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h4><ul>
+<li><p>创建全局组件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">My</span>&gt;</span><span class="tag">&lt;/<span class="name">My</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./node_modules/vue/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//创建一个全局组件My</span></span></span><br><span class="line"><span class="javascript">        Vue.component(<span class="string">'My'</span>, &#123;</span></span><br><span class="line"><span class="xml">            template: `<span class="tag">&lt;<span class="name">div</span>&gt;</span>this is something<span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span><br><span class="line"><span class="undefined">             data()&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> &#123;&#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            el: <span class="string">"#root"</span></span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">       <span class="comment">//将组件注册成全局组件的方法:</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> component = &#123;</span></span><br><span class="line"><span class="xml">            template: `<span class="tag">&lt;<span class="name">div</span>&gt;</span>this is something<span class="tag">&lt;/<span class="name">div</span>&gt;</span>`</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//将组件注册成全局组件</span></span></span><br><span class="line"><span class="javascript">        Vue.component(<span class="string">'My'</span>, component)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            el: <span class="string">"#root"</span></span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建局部组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> component = &#123;</span><br><span class="line">           template: <span class="string">`&lt;div&gt;this is something&lt;/div&gt;`</span></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">           el: <span class="string">"#root"</span>,</span><br><span class="line">           <span class="comment">//将component注册到vm这个vue的实例中,</span></span><br><span class="line">           <span class="comment">//那么该组件只能在vm这个实例的template中使用(该vm的template就是id=root的div)</span></span><br><span class="line">           components: &#123;</span><br><span class="line">               <span class="string">"My"</span>: component</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>父子组件的通讯 <code>props</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 在子组件中添加一个属性 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">My</span> <span class="attr">:q</span>=<span class="string">"q"</span>&gt;</span><span class="tag">&lt;/<span class="name">My</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./node_modules/vue/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> component = &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">//使用这个props</span></span></span><br><span class="line"><span class="xml">            template: `<span class="tag">&lt;<span class="name">div</span>&gt;</span>this is something&#123;&#123;q&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>`,</span></span><br><span class="line"><span class="javascript">            <span class="comment">//声明一个props,</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//如果使用数组的方式只是将属性添加到当前的实例中,方便使用</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//props:["q"],</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="comment">//使用对象的方式,可以验证props的类型等</span></span></span><br><span class="line"><span class="undefined">            props:&#123;</span></span><br><span class="line"><span class="undefined">                q:&#123;</span></span><br><span class="line"><span class="javascript">                    type:<span class="built_in">Number</span>,<span class="comment">//验证父组件传递过来的属性是否是number类型的</span></span></span><br><span class="line"><span class="javascript">                    required:<span class="literal">true</span>,<span class="comment">//是否必填</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">default</span>:<span class="number">100</span> <span class="comment">//默认值,如果默认值是数组或是对象时要注意: 只能写成 default:()=&gt;[1,2,3]这种形式,对象应该是 default:()=&gt;(&#123;a:1&#125;)</span></span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">            el: <span class="string">"#root"</span>,</span></span><br><span class="line"><span class="undefined">            data()&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="string">"q"</span>:<span class="number">100</span></span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="javascript">            <span class="comment">//将component注册到vm这个vue的实例中,</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//那么该组件只能在vm这个实例的template中使用(该vm的template就是id=root的div)</span></span></span><br><span class="line"><span class="undefined">            components: &#123;</span></span><br><span class="line"><span class="javascript">                <span class="string">"My"</span>: component</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="组件之间的通讯"><a href="#组件之间的通讯" class="headerlink" title="组件之间的通讯"></a>组件之间的通讯</h4><p>快速开发工具(在vue中使用vue-cli启动服务):</p>
+<ul>
+<li>安装工具 </li>
+</ul>
+<ol>
+<li>npm install @vue-cli@3 -g</li>
+<li>npm install @vue/cli-service-global@3 -g (不用创建项目使用单文件运行文件)</li>
+</ol>
+<ul>
+<li><p>创建<code>main.js</code>文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个vue的实例</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el:<span class="string">"#app"</span>,</span><br><span class="line">    render:<span class="function"><span class="params">h</span>=&gt;</span>h(App)<span class="comment">//渲染App文件</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建<code>App.vue</code>文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;<span class="keyword">this</span> is cli-service-global&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在命令行中输入 <code>vue serve</code>就会启动一个服务,直接访问就能看到渲染好的<code>this is cli-service-global</code>页面</p>
+</li>
+<li><code>cli</code>是通过文件夹中去寻找<code>main.js</code>文件去执行并渲染</li>
+<li>如果没有<code>main.js</code>也会直接渲染<code>App.vue</code>文件</li>
+</ul>
+<ul>
+<li>组件之间的引用</li>
+</ul>
+<p><code>App.vue</code>组件引用<code>parent.vue</code>组件<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    this is cli-service-global</span><br><span class="line">    <span class="comment">&lt;!-- 使用组件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Parent</span>&gt;</span><span class="tag">&lt;/<span class="name">Parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//引用组件</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Parent <span class="keyword">from</span> <span class="string">"./components/Parent"</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//注册组件</span></span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    Parent</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>父组件传递给子组件数据<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Parent.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    Parent Name:&#123;&#123;name&#125;&#125;</span><br><span class="line">    <span class="comment">&lt;!-- 传递参数 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 给子组件绑定一个change事件,等待子组件去触发该事件 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 就像父亲给儿子一个锦囊,并且告诉儿子当你遇到啥事情的时候打开他 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- vm.$on('change',changeName) 是实现原理,也就是父组件其实添加了一个监听 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Son1</span> <span class="attr">:parentName</span>=<span class="string">"name"</span> @<span class="attr">change</span>=<span class="string">"changeName"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Son1 <span class="keyword">from</span> <span class="string">"./Son1"</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    Son1</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data()&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="string">"name"</span>:<span class="string">"zhangsan"</span></span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods:&#123;</span></span><br><span class="line"><span class="undefined">      changeName(newValue)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">this</span>.name=newValue;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Son1.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用参数 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    Son1,His ParentName is :&#123;&#123;parentName&#125;&#125;</span><br><span class="line">    <span class="comment">&lt;!-- 子组件修改父组件的属性 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"changeMyData()"</span>&gt;</span>修改数据<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">    props:&#123;</span></span><br><span class="line"><span class="undefined">        parentName:&#123;</span></span><br><span class="line"><span class="javascript">            type:<span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">            required:<span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods:&#123;</span></span><br><span class="line"><span class="undefined">        changeMyData()&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">//当儿子真的遇到事情的时候,打开锦囊,里面是处理方法</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.$emit(<span class="string">'change'</span>,<span class="string">'lisi'</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>单向数据流,在上面例子中为什么子组件不能直接修改父组件的数据呢? 为什么只有从上级向下修改数据呢? 这就是vue或是react的单向数据流,有什么好处呢? 当我父级的数据改变了,无论传递了多少层值都是最新的.</p>
+</blockquote>
+<ul>
+<li><p>三级数据传递和数据修改</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Parent.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    Parent Name:&#123;&#123;name&#125;&#125;</span><br><span class="line">    <span class="comment">&lt;!-- 给子组件绑定一个change事件,等待子组件去触发该事件 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 就像父亲给儿子一个锦囊,并且告诉儿子当你遇到啥事情的时候打开他 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Son1</span> <span class="attr">:parentName</span>=<span class="string">"name"</span> @<span class="attr">change</span>=<span class="string">"changeName"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Son1 <span class="keyword">from</span> <span class="string">"./Son1"</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    Son1</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data()&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="string">"name"</span>:<span class="string">"zhangsan"</span></span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods:&#123;</span></span><br><span class="line"><span class="undefined">      changeName(newValue)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">this</span>.name=newValue;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Son.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    Son1,His ParentName is :&#123;&#123;parentName&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">Suen</span> <span class="attr">:name</span>=<span class="string">"parentName"</span> @<span class="attr">change</span>=<span class="string">"changeMyData"</span>&gt;</span><span class="tag">&lt;/<span class="name">Suen</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"changeMyData()"</span>&gt;</span>修改数据<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Suen <span class="keyword">from</span> <span class="string">"./Suen"</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    Suen</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="undefined">    parentName: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      required: <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="javascript">    changeMyData(newName=<span class="string">"lisi"</span>) &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//当儿子真的遇到事情的时候,打开锦囊,里面是处理方法</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">"change"</span>,newName);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Suen.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    this is 孙子 收到的name是:&#123;&#123;name&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"changeMyData()"</span>&gt;</span>修改数据<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="undefined">    name: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    changeMyData() &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//一层一层传递的方法,只触发父组件的事件,其他的事情让父组件自己去做</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">"change"</span>, <span class="string">"wangwu"</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//另外一种方式,直接触发父组件的change事件,但这有个问题,这会导致组件不独立,他需要知道他的父组件绑定了什么事件</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//this.$parent.$emit("change",'wangwu');</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>越级执行event</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//越级执行event:</span></span><br><span class="line"><span class="comment">//在main.js中实现该方法,寻找祖节点挂载的事件,如果有就执行,没有就继续找 调用方法是: this.$dispatch('change','wangwu');</span></span><br><span class="line">  Vue.prototype.$dispatch = <span class="function"><span class="keyword">function</span> (<span class="params">eventName, parmater</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> parent = <span class="keyword">this</span>.$parent;</span><br><span class="line">      <span class="keyword">while</span>(parent)&#123;</span><br><span class="line">          parent.$emit(eventName,parmater);</span><br><span class="line">          parent=parent.$parent;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>父组件执行子组件的方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$refs.child.callMethod();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>update.sync语法糖</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    Parent Name:&#123;&#123;name&#125;&#125;</span><br><span class="line">    <span class="comment">&lt;!-- 给子组件绑定一个change事件,等待子组件去触发该事件 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 就像父亲给儿子一个锦囊,并且告诉儿子当你遇到啥事情的时候打开他 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 版本1 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 绑定update方法时,可以绑定一个方法 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;Son1 :parentName="name" @update:name="changeName"&gt;&lt;/Son1&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 版本2 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 也可以直接将函数体直接写在这 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Son1</span> <span class="attr">:parentName</span>=<span class="string">"name"</span> @<span class="attr">update:name</span>=<span class="string">"newValue=&gt;this.name=newValue"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 版本3 update语法糖 既表示传递了参数:parentName也表示@update:parentName="newValue=&gt;this.name=newValue" --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Son1</span>  <span class="attr">:parentName.sync</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--版本4 使用v-model  --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;Son1  :value="name" @input="newValue=&gt;this.name=newValue"&gt;&lt;/Son1&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Son1</span>  <span class="attr">v-model</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- v-model 翻译出来的代码是 :value="name" @input="newValue=&gt;this.name=newValue" --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 说明v-model只能是固定写法,并且只能使用一个,并且触发的方法必须是this.$emit('input','newValue') 一个表达式中不能出现两个v-model,但update.sync的方式就很随意--&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Son1 <span class="keyword">from</span> <span class="string">"./Son1"</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    Son1</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data()&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="string">"name"</span>:<span class="string">"zhangsan"</span></span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods:&#123;</span></span><br><span class="line"><span class="undefined">      changeName(newValue)&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">this</span>.name=newValue;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Son.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    Son1,His ParentName is :&#123;&#123;parentName&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"changeMyData()"</span>&gt;</span>修改数据<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  props: &#123;</span></span><br><span class="line"><span class="undefined">    parentName: &#123;</span></span><br><span class="line"><span class="javascript">      type: <span class="built_in">String</span>,</span></span><br><span class="line"><span class="javascript">      required: <span class="literal">true</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="javascript">    changeMyData(newName=<span class="string">"lisi"</span>) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//使用:parentName.sync语法糖,但触发的事件名称还必须是 update:xxxx的方式</span></span></span><br><span class="line"><span class="javascript">       <span class="keyword">this</span>.$emit(<span class="string">"update:parentName"</span>,newName);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>$attrs</code>属性的集合,传递数据不声明时获取</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在Son中传入了两个属性 name和age --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 如果子子组织中没有定义props属性会出现在html标签中 --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">Son1</span> <span class="attr">:name</span>=<span class="string">"name"</span> <span class="attr">:age</span>=<span class="string">"age"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    Son1,His ParentName is :&#123;&#123;parentName&#125;&#125;</span><br><span class="line">    &#123;&#123;$attrs&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="comment">//没有定义:props,可以获取$attrs</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">//但当定义了props后(定义了一个就会在$attrs中少一个属性),属性就会从$attrs中删除掉,并且在标签中的属性也会被删除掉</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">//可以利用这个特点只接受这个需要的属性,而把不用不到的属性直接传递给下一级</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">//传递方式是</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">//使用绑定的方式,和react传递剩余参数的方式相同,&#123;...this.props&#125;</span></span></span><br><span class="line"><span class="xml">  //<span class="tag">&lt;<span class="name">Suen</span> <span class="attr">v-bind</span>=<span class="string">"$attrs"</span>&gt;</span><span class="tag">&lt;/<span class="name">Suen</span>&gt;</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="comment">//如果定义了'inheritAttrs'属性为false,则就算没有props属性,html标签中也不会显示传过来的属性</span></span></span><br><span class="line"><span class="javascript">  inheritAttrs:<span class="literal">false</span>,</span></span><br><span class="line"><span class="undefined">  props:&#123;</span></span><br><span class="line"><span class="undefined">      name:&#123;&#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="mailto:`@click.native" target="_blank" rel="noopener">`@click.native</a>`绑定原生事件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个click是绑定在组件中的,而不是click事件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Son1</span> <span class="attr">:name</span>=<span class="string">"name"</span> <span class="attr">:age</span>=<span class="string">"age"</span> @<span class="attr">click</span>=<span class="string">"show()"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 如何调用原生的click事件呢? 在click后添加.native表示这是click是原生的方法 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Son1</span> <span class="attr">:name</span>=<span class="string">"name"</span> <span class="attr">:age</span>=<span class="string">"age"</span> @<span class="attr">click.native</span>=<span class="string">"show()"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>$listeners</code>事件集合</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 注册了两个事件  click mouseup--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Son1</span> <span class="attr">:name</span>=<span class="string">"name"</span> <span class="attr">:age</span>=<span class="string">"age"</span> @<span class="attr">click</span>=<span class="string">"show()"</span> @<span class="attr">mouseup</span>=<span class="string">"show"</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 通过 $listeners获取全部注册的事件--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Son.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="comment">//在挂载完成后打印该值:</span></span></span><br><span class="line"><span class="undefined">mounted()&#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//获取到了全部注册到该组织的事件</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.$listeners);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 在子组件中如何将全部的注册事件向下传递--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 传递全部属性使用 v-bind 传递事件使用 v-on --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Suen</span> <span class="attr">v-bind</span>=<span class="string">"$attrs"</span> <span class="attr">v-on</span>=<span class="string">"$listeners"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>provide inject</code> 在父组件中声明公共数据,在子组件中注入 在父组件中通过<code>provide</code>声明全局变量,在跨级组件中使用<code>inject</code>注入到组件中使用,该方法会向父级通关名称的方式去查找,这种方式会有问题,如果全局变量是一个vue的对象呢,岂不是可以直接调用这个对象的方法? </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- App.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    this is cli-service-global</span><br><span class="line">    <span class="tag">&lt;<span class="name">Parent</span>&gt;</span><span class="tag">&lt;/<span class="name">Parent</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="comment">//引用</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Parent <span class="keyword">from</span> <span class="string">"./components/Parent"</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//使用provide声明了一个全局变量app=zhangsan</span></span></span><br><span class="line"><span class="undefined">  provide() &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123; <span class="attr">app</span>: <span class="string">"zhangsan"</span> &#125;;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    Parent</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Son.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//使用inject注入到组件中</span></span></span><br><span class="line"><span class="javascript">  inject: [<span class="string">"app"</span>],</span></span><br><span class="line"><span class="undefined">  mounted() &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//使用这个全局变量</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.app);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>$refs</code>获取子组件的实例,可以直接调用子组件的方法或是数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在父组件中声明了子组件的名称是son</span></span><br><span class="line">&lt;Son ref=<span class="string">"son"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">Son</span>&gt;</span></span></span><br><span class="line"><span class="keyword">this</span>.$refs.son.say()<span class="comment">//可以直接调用子组件的方法</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>eventbus</code> 全局发布定义机制,该方法可以在任意的组件中注册($on),并且可以在任意的组件中响应($emit),可能会产生混乱,不知道这个数据因为什么原因导致变化的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.js中</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个vue将这个实例变成全局的,并且使用这个vue中的$on和$emit</span></span><br><span class="line">Vue.prototype.$bus=<span class="keyword">new</span> Vue();</span><br><span class="line"></span><br><span class="line"><span class="comment">//在任意组件中注册</span></span><br><span class="line"><span class="keyword">this</span>.$bus.$on(<span class="string">'eventName'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//在任意的组件中触发</span></span><br><span class="line"><span class="keyword">this</span>.$bus.$emit(<span class="string">'eventName'</span>,<span class="string">'参数'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -209,420 +291,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/19/珠峰6第二十六节vue组件/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/09/珠峰6ES笔记/" class="archive-article-date">
-  	<time datetime="2019-09-09T10:02:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/08/珠峰6第二十一节vue基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">珠峰6第二十一节vue基础</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/09/珠峰6ES笔记/">珠峰6ES笔记(01)</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/22/JS中的AST/" class="archive-article-date">
-  	<time datetime="2019-08-22T08:33:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/22/JS中的AST/">JS中的AST</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/21/https通讯流程/" class="archive-article-date">
-  	<time datetime="2019-08-21T08:06:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/21/https通讯流程/">https通讯流程</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络通讯</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/20/缓存优秀文章/" class="archive-article-date">
-  	<time datetime="2019-08-20T10:01:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/20/缓存优秀文章/">缓存优秀文章</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/15/JS中的Set和Map/" class="archive-article-date">
-  	<time datetime="2019-08-15T08:18:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/JS中的Set和Map/">JS中的Set和Map</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/29/graphql-compose-mongoose实际体验/" class="archive-article-date">
-  	<time datetime="2019-05-29T03:33:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/29/graphql-compose-mongoose实际体验/">graphql-compose-mongoose实际体验</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/04/python2019-3-4常用方法总结/" class="archive-article-date">
-  	<time datetime="2019-03-04T07:21:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/04/python2019-3-4常用方法总结/">python2019-3-4常用方法总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">PYTHON</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/18/最近-19年2月18日-使用postgresql-常用语句记录/" class="archive-article-date">
-  	<time datetime="2019-02-18T11:02:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/18/最近-19年2月18日-使用postgresql-常用语句记录/">最近_19年2月18日_使用postgresql,常用语句记录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/02/从lodash源代码中学到的JS代码/" class="archive-article-date">
-  	<time datetime="2019-02-02T06:13:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/02/从lodash源代码中学到的JS代码/">从lodash源代码中学到的JS代码</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/后端/page/2/">&laquo; Prev</a><a class="page-number" href="/tags/后端/">1</a><a class="page-number" href="/tags/后端/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/tags/后端/page/4/">4</a><a class="extend next" rel="next" href="/tags/后端/page/4/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -646,9 +413,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

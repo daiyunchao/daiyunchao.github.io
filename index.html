@@ -162,6 +162,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-珠峰6第二十六节vue组件" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/19/珠峰6第二十六节vue组件/">第二十六节vue组件</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/19/珠峰6第二十六节vue组件/" class="archive-article-date">
+  	<time datetime="2020-01-19T11:33:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="vue组件"><a href="#vue组件" class="headerlink" title="vue组件"></a>vue组件</h3><h4 id="组件的声明周期"><a href="#组件的声明周期" class="headerlink" title="组件的声明周期"></a>组件的声明周期</h4><ul>
+<li><p><code>vm.$mount()</code>挂载到页面,如果是空参数,则会将内容渲染到内存中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//el:"#root"的功能等于同:</span></span><br><span class="line"><span class="comment">//vm.$mount(),没有参数的话,是将内容渲染到内存中</span></span><br><span class="line"><span class="comment">//拿到内存中渲染的内容,插入到我想要的html节点中</span></span><br><span class="line">vm.$mount();</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(vm.$el);</span><br><span class="line"></span><br><span class="line"><span class="comment">//或是直接等价于:</span></span><br><span class="line">vm.$mount(<span class="string">"#app"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vue组件的生命周期和暴露的钩子函数</p>
+        
+      
+
+      
+    </li></ul></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/19/珠峰6第二十六节vue组件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-珠峰6第二十一节vue基础" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -667,7 +749,7 @@ age is 18&quot;&quot;&quot;</code><br>Boolean true false<br>List <code>List name
 <li><p><code>dllPlugin</code>动态链接库 可以提升打包的速度</p>
 </li>
 <li><p>webpack打包第三方库</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打包 react react-dom</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">'react-dom'</span></span><br><span class="line">render(&lt;h1&gt;123&lt;/h1&gt; , <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//引用库文件,在打包的过程中就会去查找配置的缓存文件,如果文件中有指定的库,就不会再打包了</span></span><br><span class="line"><span class="keyword">const</span> DllReferencePlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllReferencePlugin;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成html</span></span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//向html中添加标签(dll文件需要引用到html中,因为现在打包的文件中没有打包react)</span></span><br><span class="line"><span class="keyword">const</span> AddAssetHtmlPlugin = <span class="built_in">require</span>(<span class="string">'add-asset-html-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: path.join(__dirname, <span class="string">'./src/index.js'</span>),</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.join(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">        filename: <span class="string">"main.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">'test'</span>: <span class="regexp">/\.js/</span>,</span><br><span class="line">                <span class="string">'use'</span>: &#123;</span><br><span class="line">                    loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        presets: [</span><br><span class="line">                            <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">                            <span class="string">"@babel/preset-react"</span></span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">//指定缓存文件位置</span></span><br><span class="line">        <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">            manifest: path.join(__dirname, <span class="string">'./dll/react-manifest.json'</span>)</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: path.join(__dirname, <span class="string">'./public/index.html'</span>),</span><br><span class="line">            filename: <span class="string">'index.html'</span></span><br><span class="line">        &#125;),</span><br><span class="line"></span><br><span class="line">        <span class="comment">//添加第三方库到html中</span></span><br><span class="line">        <span class="keyword">new</span> AddAssetHtmlPlugin(&#123;</span><br><span class="line">            filepath: path.resolve(__dirname, <span class="string">'./dll/react.dll.js'</span>),</span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//webpack.dll.js </span></span><br><span class="line"><span class="comment">//打包第三方库 react 和react-dom</span></span><br><span class="line"><span class="comment">//将 react 和react-dom 生成一个文件</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> DllPlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllPlugin;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: [<span class="string">'react'</span>, <span class="string">'react-dom'</span>],</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: <span class="string">"react"</span>,</span><br><span class="line">        filename: <span class="string">"react.dll.js"</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">"./dll"</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用这个会生成一个react-manifest.json的缓存文件</span></span><br><span class="line">        <span class="keyword">new</span> DllPlugin(&#123;</span><br><span class="line">            name:<span class="string">'react'</span>,</span><br><span class="line">            path:path.join(__dirname,<span class="string">'./dll/react-manifest.json'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打包 react react-dom</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">'react-dom'</span></span><br><span class="line">render(<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>123<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span> , <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//引用库文件,在打包的过程中就会去查找配置的缓存文件,如果文件中有指定的库,就不会再打包了</span></span><br><span class="line"><span class="keyword">const</span> DllReferencePlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllReferencePlugin;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成html</span></span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//向html中添加标签(dll文件需要引用到html中,因为现在打包的文件中没有打包react)</span></span><br><span class="line"><span class="keyword">const</span> AddAssetHtmlPlugin = <span class="built_in">require</span>(<span class="string">'add-asset-html-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: path.join(__dirname, <span class="string">'./src/index.js'</span>),</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.join(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">        filename: <span class="string">"main.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">'test'</span>: <span class="regexp">/\.js/</span>,</span><br><span class="line">                <span class="string">'use'</span>: &#123;</span><br><span class="line">                    loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        presets: [</span><br><span class="line">                            <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">                            <span class="string">"@babel/preset-react"</span></span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">//指定缓存文件位置</span></span><br><span class="line">        <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">            manifest: path.join(__dirname, <span class="string">'./dll/react-manifest.json'</span>)</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: path.join(__dirname, <span class="string">'./public/index.html'</span>),</span><br><span class="line">            filename: <span class="string">'index.html'</span></span><br><span class="line">        &#125;),</span><br><span class="line"></span><br><span class="line">        <span class="comment">//添加第三方库到html中</span></span><br><span class="line">        <span class="keyword">new</span> AddAssetHtmlPlugin(&#123;</span><br><span class="line">            filepath: path.resolve(__dirname, <span class="string">'./dll/react.dll.js'</span>),</span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//webpack.dll.js </span></span><br><span class="line"><span class="comment">//打包第三方库 react 和react-dom</span></span><br><span class="line"><span class="comment">//将 react 和react-dom 生成一个文件</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> DllPlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllPlugin;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: [<span class="string">'react'</span>, <span class="string">'react-dom'</span>],</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: <span class="string">"react"</span>,</span><br><span class="line">        filename: <span class="string">"react.dll.js"</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">"./dll"</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用这个会生成一个react-manifest.json的缓存文件</span></span><br><span class="line">        <span class="keyword">new</span> DllPlugin(&#123;</span><br><span class="line">            name:<span class="string">'react'</span>,</span><br><span class="line">            path:path.join(__dirname,<span class="string">'./dll/react-manifest.json'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>如何打包一个前端的包让nodejs使用呢</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建了一个webpack.dll.js的webpack配置文件</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: path.join(__dirname, <span class="string">"./src/calc.js"</span>),</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: <span class="string">"calc"</span>,<span class="comment">//打包成一个立即执行函数,这个函数的返回值被赋到calc这个变量上</span></span><br><span class="line">        libraryTarget: <span class="string">"commonjs2"</span>,<span class="comment">// 可以使用 var(默认值) commonjs commonjs2</span></span><br><span class="line">        filename: <span class="string">"calc.js"</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">"./dll"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1151,90 +1233,6 @@ age is 18&quot;&quot;&quot;</code><br>Boolean true false<br>List <code>List name
 
 
   
-    <article id="post-珠峰6第九节HTTP2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/27/珠峰6第九节HTTP2/">珠峰6第九节HTTP2</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/27/珠峰6第九节HTTP2/" class="archive-article-date">
-  	<time datetime="2019-11-27T06:19:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="http-压缩和缓存"><a href="#http-压缩和缓存" class="headerlink" title="http 压缩和缓存"></a>http 压缩和缓存</h3><p>使用http模块仿写一个http-server<br>代码已传到git:<a href="https://github.com/daiyunchao/dychttpserver中" target="_blank" rel="noopener">https://github.com/daiyunchao/dychttpserver中</a></p>
-<p>流可分为 可读流 可写流 双共流(可读可写流) 转换流(压缩就是使用的转换流)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可写流,标准输出功能同 console.log('字符串')</span></span><br><span class="line"><span class="comment">//作用是将文本输出到控制台</span></span><br><span class="line">process.stdout.write(<span class="string">'字符串'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//可读流,接收用户输入的内容</span></span><br><span class="line">process.stdin.on(<span class="string">'data'</span>,()=&gt;&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//转换流的小例子:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可写流</span></span><br><span class="line"><span class="comment">// process.stdout.write('这是一段内容')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可写流</span></span><br><span class="line"><span class="comment">// process.stdin.on('data', (data) =&gt; &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//通过可读流和可写流实现回声效果:</span></span><br><span class="line"><span class="comment">//就像 createReadStream(filepath).pipe(res) 相同功能</span></span><br><span class="line"><span class="comment">//process.stdin.pipe(process.stdout)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//添加需求,如何才能将我的回声效果中输入的小写字母转换成大写字母呢</span></span><br><span class="line"><span class="comment">//就需要我们的转换流</span></span><br><span class="line"><span class="comment">//调用就变成了</span></span><br><span class="line"><span class="comment">//process.stdin.pipe(charTransform).pipe(process.stdout) 如何实现呢</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123; Transform &#125; = <span class="built_in">require</span>(<span class="string">'stream'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CharTransform</span> <span class="keyword">extends</span> <span class="title">Transform</span> </span>&#123;</span><br><span class="line">  _transform(chunk, encoding, callback) &#123;</span><br><span class="line">    chunk = chunk.toString().toUpperCase();</span><br><span class="line">    <span class="comment">// console.log("chunk==&gt;",chunk);</span></span><br><span class="line">    <span class="keyword">this</span>.push(chunk)</span><br><span class="line">    callback();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> charTransform = <span class="keyword">new</span> CharTransform();</span><br><span class="line">process.stdin.pipe(charTransform).pipe(process.stdout)</span><br></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/27/珠峰6第九节HTTP2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1340,15 +1338,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">PYTHON</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1356,11 +1350,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color2">PYTHON</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
