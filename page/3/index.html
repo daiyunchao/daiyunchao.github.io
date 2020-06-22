@@ -162,6 +162,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-珠峰6EventLoop" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/17/珠峰6EventLoop/">珠峰6EventLoop</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/17/珠峰6EventLoop/" class="archive-article-date">
+  	<time datetime="2019-09-17T08:38:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="EventLoop"><a href="#EventLoop" class="headerlink" title="EventLoop"></a>EventLoop</h4><h4 id="基本知识点"><a href="#基本知识点" class="headerlink" title="基本知识点"></a>基本知识点</h4><blockquote>
+<p>先执行宏任务,再执行微任务(因为最先执行的是script脚本中的代码,而script脚本也是一个宏任务)<br>UI的渲染和JS的执行是互斥的<br>每次JS执行主栈完成后都将把微任务进行清空,然后再从宏任务中取出一个任务进行执行</p>
+</blockquote>
+<h4 id="代码是如何运行的"><a href="#代码是如何运行的" class="headerlink" title="代码是如何运行的"></a>代码是如何运行的</h4><ol>
+<li>代码读取<code>script</code>脚本中的代码从上到下依次读取依次执行(执行JS的主进程)</li>
+<li>当执行栈遇到异步代码(<code>click</code>的函数,<code>setTimeout</code>,<code>ajax</code>等)会去开辟另外的线程去执行这些操作</li>
+<li>当settimeout的时间到了,或是<code>ajax</code>的回调完成了,就会把这些回调放入<code>任务队里中(微任务/宏任务)</code></li>
+<li>当主任务(JS执行的主栈)任务全部做完后,JS会从<code>任务队列中(优先是宏任务)</code>拿第一个任务在主任务中执行</li>
+<li>循环罔替<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分析下一下代码:</span></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"1"</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"3"</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"2"</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"4"</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//1. JS执行主栈拿到以上一段代码</span></span><br><span class="line"><span class="comment">//2. 执行时发现第一个异步任务settimeout不去执行</span></span><br><span class="line"><span class="comment">//3. 执行时又发现了第二个异步任务 settimeout 不去执行</span></span><br><span class="line"><span class="comment">//4. 扫描时发现第一个settimeout执行的时间到了,将它放入宏任务队列中</span></span><br><span class="line"><span class="comment">//5. 扫描时发现第二个settimeout执行的时间也到了,也将它放入宏任务队列中</span></span><br><span class="line"><span class="comment">//6. JS执行主栈从宏任务中取出第一个宏队列中的任务(第一个settimeout)开始执行此刻打印了 1</span></span><br><span class="line"><span class="comment">//7. JS执行主栈又发现了一个异步任务 settimeout 不去执行</span></span><br><span class="line"><span class="comment">//8. 此刻JS执行主栈又空了,再从宏队列中获取第一个任务并开始执行 此刻打印了 2</span></span><br><span class="line"><span class="comment">//9. 打印3和4和打印1 2 类似</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="微任务"><a href="#微任务" class="headerlink" title="微任务"></a>微任务</h4><p>微任务:<code>promise.then</code> <code>MutationObserver</code> <code>process.nextTick</code><br>每次当主栈中的任务执行完成后 微任务列表都将被清空</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"time0"</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"then0"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);<span class="comment">//放入宏任务</span></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"time1"</span>);</span><br><span class="line">&#125;);<span class="comment">//放入宏任务</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then1"</span>);</span><br><span class="line">&#125;)<span class="comment">//放入微任务</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then2"</span>);</span><br><span class="line">&#125;)<span class="comment">//放入微任务</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//执行jS主栈 将settimeout放入宏任务 promise.then放入微任务</span></span><br><span class="line"><span class="comment">//js主栈执行完成,清空微任务列表 then1 then2 被执行</span></span><br><span class="line"><span class="comment">//从宏任务中拿出第一个settimeout并执行 打印time0 并将then0 放入微任务</span></span><br><span class="line"><span class="comment">//js主栈执行完成,清空微任务列表 then0被执行</span></span><br><span class="line"><span class="comment">//从宏任务中拿出第二个settimeout并执行打印time1</span></span><br></pre></td></tr></table></figure>
+<h4 id="宏任务"><a href="#宏任务" class="headerlink" title="宏任务"></a>宏任务</h4><p>微任务:<code>script</code> <code>ajax</code> <code>事件(click)</code> <code>requestFrameAnimation</code> <code>setTimeout</code> <code>setInterval</code> <code>setImmediate(IE的方法)</code> <code>MessageChannel</code> <code>I/O</code> <code>UI rendering</code><br>每次只取一个队列中的任务出来执行</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/17/珠峰6EventLoop/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-珠峰6自己实现模版引擎" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -916,90 +1011,6 @@
 
 
   
-    <article id="post-JS中的Set和Map" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/15/JS中的Set和Map/">JS中的Set和Map</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/15/JS中的Set和Map/" class="archive-article-date">
-  	<time datetime="2019-08-15T08:18:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h3><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><blockquote>
-<p>不重复 无序<br>例子: 对现有数组进行去重<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">[... new <span class="built_in">Set</span>(arr)]	<span class="comment">// [1, 2, 3] </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//或使用Array.from 将一个Set转换成一个数组</span></span><br><span class="line"><span class="keyword">let</span> arr=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="keyword">let</span> set=<span class="keyword">new</span> <span class="built_in">Set</span>(arr);</span><br><span class="line"><span class="keyword">let</span> arr_new=<span class="built_in">Array</span>.from(set);</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JAVASCRIPT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/15/JS中的Set和Map/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1105,11 +1116,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1121,19 +1136,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
             
             <div class="clearfix"></div>

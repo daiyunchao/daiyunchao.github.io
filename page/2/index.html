@@ -162,6 +162,113 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-珠峰6第九节HTTP-Cors" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/28/珠峰6第九节HTTP-Cors/">珠峰6第九节HTTP_Cors</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/28/珠峰6第九节HTTP-Cors/" class="archive-article-date">
+  	<time datetime="2019-11-28T02:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="http跨域"><a href="#http跨域" class="headerlink" title="http跨域"></a>http跨域</h3><ul>
+<li>常见的跨域解决方案 <code>jsonp</code> <code>cors</code> <code>websocket</code></li>
+<li>跨域包含 <code>协议不同</code> <code>域名不同</code> <code>端口不同</code></li>
+</ul>
+<h4 id="cors"><a href="#cors" class="headerlink" title="cors"></a>cors</h4><ul>
+<li>使用cors处理跨域的问题,是在响应中设置<code>Access-Control-Allow-Origin</code> 例子:<code>res.setHeader(&#39;Access-Control-Allow-Origin&#39;,&#39;*&#39;)</code> req.headers.origin 表示谁访问我就允许谁跨域,作用和*相同</li>
+<li>如果是复杂请求(一般请求添加了自定义的header就是复杂请求,复杂请求会先发一次options请求(options只是试探是否可以访问),) 如果设置了自定义的头需要在返回中设置 <code>Access-Control-Allow-Headers</code>来允许头的跨域 例子: <code>res.setHeader(&#39;Access-Control-Allow-Headers&#39;,&#39;token,my_uid&#39;)</code></li>
+<li>如果发送了一个非<code>get</code> <code>post</code>的请求也是一个复杂的请求,也需要设置服务器端允许的方法 <code>Access-Control-Allow-Methods</code> 例子: <code>res.setHeader(&#39;Access-Control-Allow-Methods&#39;,&#39;GET,POST,DELETE,UPDATE&#39;)</code></li>
+<li>如果是跨域并且是复杂请求会先发一个<code>options</code>的请求去试探可不可以进行请求,这个<code>options</code>的时间也是可以设置的 单位是秒:<code>res.setHeader(&#39;Access-Control-Max-Age&#39;,1800)</code> 这样这个试探的<code>options</code>就会间隔1800秒再次询问</li>
+<li><p>如果是跨域需要携带<code>cookie</code>,则需要在服务器端设置 允许携带凭证 <code>Access-Control-Allow-Credentials</code> 例子: <code>res.setHeader(&#39;Access-Control-Allow-Credentials&#39;,true)</code> 注:fetch请求需要添加特定的参数才能携带cookie</p>
+</li>
+<li><p>写起来很麻烦，当然也可以使用 第三方库<code>cors</code>来使用很简单</p>
+</li>
+</ul>
+<h4 id="反向代理-amp-正向代理"><a href="#反向代理-amp-正向代理" class="headerlink" title="反向代理&amp;正向代理"></a>反向代理&amp;正向代理</h4><ul>
+<li>什么是正向代理： 代理服务器和客户端是一头的，对服务器而已代理是透明的，比如翻墙使用的代理，就是正向代理 这个时候代理服务器的作用多数是认证、权限验证</li>
+<li>什么是反向代理： 代理服务器和服务器是一头的，对客户端而已代理是透明的，比如nginx webpack proxy 这个时候代理服务器的作用多数是 缓存</li>
+<li>webpack proxy的原理 其实就是一个中转服务器，可使用<code>http-proxy</code>第三方库实现<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用http-proxy的小例子</span></span><br><span class="line"><span class="comment">//也是反向代理的一个小例子</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"><span class="keyword">const</span> httpProxy=<span class="built_in">require</span>(<span class="string">'http-proxy'</span>);</span><br><span class="line"><span class="keyword">let</span> hp=httpProxy.createProxyServer();</span><br><span class="line">http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">//将全部的请求都代理到目标baidu服务器上去进行处理</span></span><br><span class="line">  hp.web(req,res,&#123;<span class="attr">target</span>:<span class="string">'http://www.baidu.com'</span>&#125;)</span><br><span class="line">&#125;).listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用httpProxy实现最基本的反向代理功能</span></span><br><span class="line"><span class="comment">//需求：假如一台服务器是www.abc.com 和 www.bcd.com两个域名的主机，现在要通过反向代理的方式将两个域名的请求区分开</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"><span class="keyword">const</span> httpProxy=<span class="built_in">require</span>(<span class="string">'http-proxy'</span>)</span><br><span class="line"><span class="keyword">let</span> serverProxys=&#123;</span><br><span class="line">  <span class="string">"www.abc.com"</span>:<span class="string">"http://localhost:3000"</span>,</span><br><span class="line">  <span class="string">"www.bcd.com"</span>:<span class="string">"http://localhost:3001"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> hp=httpProxy.createProxyServer();</span><br><span class="line">http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">  hp.web(req,res,&#123;<span class="attr">target</span>:serverProxys[req.headers.host]&#125;)</span><br><span class="line">&#125;).listen(<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="agent-通过user-agent进行转向"><a href="#agent-通过user-agent进行转向" class="headerlink" title="agent 通过user-agent进行转向"></a>agent 通过user-agent进行转向</h4><ul>
+<li>主要是针对目前 pc和手机端不是相同的进程</li>
+<li>客户端通过判断agent也能实现这个效果，不过看到的response不是302<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例子：如果是手机页面跳转到百度 如果不是手机则跳转到bing</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line">http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> agent=req.headers[<span class="string">"user-agent"</span>];</span><br><span class="line">  <span class="keyword">if</span>(agent.includes(<span class="string">"iPhone"</span>))&#123;</span><br><span class="line">    res.statusCode=<span class="number">302</span>;</span><br><span class="line">    res.setHeader(<span class="string">'Location'</span>,<span class="string">"http://www.baidu.com"</span>);</span><br><span class="line">    res.end()</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    res.statusCode=<span class="number">302</span>;</span><br><span class="line">    res.setHeader(<span class="string">'Location'</span>,<span class="string">"http://www.bing.com"</span>);</span><br><span class="line">    res.end()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/28/珠峰6第九节HTTP-Cors/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-珠峰6第九节HTTP2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1008,101 +1115,6 @@
 
 
   
-    <article id="post-珠峰6EventLoop" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/17/珠峰6EventLoop/">珠峰6EventLoop</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/17/珠峰6EventLoop/" class="archive-article-date">
-  	<time datetime="2019-09-17T08:38:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="EventLoop"><a href="#EventLoop" class="headerlink" title="EventLoop"></a>EventLoop</h4><h4 id="基本知识点"><a href="#基本知识点" class="headerlink" title="基本知识点"></a>基本知识点</h4><blockquote>
-<p>先执行宏任务,再执行微任务(因为最先执行的是script脚本中的代码,而script脚本也是一个宏任务)<br>UI的渲染和JS的执行是互斥的<br>每次JS执行主栈完成后都将把微任务进行清空,然后再从宏任务中取出一个任务进行执行</p>
-</blockquote>
-<h4 id="代码是如何运行的"><a href="#代码是如何运行的" class="headerlink" title="代码是如何运行的"></a>代码是如何运行的</h4><ol>
-<li>代码读取<code>script</code>脚本中的代码从上到下依次读取依次执行(执行JS的主进程)</li>
-<li>当执行栈遇到异步代码(<code>click</code>的函数,<code>setTimeout</code>,<code>ajax</code>等)会去开辟另外的线程去执行这些操作</li>
-<li>当settimeout的时间到了,或是<code>ajax</code>的回调完成了,就会把这些回调放入<code>任务队里中(微任务/宏任务)</code></li>
-<li>当主任务(JS执行的主栈)任务全部做完后,JS会从<code>任务队列中(优先是宏任务)</code>拿第一个任务在主任务中执行</li>
-<li>循环罔替<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分析下一下代码:</span></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"1"</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"3"</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"2"</span>);</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"4"</span>);</span><br><span class="line">  &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//1. JS执行主栈拿到以上一段代码</span></span><br><span class="line"><span class="comment">//2. 执行时发现第一个异步任务settimeout不去执行</span></span><br><span class="line"><span class="comment">//3. 执行时又发现了第二个异步任务 settimeout 不去执行</span></span><br><span class="line"><span class="comment">//4. 扫描时发现第一个settimeout执行的时间到了,将它放入宏任务队列中</span></span><br><span class="line"><span class="comment">//5. 扫描时发现第二个settimeout执行的时间也到了,也将它放入宏任务队列中</span></span><br><span class="line"><span class="comment">//6. JS执行主栈从宏任务中取出第一个宏队列中的任务(第一个settimeout)开始执行此刻打印了 1</span></span><br><span class="line"><span class="comment">//7. JS执行主栈又发现了一个异步任务 settimeout 不去执行</span></span><br><span class="line"><span class="comment">//8. 此刻JS执行主栈又空了,再从宏队列中获取第一个任务并开始执行 此刻打印了 2</span></span><br><span class="line"><span class="comment">//9. 打印3和4和打印1 2 类似</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="微任务"><a href="#微任务" class="headerlink" title="微任务"></a>微任务</h4><p>微任务:<code>promise.then</code> <code>MutationObserver</code> <code>process.nextTick</code><br>每次当主栈中的任务执行完成后 微任务列表都将被清空</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"time0"</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"then0"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);<span class="comment">//放入宏任务</span></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"time1"</span>);</span><br><span class="line">&#125;);<span class="comment">//放入宏任务</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then1"</span>);</span><br><span class="line">&#125;)<span class="comment">//放入微任务</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"then2"</span>);</span><br><span class="line">&#125;)<span class="comment">//放入微任务</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//执行jS主栈 将settimeout放入宏任务 promise.then放入微任务</span></span><br><span class="line"><span class="comment">//js主栈执行完成,清空微任务列表 then1 then2 被执行</span></span><br><span class="line"><span class="comment">//从宏任务中拿出第一个settimeout并执行 打印time0 并将then0 放入微任务</span></span><br><span class="line"><span class="comment">//js主栈执行完成,清空微任务列表 then0被执行</span></span><br><span class="line"><span class="comment">//从宏任务中拿出第二个settimeout并执行打印time1</span></span><br></pre></td></tr></table></figure>
-<h4 id="宏任务"><a href="#宏任务" class="headerlink" title="宏任务"></a>宏任务</h4><p>微任务:<code>script</code> <code>ajax</code> <code>事件(click)</code> <code>requestFrameAnimation</code> <code>setTimeout</code> <code>setInterval</code> <code>setImmediate(IE的方法)</code> <code>MessageChannel</code> <code>I/O</code> <code>UI rendering</code><br>每次只取一个队列中的任务出来执行</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/17/珠峰6EventLoop/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1208,11 +1220,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1224,19 +1240,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
             
             <div class="clearfix"></div>
