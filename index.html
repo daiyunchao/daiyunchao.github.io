@@ -162,6 +162,338 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bash脚本学习记录" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/04/bash脚本学习记录/">bash脚本学习记录</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/04/bash脚本学习记录/" class="archive-article-date">
+  	<time datetime="2020-08-04T10:08:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这篇文章是我在:<a href="https://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">https://www.runoob.com/linux/linux-shell.html</a> 过程中,写下的一些笔记</p>
+</blockquote>
+<h4 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h4><ol>
+<li><p>在终端中输出内容 <code>echo echo &quot;this is something&quot;</code></p>
+</li>
+<li><p><code>#!/bin/bash</code>的意思是下面的内容是bash脚本,使用 <code>/bin/bash</code>命令去执行</p>
+</li>
+<li><p>执行脚本的两种方式:<br>3.1 <code>cd</code>到脚本所在的目录中,执行<code>./01.sh</code> 为什么一定要加上<code>./</code>去执行脚本,因为如果不加就只会再<code>/bin, /sbin, /usr/bin，/usr/sbin</code> 这些地方去找该脚本,如果遇到没有权限,可以先执行<code>chmod +x 01.sh</code>再执行<br>3.2 <code>/bin/bash ./bash_script/code/01.sh</code> 先指定执行的命令 参数是脚本的地址</p>
+</li>
+</ol>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/04/bash脚本学习记录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-redis入门指南-03" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/22/redis入门指南-03/">redis入门指南_03</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/22/redis入门指南-03/" class="archive-article-date">
+  	<time datetime="2020-06-22T08:22:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="第三章-入门"><a href="#第三章-入门" class="headerlink" title="第三章 入门"></a>第三章 入门</h4><ol>
+<li>获取规则的键名列表<br><code>redis</code>获取键名的规则是 <code>keys pattern</code><br>其中的pattern就是正则表达式的风格<br>| 符号 | 含义 |<br>| —— | —— |<br>| ？ | 匹配一个字符串 |<br>| * | 匹配任何字符串 |<br>| [] | 范围匹配 a[a-z]匹配的就是aa到az的全部字符串 |<br>| \x | 转译匹配 \x 就是匹配普通字符串x | </li>
+</ol>
+<p>例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis-cli</span><br><span class="line">set bar 1</span><br><span class="line">keys * # 获取全部的key值</span><br><span class="line">keys ba? # 获取ba开头的三个字符的key</span><br><span class="line">keys ba[a-r] # 获取ba开头第三个字符是 a-r中的字符串的key</span><br><span class="line">keys ba\r # 使用转译和 bar的效果一样</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li><p>判断key是否存在<br><code>exists key</code> 存在返回1 不存在返回0 </p>
+<blockquote>
+<p>不支持正则表达式，只能输入明确的key值查看</p>
+</blockquote>
+</li>
+<li><p>删除key<br><code>del key</code> 返回值是 删除key的数量 如果没有删除的项 返回值为0</p>
+</li>
+<li><p>获取key对于值的数据类型<br><code>type key</code> 可能返回的值有 string hash list set zset</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type bar #返回 string</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h5><ol>
+<li>string类型<br>redis的string类型可存放任何形式的字符串，可以是二进制/一般的字符串/数字等等 最大可以存储512MB的数据</li>
+</ol>
+<blockquote>
+<p>get set 命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 设置一个值</span><br><span class="line">set key value</span><br><span class="line"></span><br><span class="line">#获取一个值</span><br><span class="line">get key </span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">注意： 当key不存在时候会返回空值</span><br><span class="line"></span><br><span class="line">&gt; incr 递增数</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>incr count </p>
+<h1 id="如果count-对应的值是int-则会返回int-1的结果-如果是小数或是字符串则会返回一个错误"><a href="#如果count-对应的值是int-则会返回int-1的结果-如果是小数或是字符串则会返回一个错误" class="headerlink" title="如果count 对应的值是int 则会返回int+1的结果 如果是小数或是字符串则会返回一个错误"></a>如果count 对应的值是int 则会返回int+1的结果 如果是小数或是字符串则会返回一个错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">`incr`的使用场景</span><br><span class="line">1. 统计访问量</span><br><span class="line">2. 生成自增ID</span><br><span class="line"></span><br><span class="line">&gt; decr key 有增加就有减少，该命令通incr一样不过这个是减少1的</span><br><span class="line"></span><br><span class="line">&gt; incrby key int 增加指定数值到key上</span><br><span class="line"></span><br><span class="line">&gt; decrby key int 减少指定数值到key上</span><br></pre></td></tr></table></figure>
+<p>set count 100<br>incr count # return 101<br>incrby count 100 # return 201<br>decr count # return 200<br>decrby count 100 # return 100</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">有了整数的添加或是减少浮点数呢？</span><br><span class="line">&gt; incrbyfloat key increment</span><br></pre></td></tr></table></figure>
+<p>set count 100<br>incrbyfloat count 99.89 # return 199.89<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; append 向字符串的尾部追加一个字符串,如果该字符串不存在，则创建该字符串，效果同`set key value`，如果存在则在尾部追加新的字符串</span><br></pre></td></tr></table></figure></p>
+<p>set name “zhangsan”<br>append name “lisi” # return 12(新字符串的长度)<br>get name # “zhangsanlisi”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; strlen key 获取字符串的长度,如果key值不存在，则返回0</span><br></pre></td></tr></table></figure>
+<p>set name “zhangsan”<br>strlen name # return 8</p>
+<p>set key 您好<br>strlen key # return 6,因为您好是utf8的字符串，一个字的长度是3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; mget 和 mset 批量写入和批量获取字符串 mset key1 v1 key2 v2 key3 v3</span><br><span class="line">mget key1 key2 key3</span><br></pre></td></tr></table></figure></p>
+<p>mset name zhangsan age 19 gender male</p>
+<p>mget name age gender</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### hash类型</span><br><span class="line">用于存放值为键值对的 类似于js中的json，但是这种方式是不支持类型的嵌套的</span><br></pre></td></tr></table></figure>
+<p>#分别设置zhangsan的 名字 性别 年龄<br>hset zhangsan name zhangsan<br>hset age 18<br>hset gender male</p>
+<p>#同时设置多个值<br>hmset zhangsan name zhangsan age 18 gender male</p>
+<h1 id="单独获取zhangsan的属性"><a href="#单独获取zhangsan的属性" class="headerlink" title="单独获取zhangsan的属性"></a>单独获取zhangsan的属性</h1><p>hget zhangsan name<br>hget zhangsan age<br>hget zhangsan gender</p>
+<h1 id="批量的获取zhangsan的全部属性"><a href="#批量的获取zhangsan的全部属性" class="headerlink" title="批量的获取zhangsan的全部属性"></a>批量的获取zhangsan的全部属性</h1><p>hmget zhangsan name age gender</p>
+<h1 id="获取zhangsan的全部属性"><a href="#获取zhangsan的全部属性" class="headerlink" title="获取zhangsan的全部属性"></a>获取zhangsan的全部属性</h1><p>hgetall zhangsan</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 判断对象的属性是否存在</span><br></pre></td></tr></table></figure>
+<p>hexists key field # 如果字段存在则返回1 如果字段不存在则返回0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; hsetnx当字段不存在时赋值(和hset的区别是如果不存在就赋值,如果存在hset会去更新这个值,但hsetnx是不会更新该值,另外hsetnx是原子操作)</span><br></pre></td></tr></table></figure></p>
+<p>hsetnx zhangsan name lisi<br>hget zhangsan name # 还是返回的是 zhangsan,因为zhangsan这个属性是存在的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; hincrby 为hash的字段设置/添加 制定的数值,如果该属性之前是不存在的,初始值按照0处理</span><br></pre></td></tr></table></figure>
+<p>hincrby zhangsan age 10 # return 28</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 删除字段 hdel key field ,该命令可删除一个或是多个的属性</span><br></pre></td></tr></table></figure>
+<p>hdel zhangsan name age<br>hgetall zhangsan # 返回剩下的字段<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; hkeys key获取hash中的全部的属性名 hvals key 获取hash中的全部的值</span><br></pre></td></tr></table></figure></p>
+<p>hmset zhangsan name zhangsan age 18 gender male<br>hgetall zhangsan # 返回zhangsan的 name age gender</p>
+<p>hkeys zhangsan # return zhangsan的全部的key值 name age gender</p>
+<p>hvals zhangsan # return zhangsan的全部的key对应的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### redis列表类型 list</span><br><span class="line">内部使用双链表的方式实现,访问首尾的速度快</span><br><span class="line"></span><br><span class="line">&gt; 向两端添加数据 `lpush key value value2...` `rpush key value value2`顾名思义l就是左边,r就是右边,返回值就是新的列表的长度</span><br></pre></td></tr></table></figure></p>
+<p>lpush students zhangsan<br>lpush students lisi wangwu</p>
+<p>rpush student wangermazi zhaoliu</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 从list中去掉数据 `lpop key rpop key` 该命令只能一次一个元素,返回值是移除的那个元素值</span><br></pre></td></tr></table></figure>
+<h1 id="接着上面的student的例子"><a href="#接着上面的student的例子" class="headerlink" title="接着上面的student的例子"></a>接着上面的student的例子</h1><p>lpop students # return wangwu<br>rpop students # return zhaoliu</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 获取list中的长度 llen key 如果key不存在的话返回0</span><br><span class="line">`len students` #return 3</span><br><span class="line"></span><br><span class="line">&gt; 返回列表中的部分数据`lrange key start end` 索引是从0开始 获取的值是包含start 和end的,这里要注意js中的slice方法是不会包含end位置的值得,如果start 和end是负数,则表示是从右边开始取值得 比如-1 就是右边的第一个 -2就是右边的第二个</span><br></pre></td></tr></table></figure>
+<p>lrange student 0 100 # return 0-100的列表中的值</p>
+<h1 id="如果想获取全部list中的数据可以使用-lrange-student-0-1"><a href="#如果想获取全部list中的数据可以使用-lrange-student-0-1" class="headerlink" title="如果想获取全部list中的数据可以使用 lrange student 0 -1"></a>如果想获取全部list中的数据可以使用 lrange student 0 -1</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 删除指定值 lrem count value 在list中前count个中删除值等value,如果count大于0 就从左边开始删除,如果count小于0就从右边开始删除,如果count等于0就将等于value的全部删除</span><br></pre></td></tr></table></figure>
+<p>lpush students zhangsan lisi wangwu<br>rpush students zhaoliu wangermaizi zhangsan lisi<br>lrange students 0 -1 #return all students<br>lrem students 0 zhangsan # remove all zhangsan<br>lrange students 0 -1 # return result except zhangsan<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 获取指定下标的数据 `lindex key index`</span><br><span class="line">`lindex students 0` return wangwu</span><br><span class="line"></span><br><span class="line">&gt; 设置指定下标的数据 `lset key index value`</span><br><span class="line">`lset students 0 zhangsan`</span><br><span class="line">`lrange students 0 -1`</span><br><span class="line"></span><br><span class="line">&gt; 删除指定位置外的数据 `ltrim key start end` 和 `lrem`相反</span><br><span class="line">`ltrim key 0 -1` # 一个都不删除 可以实现保留部分数据的方式</span><br><span class="line">如:</span><br><span class="line">`ltrim logs 0 99` # 只是保留前100的日志数据</span><br><span class="line"></span><br><span class="line">&gt; 在元素前/后添加数据 `linsert key before/after oldvalue newvalue`</span><br></pre></td></tr></table></figure></p>
+<p>lrange numbers 0 -1<br>2<br>7<br>0</p>
+<p>linsert numbers after 7 3<br>linsert numbers before 2 1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">##### 集合类型 Set</span><br><span class="line">集合类型类似于js中的set,无序并且没有重复数据和List的区别也在于此,List是有顺序并且可以重复的</span><br><span class="line"></span><br><span class="line">&gt; sadd 向元素中添加元素,如果元素已经存在则会忽略该数据,如果key不存在则会创建该数据,返回值是 成功添加的值得数量</span><br></pre></td></tr></table></figure>
+<p>sadd snumbers a  # return 1<br>sadd snumbers a b c # return 2 因为a 已经添加过了,则返回2个值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; srem 删除一个或多个元素 返回删除成功的数量 , 和sadd相同的如果不存在的值会被忽略</span><br></pre></td></tr></table></figure></p>
+<p>srem snumbers a # return 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; smembers key 获取set中的全部成员</span><br></pre></td></tr></table></figure></p>
+<p>smembers snumbers<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; sismember key val 判断元素是否在set中 如果存在则返回1 如果不存在则返回0</span><br></pre></td></tr></table></figure></p>
+<p>sismember snumbers c # return 1<br>sismember snumbers f # return 0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 集合运算</span><br><span class="line">- sdiff (a在b中的差集)</span><br></pre></td></tr></table></figure></p>
+<p>sadd seta a b c<br>sadd setb b c d<br>sdiff seta setb # return a<br>sdiff setb seta # return d</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sdiff 除了可以处理2个集合的差集还能处理多个集合的差集 sdiff seta setb setc 执行的逻辑是 先获取seta和setb的差集再把这个结果和setc比较</span><br></pre></td></tr></table></figure>
+<p>sadd seta a b c<br>sadd setb b c d<br>sadd setc b c<br>sdiff seta setb setc # return a</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- sinter 集合的交集,和sdiff相同,可以处理多个集合的交集</span><br></pre></td></tr></table></figure>
+<p>sadd seta a b c<br>sadd setb b c d<br>sadd setc b c</p>
+<p>sinter seta setb setc # return c b</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- sunion 集合的并集</span><br></pre></td></tr></table></figure>
+<p>sadd seta a b c<br>sadd setb b c d<br>sadd setc b c</p>
+<p>sunion seta setb setc # return a b c d<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 获取元素的个数 scard key</span><br></pre></td></tr></table></figure></p>
+<p>scard seta #return 3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 获取差集/并集/补集 并存储到新的key中 sdiffstore / sinterstore / sunionstore newkey oldkey1 oldkey2 oldkey3</span><br></pre></td></tr></table></figure></p>
+<p>sdiffstore setd seta setb # return 1<br>smembers setd #return a<br>sinterstore setd seta setb # return 1<br>smembers setd # return a<br>sunionstore setd seta setb # return 1<br>smembers setd # return a b c d<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 随机获取集合中的元素 srandmember key [count] count 是可以选择的 如果没有count参数,则获取数量为1 </span><br><span class="line">注意: count的可以是正数也可以是负数 如果是正数,则返回不重复的count数量的值,如果是超过了set的成员总数,则返回全部的数量,如果cout是负数,也返回count数量的值,但可能是有重复的数据</span><br></pre></td></tr></table></figure></p>
+<p>srandmember seta # return a<br>srandmember seta 100 # a b c<br>srandmember seta -100 # 返回100个数量的值,但有重复的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 从集合中随机选择一个值并且删除 spop key</span><br></pre></td></tr></table></figure></p>
+<p>spop seta # return c<br>smembers seta # return b a</p>
+<p><code>`</code></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">REDIS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/22/redis入门指南-03/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-redis入门指南01" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/22/redis入门指南01/">redis入门指南01</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/22/redis入门指南01/" class="archive-article-date">
+  	<time datetime="2020-06-22T07:30:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h4><ol>
+<li><p>启动redis服务器<br><code>redis-server</code> 可以添加启动参数 –port 为指定的启动端口 也可以添加启动的配置文件<br>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./redis-server (run the server with default conf)</span><br><span class="line">./redis-server /etc/redis/6379.conf</span><br><span class="line">./redis-server --port 7777</span><br><span class="line">./redis-server --port 7777 --replicaof 127.0.0.1 8888</span><br><span class="line">./redis-server /etc/myredis.conf --loglevel verbose</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>停止redis服务器<br><code>redis-cli SHUTDOWN</code> 其中的redis-cli 是redis的命令行工具，可直接输入 redis-cli进入命令行<br>该命令会默认的链接本机的6379端口进行<br>如果需要修改host或是端口的话 可以使用参数： <code>redis-cli -h 192.168.1.69 -p 7789</code><br>使用kill命令或是shutdown命令都是一样的，因为redis对进程信号做了处理 所以就算是kill 或是 shutdown的效果都是一样的，都会先和客户端断开链接后和持久化以后才真正的结束进程</p>
+</li>
+<li><p>通过命令行测试服务器是否能链接<br><code>redis-cli ping</code> 如果能正常连接 终端会显示pong 如果连接不通，则会返回connection refuse的提示信息</p>
+</li>
+<li><p>在启动redis的时候可以通过传入配置文件的方式进行启动，也可以在指定配置文件的基础上再设置其他的配置选项<br>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 使用传入配置文件的方式进行启动：</span><br><span class="line">redis-server /path/xx/redis.conf</span><br><span class="line"></span><br><span class="line"># 在配置文件的基础上再添加其他的设置：</span><br><span class="line">redis-server /path/xx/redis.conf --loglevel warning</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>还有一种方式可以在不重启redis的情况下直接设置：(并不是全部的配置都能使用该方法去修改的)<br><code>redis-cli config set loglevel warning</code></p>
+<ol start="5">
+<li>在运行时查看当前redis的配置状态<br><code>redis-cli config get loglevel</code>  返回值： <code>loglevel warning</code></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">REDIS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/22/redis入门指南01/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-pm2原理解析" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -795,429 +1127,9 @@ age is 18&quot;&quot;&quot;</code><br>Boolean true false<br>List <code>List name
 
 
   
-    <article id="post-珠峰6第十三节webpack优化" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/20/珠峰6第十三节webpack优化/">珠峰6第十三节webpack优化</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/20/珠峰6第十三节webpack优化/" class="archive-article-date">
-  	<time datetime="2019-12-20T06:58:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="webpack优化"><a href="#webpack优化" class="headerlink" title="webpack优化"></a>webpack优化</h3><ul>
-<li><code>purgecss-webpack-plugin</code> 优化css,将没用到的css样式去掉,但需要配合<code>mini-css-extra-plugin</code></li>
-<li><p>没被引用的样式会被删除(但是不见得全部会被删除)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于获取文件路径的库</span></span><br><span class="line"><span class="keyword">const</span> glob=<span class="built_in">require</span>(<span class="string">'glob'</span>);</span><br><span class="line"><span class="keyword">const</span> PrugeCssWebpackPlugin=<span class="built_in">require</span>(<span class="string">'purgecss-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> PrugeCssWebpackPlugin(&#123;</span><br><span class="line">        paths:glob.sync(<span class="string">'./src/**/*'</span>,&#123;<span class="attr">nodir</span>:<span class="literal">true</span>&#125;)<span class="comment">//指定需要优化的样式路径</span></span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>image-webpack-loader</code>压缩图片,可配合<code>file-loader</code>一起使用,具体使用例子在:<a href="https://www.npmjs.com/package/image-webpack-loader" target="_blank" rel="noopener">https://www.npmjs.com/package/image-webpack-loader</a></p>
-</li>
-<li><p>webpack配置的<code>externals</code>外部变量,这是为了有的库不用打包到大的js中,而是用的cdn,或是外部直接引用的方式 </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">externals:&#123;</span><br><span class="line">    <span class="comment">//格式'报名':'变量名'</span></span><br><span class="line">    <span class="string">'jquery'</span>:<span class="string">'$'</span><span class="comment">//这里的意思就是不去打包代码中的jquery</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>tree-sharking</code>webpack去掉无用代码特点:</p>
-<ol>
-<li>只支持es的导入<code>import xx from xxx</code>类似这种</li>
-<li>只能在生产环境下使用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">optimization:&#123;</span><br><span class="line">    <span class="comment">//如果开启了该功能在生产环境中将会自动的去掉没有引用到的代码</span></span><br><span class="line">    usedExports:<span class="literal">true</span>,<span class="comment">//在打包的文件中会标记文件哪些被导出了,哪些被用到了`exports used:xxxx`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//有下面这段代码:</span></span><br><span class="line"><span class="comment">//test.js </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello"</span>)</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> test;</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> test <span class="keyword">from</span> <span class="string">'./test.js'</span> <span class="comment">//这段代码只是引用了,但没有使用到,叫着副作用代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//这时候在生成代码,test会被当成是有意义的代码保留下来(因为内部执行了test方法)</span></span><br><span class="line"><span class="comment">//但是可能我们想删除这个只引用了但没使用的代码怎么办呢?</span></span><br><span class="line"><span class="comment">//在package.json中加入</span></span><br><span class="line">sideEffects:<span class="literal">true</span> <span class="comment">//就能删除这段代码了</span></span><br><span class="line"><span class="comment">//但设置了这个有一个问题 我们一般引用样式 import './index.css' 这样设置了就会被删除</span></span><br><span class="line"><span class="comment">//但是可以解决的, </span></span><br><span class="line"><span class="comment">//1.将import 修改成require</span></span><br><span class="line"><span class="comment">//2.将sideEffects配置成一个数组</span></span><br><span class="line">sideEffects:[</span><br><span class="line">    <span class="string">"**/*.css"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p><code>scope-hoisting</code> 减少作用域 这是webpack4 自带的功能,在生成环境中自动会使用</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//a.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> c=<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> d=a+b+c;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> d;</span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> d <span class="keyword">from</span> <span class="string">'./a.js'</span></span><br><span class="line"><span class="built_in">console</span>.log(d)</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面这段代码会被优化成</span></span><br><span class="line"><span class="comment">// import d from './a.js'</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>dllPlugin</code>动态链接库 可以提升打包的速度</p>
-</li>
-<li><p>webpack打包第三方库</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打包 react react-dom</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; render &#125; <span class="keyword">from</span> <span class="string">'react-dom'</span></span><br><span class="line">render(<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>123<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span> , <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//引用库文件,在打包的过程中就会去查找配置的缓存文件,如果文件中有指定的库,就不会再打包了</span></span><br><span class="line"><span class="keyword">const</span> DllReferencePlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllReferencePlugin;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成html</span></span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//向html中添加标签(dll文件需要引用到html中,因为现在打包的文件中没有打包react)</span></span><br><span class="line"><span class="keyword">const</span> AddAssetHtmlPlugin = <span class="built_in">require</span>(<span class="string">'add-asset-html-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: path.join(__dirname, <span class="string">'./src/index.js'</span>),</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.join(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">        filename: <span class="string">"main.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">'test'</span>: <span class="regexp">/\.js/</span>,</span><br><span class="line">                <span class="string">'use'</span>: &#123;</span><br><span class="line">                    loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">                    options: &#123;</span><br><span class="line">                        presets: [</span><br><span class="line">                            <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">                            <span class="string">"@babel/preset-react"</span></span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">//指定缓存文件位置</span></span><br><span class="line">        <span class="keyword">new</span> DllReferencePlugin(&#123;</span><br><span class="line">            manifest: path.join(__dirname, <span class="string">'./dll/react-manifest.json'</span>)</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            template: path.join(__dirname, <span class="string">'./public/index.html'</span>),</span><br><span class="line">            filename: <span class="string">'index.html'</span></span><br><span class="line">        &#125;),</span><br><span class="line"></span><br><span class="line">        <span class="comment">//添加第三方库到html中</span></span><br><span class="line">        <span class="keyword">new</span> AddAssetHtmlPlugin(&#123;</span><br><span class="line">            filepath: path.resolve(__dirname, <span class="string">'./dll/react.dll.js'</span>),</span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//webpack.dll.js </span></span><br><span class="line"><span class="comment">//打包第三方库 react 和react-dom</span></span><br><span class="line"><span class="comment">//将 react 和react-dom 生成一个文件</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> DllPlugin = <span class="built_in">require</span>(<span class="string">'webpack'</span>).DllPlugin;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: [<span class="string">'react'</span>, <span class="string">'react-dom'</span>],</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: <span class="string">"react"</span>,</span><br><span class="line">        filename: <span class="string">"react.dll.js"</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">"./dll"</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用这个会生成一个react-manifest.json的缓存文件</span></span><br><span class="line">        <span class="keyword">new</span> DllPlugin(&#123;</span><br><span class="line">            name:<span class="string">'react'</span>,</span><br><span class="line">            path:path.join(__dirname,<span class="string">'./dll/react-manifest.json'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如何打包一个前端的包让nodejs使用呢</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建了一个webpack.dll.js的webpack配置文件</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">"development"</span>,</span><br><span class="line">    entry: path.join(__dirname, <span class="string">"./src/calc.js"</span>),</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: <span class="string">"calc"</span>,<span class="comment">//打包成一个立即执行函数,这个函数的返回值被赋到calc这个变量上</span></span><br><span class="line">        libraryTarget: <span class="string">"commonjs2"</span>,<span class="comment">// 可以使用 var(默认值) commonjs commonjs2</span></span><br><span class="line">        filename: <span class="string">"calc.js"</span>,</span><br><span class="line">        path: path.join(__dirname, <span class="string">"./dll"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>import()</code> es草案语法动态导入</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原来代码:</span></span><br><span class="line"><span class="keyword">import</span> &#123;add&#125; <span class="keyword">from</span> <span class="string">'./calc.js'</span>;</span><br><span class="line"><span class="keyword">let</span> button=<span class="built_in">document</span>.createElement(<span class="string">'button'</span>);</span><br><span class="line">button.innerHTML=<span class="string">'我是按钮'</span></span><br><span class="line">button.addEventListener(<span class="string">'click'</span>,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(add(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(button);</span><br><span class="line"><span class="comment">//但这种方式会有问题,因为 import是先执行的,会将calc文件先加载,</span></span><br><span class="line"><span class="comment">//现在的需求是: 如果我想在点击按钮的时候才去加载js 实现一个赖加载如何实现</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可以使用懒加载的方式</span></span><br><span class="line"><span class="comment">//修改后的代码</span></span><br><span class="line"><span class="keyword">let</span> button=<span class="built_in">document</span>.createElement(<span class="string">'button'</span>);</span><br><span class="line">button.innerHTML=<span class="string">'我是按钮'</span></span><br><span class="line">button.addEventListener(<span class="string">'click'</span>,()=&gt;&#123;</span><br><span class="line">    <span class="comment">//使用import()的方法,使用jsonp动态的加载js文件</span></span><br><span class="line">    <span class="comment">//1.不指定名称</span></span><br><span class="line">    <span class="keyword">import</span>(<span class="string">'./calc.js'</span>).then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data.add(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2. 可以指定jsonp加载问文件的名称,指定名称 video 最后生成的分包文件名就成了 video.min.js</span></span><br><span class="line">    <span class="comment">//这种写法叫"魔术字符串"</span></span><br><span class="line">    <span class="keyword">import</span>(<span class="comment">/* webpackChunkName:'video' */</span>,<span class="string">'./calc.js'</span>).then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data.add(<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(button);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>在webpack的output中可配置 chunkFilename 字段指定分包的名称<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output:&#123;</span><br><span class="line">    filename:<span class="string">"index.js"</span><span class="comment">//打包生成的主包的文件名</span></span><br><span class="line">    chunkFilename:<span class="string">"[name].min.js"</span>,<span class="comment">//分包的文件名 [name] 默认是从0开始的,但可以在import(/* webpackChunkName:'video'*/,'./calc.js')修改文件名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><p>配置多入口分包</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">entry:&#123;</span><br><span class="line">    <span class="string">'index'</span>:<span class="string">'./src/index.js'</span>,</span><br><span class="line">    <span class="string">'login'</span>:<span class="string">'./src/login.js'</span></span><br><span class="line">&#125;</span><br><span class="line">output:&#123;</span><br><span class="line">    filename:<span class="string">'[name].min.js'</span>,</span><br><span class="line">    path:path.join(__dirname,<span class="string">'./dist'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这样就会出现两个打包文件</span></span><br><span class="line"><span class="comment">//同样也需要在htmlwebpackplugin中指定代码块</span></span><br><span class="line"></span><br><span class="line">plugins:[</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成两个html文件并且都加载各自的代码块</span></span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">        template:<span class="string">'./src/index.html'</span>,</span><br><span class="line">        filename:<span class="string">'index.html'</span>,</span><br><span class="line">        chunks:[<span class="string">'index'</span>]</span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">        template:<span class="string">'./src/login.html'</span>,</span><br><span class="line">        filename:<span class="string">'login.html'</span>,</span><br><span class="line">        chunks:[<span class="string">'login'</span>]</span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    <span class="comment">//再生成一个需要引用两个js块的html</span></span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">        template:<span class="string">'./src/dashboard.html'</span>,</span><br><span class="line">        filename:<span class="string">'dashboard.html'</span>,</span><br><span class="line">        chunksSortMode:<span class="string">'manual'</span>,<span class="comment">//修改默认的script标签引用顺序,manual:通过数组的顺序来定义</span></span><br><span class="line">        chunks:[<span class="string">'login'</span>,<span class="string">'index'</span>],<span class="comment">//默认的script标签引用顺序是通过entry的规则来定义的</span></span><br><span class="line">    &#125;), </span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>webpack-bundle-analyzer</code> 打包文件的分析工具</p>
-</li>
-<li><p><code>splitChunks</code>webpack将第三方包进行抽离 </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">optimization:&#123;</span><br><span class="line">    splitChunks:&#123;</span><br><span class="line">      chunks: <span class="string">'async'</span>,<span class="comment">//支持异步分隔代码 import() 可选参数:initial (同步的) all 部分 同步异步全部打包 async:只打包异步的</span></span><br><span class="line">      minSize: <span class="number">30000</span>,<span class="comment">//文件最小需要30k才会被抽离</span></span><br><span class="line">      minRemainingSize: <span class="number">0</span>,</span><br><span class="line">      maxSize: <span class="number">0</span>,</span><br><span class="line">      minChunks: <span class="number">1</span>,<span class="comment">//最少被引用了1次</span></span><br><span class="line">      maxAsyncRequests: <span class="number">6</span>, <span class="comment">//最多6个请求</span></span><br><span class="line">      maxInitialRequests: <span class="number">4</span>,<span class="comment">//首屏最多4个请求</span></span><br><span class="line">      automaticNameDelimiter: <span class="string">'~'</span>,<span class="comment">//名字中间的分隔符 </span></span><br><span class="line">      automaticNameMaxLength: <span class="number">30</span>,<span class="comment">//最长的名称长度不超过30</span></span><br><span class="line">      cacheGroups: &#123; <span class="comment">//缓存组(就是匹配规则)</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">//如果在node_modules中使用</span></span><br><span class="line">        vendors: &#123;</span><br><span class="line">          test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">          priority: <span class="number">-10</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//如果没有匹配到其他缓存组策略时使用:</span></span><br><span class="line">        <span class="keyword">default</span>: &#123;</span><br><span class="line">          minChunks: <span class="number">2</span>,<span class="comment">//最少被引用次数</span></span><br><span class="line">          priority: <span class="number">-20</span>,</span><br><span class="line">          reuseExistingChunk: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>speed-measure-webpack-plugin</code>webpack费时分析,在打包时计算每一步loader和plugin 的消耗时间<br><code>`</code>javascript<br>const SpeedMeasureWebpackPlugin=require(‘speed-measure-webpack-plugin’);</p>
-</li>
-</ul>
-<p>//用法和一般的plugin不同<br>let smw=new SpeedMeasureWebpackPlugin()<br>module.exports=(env)=&gt;{<br>    return smw.wrap({<br>        mode:xxx<br>        entry:xxxx<br>    })<br>}<br><code>`</code> </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/20/珠峰6第十三节webpack优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-珠峰6第十三节webpack配置" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/18/珠峰6第十三节webpack配置/">珠峰6第十三节webpack配置</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/18/珠峰6第十三节webpack配置/" class="archive-article-date">
-  	<time datetime="2019-12-18T07:29:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="WEBPACK-配置"><a href="#WEBPACK-配置" class="headerlink" title="WEBPACK 配置"></a>WEBPACK 配置</h3><ul>
-<li>webpack是什么?</li>
-<li>webpack是js的静态模块打包器</li>
-<li>webpack-cli的作用是 解析用户输入的参数然后在传给webpack去打包 webpack4.0后成了一个必须品</li>
-<li>webpack-merge 用于合并配置文件的模块 为什么不用<code>object.assign</code>去合并呢?因为<code>assign</code>只能合并一层,但该模块循环合并</li>
-<li><p>webpack的核心内容</p>
-<ol>
-<li>入口(entry)</li>
-<li>输出(output)</li>
-<li>loader</li>
-<li>插件(plugins)</li>
-</ol>
-</li>
-<li><p>安装 <code>yarn add webpack yarn add webpack-cli</code></p>
-</li>
-<li>webpack是既支持nodejs的模块语法(commonjs)也支持es6的模块语法(es6module)(这也就是,我们在前端中引用了node的模块使用require(‘xxx’)webpack也认识)</li>
-<li><p>使用webpack打包的两种方式</p>
-<ol>
-<li>使用npx (npx是npm5.2版本后新增加的命令,用于执行node_modules/.bin/目录下的文件<code>npx webpack</code>)使用npx 可避免全局安装一些库</li>
-<li>在package.json的scripts中添加执行命令 <code>build:webpack --mode production</code> (为什么在命令行中输入webpack 得到的结果是没有这个命令,但是在package.json中就能执行呢?? 原因是:我们在执行 npm run xxx时,它会把当前项目node_modules/.bin目录下的文件链接到全局中去(这样就能执行webpack命令了),但这只是一瞬间的,当执行完了后就取消了连接)</li>
-</ol>
-</li>
-<li><p>webpack的默认配置文件 webpack.config.js webpack.file.js 因为webpack是基于nodejs的所以 webpack.config.js应该使用nodejs的语法 所以在根目录中添加文件<code>webpack.config.js</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最基本的使用方法: 导出一个对象</span></span><br><span class="line"><span class="comment">//问题: 如果是导出一个对象,则如果想区分 开发/产品 则可能会需要多个webpack的配置(可以在package.json中指定配置文件路径)</span></span><br><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="comment">//指定模式</span></span><br><span class="line">    mode:<span class="string">'development'</span></span><br><span class="line">    <span class="comment">//入口文件</span></span><br><span class="line">    entry:path.join(__dirname,<span class="string">'./src/index.js'</span>)</span><br><span class="line">    <span class="comment">//出口文件</span></span><br><span class="line">    output:&#123;</span><br><span class="line">        path:path.join(__dirname,<span class="string">'./dist'</span>),</span><br><span class="line">        filename:<span class="string">'main.js'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>webpack.config.js</code>导出一个函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="comment">//导出一个函数</span></span><br><span class="line"><span class="comment">//要求: 这个函数必须返回一个webpack的配置 </span></span><br><span class="line"><span class="comment">//在package.json中配置: "start2":"webpack --env.development", "build":"webpack --env.production" 这样会将env传入配置函数中</span></span><br><span class="line"><span class="comment">//为环境传入多个参数: webpack --env.development --env.a xxxx</span></span><br><span class="line"><span class="built_in">module</span>.exports=<span class="function">(<span class="params">env</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"env==&gt;"</span>,env);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>指定配置文件位置:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//package.json文件中</span></span><br><span class="line">scripts:&#123;</span><br><span class="line">    <span class="string">"start"</span>:<span class="string">"webpack --env.development --config ./config/webpack.base.js"</span> <span class="comment">//外挂env环境为:development 指定配置文件位置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>webpack-dev-server 开发服务器</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最简单的使用</span></span><br><span class="line"><span class="comment">//在package.json中将webpack 代替成 webpack-dev-server </span></span><br><span class="line">scripts:&#123;</span><br><span class="line">    <span class="string">"start"</span>:<span class="string">"webpack-dev-server --config ./config.js"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>webpack-dev-server 如何配置</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    entry:path.join(__dirname,<span class="string">'./src/index.js'</span>),</span><br><span class="line">    output:&#123;</span><br><span class="line">        path:path.join(__dirname,<span class="string">'./dist'</span>),</span><br><span class="line">        filename:<span class="string">"index.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//配置devserver</span></span><br><span class="line">    devServer:&#123;</span><br><span class="line">        port:<span class="number">3000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>webpack的html打包插件 <code>html-webpack-plugin</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> HtmlWebPlugin=<span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>);</span><br><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> HtmlWebPlugin(&#123;</span><br><span class="line">        template:path.join(__dirname,<span class="string">'../public'</span>),</span><br><span class="line">        filename:<span class="string">'index.html'</span>,</span><br><span class="line">        <span class="comment">//压缩文件</span></span><br><span class="line">        minify:&#123;</span><br><span class="line">            removeAttributeQuotes:<span class="literal">true</span>,<span class="comment">//去掉双引号</span></span><br><span class="line">            collapseWhitespace:<span class="literal">true</span>,<span class="comment">//将代码压缩到一行</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>webpack 自动清除打包目录 <code>clean-webpack-plugin</code></p>
-</li>
-</ul>
-<ul>
-<li>扩展: <code>publicPath</code> 和 <code>contentBase</code></li>
-</ul>
-<p>在 webpack的根<code>/output</code>有一个<code>publicPath</code>配置 在<code>devServer</code>中也有一个<code>publicPath</code><br>区别:output中的publicPath:访问静态资源的路径，devServer中的publicPath影响资源在本地开发环境中的访问<br>一般将两个地方的output配置成相同的值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//配置例子:</span></span><br><span class="line"><span class="built_in">module</span>.exports=  &#123;</span><br><span class="line">  dev:&#123;</span><br><span class="line">    ...,</span><br><span class="line">    publicPath:<span class="string">"/assets/"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  build:&#123;</span><br><span class="line">    publicPath:<span class="string">"https://csdn.cdn.cn/"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">   entry:&#123;</span><br><span class="line">      ...</span><br><span class="line">   &#125;,</span><br><span class="line">   output:&#123;</span><br><span class="line">      ...,</span><br><span class="line">      publicPath:process.env.NODE_ENV==<span class="string">'development'</span>?config.dev.publicPath:config.build.publicPath</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>contentbase代表html页面所在的相对目录，如果我们不配置项，devServer默认html所在的目录就是项目的根目录<br>配置: index.html在哪 contentbase就应该配置到对应的目录</li>
-<li>这里需要注意一点，contentBase的路径是相对与webpack.config.js文件所在的目录的，有的时候，我们习惯将webpack配置文件统一放着一个build文件下，这个时候我们在写contentBase路径的时候就需要注意了</li>
-<li><p>总结: </p>
-<ol>
-<li>publicPath是访问静态资源的路径</li>
-<li>contentBase是用来指定被访问html页面所在目录的</li>
-</ol>
-</li>
-<li><p>webpack 解析css的两个loader</p>
-<ol>
-<li>css-loader 识别css</li>
-<li>style-loader 将css插入到html的style标签中</li>
-<li>如果要解析sass文件 需要安装 node-sass和sass-loader (webpack配置为 [‘style-loader’,’css-loader’,’sass-loader’])</li>
-<li>如果要解析less文件 需要安装less和less-loader</li>
-<li>为css添加前缀 postcss-loader autoprefixer</li>
-<li>避免css放到页面的style标签中可使用 <code>mini-css-extract-plugin</code>将样式进行抽离到单独的css文件中</li>
-</ol>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在webpack配置中,loader的配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//简单写法:</span></span><br><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/.css$/</span>,</span><br><span class="line">            use:[<span class="string">'style-loader'</span>,<span class="string">'css-loader'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//给loader传递参数</span></span><br><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/.css$/</span>,</span><br><span class="line">            use:[<span class="string">'style-loader'</span>,&#123;</span><br><span class="line">                loader:<span class="string">'css-loader'</span>,</span><br><span class="line">                options:&#123;</span><br><span class="line">                    <span class="comment">//这里放的css-loader的参数</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例子,如果我们在css文件中@import了一个sass文件在webpack中如何配置呢?</span></span><br><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/.css$/</span>,</span><br><span class="line">            use:[<span class="string">'style-loader'</span>,&#123;</span><br><span class="line">                loader:<span class="string">'css-loader'</span>,</span><br><span class="line">                options:&#123;</span><br><span class="line">                    <span class="comment">//这里放的css-loader的参数</span></span><br><span class="line">                    <span class="comment">//如果该文件中有@import样式,则使用下面[1]个来执行@import进来的文件</span></span><br><span class="line">                    importLoaders:<span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,<span class="string">'sass-loader'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//mini-css-extract-plugin 使用例子:</span></span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin=<span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/.css$/</span>,</span><br><span class="line">            </span><br><span class="line">            use:[</span><br><span class="line">                <span class="comment">//使用MiniCssExtractPlugin.loader进行处理,style-loader是将全部的样式放到html的style标签中,所有使用新的loader代替</span></span><br><span class="line">                MiniCssExtractPlugin.loader,&#123;</span><br><span class="line">                loader:<span class="string">'css-loader'</span>,</span><br><span class="line">                options:&#123;</span><br><span class="line">                    <span class="comment">//这里放的css-loader的参数</span></span><br><span class="line">                    <span class="comment">//如果该文件中有@import样式,则使用下面[1]个来执行@import进来的文件</span></span><br><span class="line">                    importLoaders:<span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,<span class="string">'sass-loader'</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">        filename:<span class="string">'css/main.css'</span><span class="comment">//打包到独立文件的文件名,可以是路径</span></span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>webpack的优化项 <code>optimization</code></li>
-<li>如果需要压缩css文件可以在 <code>optimization</code>中使用<code>optimize-css-asserts-plugin</code>,但问题是如果使用了,js文件也需要手动压缩</li>
-<li><p>如果需要压缩js文件可以在<code>optimization</code>中使用<code>terser-webpack-plugin</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> OptimizeCssAssertsPlugin=<span class="built_in">require</span>(<span class="string">'optimize-css-asserts-plugin'</span>)</span><br><span class="line"><span class="keyword">const</span> TerserWebpackPlugin=<span class="built_in">require</span>(<span class="string">'terser-webpack-plugin'</span>)</span><br><span class="line">mode:<span class="string">'xxxx'</span>,</span><br><span class="line">optimization:&#123;</span><br><span class="line">    minimizer:[</span><br><span class="line">        <span class="keyword">new</span> OptimizeCssAssertsPlugin(),</span><br><span class="line">        <span class="keyword">new</span> TerserWebpackPlugin()</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>webpack 处理文件的loader <code>file-loader</code> 自动拷贝文件 如果需要转换成base64 使用<code>url-loader</code> </p>
-</li>
-<li><p>webpack去转换js 主要会使用到的是babel</p>
-</li>
-<li><code>@babel/core</code> babel的核心模块</li>
-<li><code>@babel/presets-env</code> 包含将es6转换成es5的全部包的集合(就是插件的集合)</li>
-<li><code>babel-loader</code> 是webpack的loader</li>
-<li>它们三者的关系是 webpack打包的时候使用 <code>babel-loader</code>去调用<code>@babel/core</code>去转换,而在<code>@babel/core</code>转换过程中也需要调用到<code>@babel/presets-env</code></li>
-<li>为什么babel7前面会有一个@? 是因为它使用了 <code>npm private scope</code> 将<code>@babel</code>变成了一个作用域,将它的相关库都放到了<code>@babel</code>作用域下,防止重名</li>
-<li><p><code>.babelrc</code>文件是干嘛的? <code>.babelrc</code>文件就是 <code>babel-loader</code>的<code>options</code>选项,如果觉得webpack.config文件中写的过多,则可以使用<code>.babelrc</code>文件进行分离</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//.babelrc文件示例:</span></span><br><span class="line"><span class="comment">//presets 中放的是插件的集合</span></span><br><span class="line"><span class="comment">//plugins 中放的是单个插件</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"presets"</span>:[</span><br><span class="line">        <span class="string">"@babel/preset-env"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>:[</span><br><span class="line"></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>babelrc</code>文件中的 presets执行顺序是从下向上执行 而 plugins的执行顺序是从上向下执行的</p>
-</li>
-<li><p>在 babel7中 <code>babel-polyfill</code>已经废弃,代替它的方法是</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"presets"</span>:[</span><br><span class="line">        [</span><br><span class="line">            <span class="string">"@babel/preset-env"</span>,&#123;</span><br><span class="line">                <span class="string">"useBuiltIns"</span>:<span class="string">"usage"</span>,<span class="comment">//按需加载一些使用到的库</span></span><br><span class="line">                <span class="string">"corejs"</span>:<span class="number">2</span>,<span class="comment">//使用corejs的版本二</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>:[</span><br><span class="line"></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>@babel/plugin-transform-runtime</code> 都以导入的方式使用Babel的帮助函数，而不是每个文件都复制一份帮助函数的代码</p>
-<ol>
-<li>提高代码重用性，缩小编译后的代码体积</li>
-<li>防止污染全局作用域。（启用corejs配置）</li>
-</ol>
-</li>
-<li><p><code>@babel/preset-typescript</code> 可以用于解析 <code>typescript</code>语法</p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/18/珠峰6第十三节webpack配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-珠峰6第十一节KOA应用" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/05/珠峰6第十一节KOA应用/">珠峰6第十一节KOA应用</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/05/珠峰6第十一节KOA应用/" class="archive-article-date">
-  	<time datetime="2019-12-05T06:20:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="KOA应用"><a href="#KOA应用" class="headerlink" title="KOA应用"></a>KOA应用</h3><ul>
-<li>最基本的使用方法:<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> Koa =<span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">let</span> app=<span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="comment">//挂载中间件</span></span><br><span class="line">app.use(<span class="function">(<span class="params">ctx,next</span>)=&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加监听</span></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h4><ul>
-<li>中间件的特点:<ol>
-<li>可以添加到公共属性中</li>
-<li>可以做权限判断</li>
-</ol>
-</li>
-</ul>
-<ul>
-<li><p>使用koa 获取post提交上来的请求体数据</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line"><span class="keyword">if</span> (ctx.path == <span class="string">'/login'</span> &amp;&amp; ctx.method == <span class="string">'GET'</span>) &#123;</span><br><span class="line">  ctx.set(<span class="string">'Content-Type'</span>, <span class="string">'text/html;charset=utf-8'</span>);</span><br><span class="line">  ctx.body = fs.createReadStream(<span class="string">'./form.html'</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line"><span class="keyword">if</span> (ctx.path == <span class="string">'/login'</span> &amp;&amp; ctx.method == <span class="string">'POST'</span>) &#123;</span><br><span class="line">  <span class="comment">//这里一定要封装成Promise才能实现效果</span></span><br><span class="line">  <span class="comment">//因为 on data on end 都是异步方法,如果不是promise 不会被await到</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> arr = [];</span><br><span class="line">    ctx.req.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">      arr.push(chunk);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    ctx.req.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      ctx.set(<span class="string">'Content-Type'</span>, <span class="string">'text/html;charset=utf-8'</span>);</span><br><span class="line">      ctx.body = Buffer.concat(arr);</span><br><span class="line">      reslove();</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上面的代码 库<code>koa-bodyparse</code>已经提供 原理是是相同的</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用bodyparser:</span></span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">'koa-bodyparser'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">app.use(bodyParser())</span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.path == <span class="string">'/login'</span> &amp;&amp; ctx.method == <span class="string">'GET'</span>) &#123;</span><br><span class="line">    ctx.set(<span class="string">'Content-Type'</span>, <span class="string">'text/html;charset=utf-8'</span>);</span><br><span class="line">    ctx.body = fs.createReadStream(<span class="string">'./form.html'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.path == <span class="string">'/login'</span> &amp;&amp; ctx.method == <span class="string">'POST'</span>) &#123;</span><br><span class="line">    ctx.body = ctx.request.body;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不使用bodyparser,自己实现一个中间件来实现相同的功能</span></span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">const</span> querystring=<span class="built_in">require</span>(<span class="string">'querystring'</span>)</span><br><span class="line"><span class="comment">//全部的中间件都需要是async await的</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bodyParser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> arr = [];</span><br><span class="line">      ctx.req.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">        arr.push(chunk);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      ctx.req.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        ctx.request.body =querystring.parse(Buffer.concat(arr).toString());</span><br><span class="line">        reslove();</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">app.use(bodyParser())</span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.path == <span class="string">'/login'</span> &amp;&amp; ctx.method == <span class="string">'GET'</span>) &#123;</span><br><span class="line">    ctx.set(<span class="string">'Content-Type'</span>, <span class="string">'text/html;charset=utf-8'</span>);</span><br><span class="line">    ctx.body = fs.createReadStream(<span class="string">'./form.html'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.path == <span class="string">'/login'</span> &amp;&amp; ctx.method == <span class="string">'POST'</span>) &#123;</span><br><span class="line">    ctx.body = ctx.request.body;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="手动解析带文件的请求体"><a href="#手动解析带文件的请求体" class="headerlink" title="手动解析带文件的请求体:"></a>手动解析带文件的请求体:</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">const</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> uuid = <span class="built_in">require</span>(<span class="string">'uuid'</span>)</span><br><span class="line"><span class="comment">//扩展一个buffer的split方法,用于解析请求体中的buffer</span></span><br><span class="line">Buffer.prototype.split = <span class="function"><span class="keyword">function</span> (<span class="params">sep</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> len = Buffer.from(sep).length; <span class="comment">// 分割符的长度</span></span><br><span class="line">  <span class="keyword">let</span> offset = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">let</span> current;</span><br><span class="line">  <span class="comment">// 把找到的位置赋给current  看一下是否为-1</span></span><br><span class="line">  <span class="keyword">while</span> ((current = <span class="keyword">this</span>.indexOf(sep, offset)) !== <span class="number">-1</span>) &#123;</span><br><span class="line">    result.push(<span class="keyword">this</span>.slice(offset, current)); <span class="comment">// 把每次的记过push到数组中</span></span><br><span class="line">    offset = current + len <span class="comment">// 增加查找偏移量</span></span><br><span class="line">  &#125;</span><br><span class="line">  result.push(<span class="keyword">this</span>.slice(offset)); <span class="comment">// 最后一段追加进去</span></span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//全部的中间件都需要是async await的</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bodyParser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> arr = [];</span><br><span class="line">      ctx.req.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">        arr.push(chunk);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      ctx.req.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> contentType = ctx.get(<span class="string">'Content-Type'</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"ctx content-type"</span>, contentType);</span><br><span class="line">        <span class="keyword">if</span> (contentType.includes(<span class="string">"form-data"</span>)) &#123;</span><br><span class="line">          <span class="comment">//如果是formdata类型,只能解析请求体,因为可能里面的内容不是字符串,而是buffer</span></span><br><span class="line">          <span class="keyword">let</span> data = Buffer.concat(arr);</span><br><span class="line">          <span class="keyword">let</span> spe = contentType.split(<span class="string">'='</span>)[<span class="number">1</span>];</span><br><span class="line">          <span class="comment">//构建完整的用户分隔符:</span></span><br><span class="line">          spe = <span class="string">"--"</span> + spe;</span><br><span class="line">          <span class="comment">// console.log("data===&gt;", data);</span></span><br><span class="line"></span><br><span class="line">          <span class="comment">//拆分数据,去掉一头一尾的数据</span></span><br><span class="line">          <span class="keyword">let</span> datas = data.split(spe).slice(<span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">          <span class="keyword">let</span> requestBody = &#123;&#125;;</span><br><span class="line">          datas.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> [header, content] = item.split(<span class="string">'\r\n\r\n'</span>);</span><br><span class="line">            <span class="keyword">let</span> isFile = <span class="literal">true</span>;</span><br><span class="line">            header = header.toString();</span><br><span class="line">            isFile = header.includes(<span class="string">'filename'</span>);</span><br><span class="line">            <span class="keyword">let</span> key = header.match(<span class="regexp">/name="(.+?)"/</span>)[<span class="number">1</span>];</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"header==&gt;"</span>, key);</span><br><span class="line">            content = content.split(<span class="string">'\r\n'</span>)[<span class="number">0</span>].toString();</span><br><span class="line">            <span class="keyword">if</span> (!isFile) &#123;</span><br><span class="line">              <span class="comment">//普通字符  </span></span><br><span class="line">              requestBody[key] = content;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="comment">//文件字符</span></span><br><span class="line">              <span class="comment">//保存文件</span></span><br><span class="line">              <span class="keyword">let</span> filename = uuid.v4()</span><br><span class="line">              fs.writeFileSync(path.join(__dirname, <span class="string">'uploads'</span>, filename), content, <span class="string">'utf8'</span>);</span><br><span class="line">              requestBody[key] = filename;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          ctx.request.body = requestBody;</span><br><span class="line">          reslove();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">//如果是其他类型,则可直接转换成字符串的形式</span></span><br><span class="line">          ctx.request.body = querystring.parse(Buffer.concat(arr).toString());</span><br><span class="line">        &#125;</span><br><span class="line">        reslove();</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">app.use(bodyParser())</span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.path == <span class="string">'/login'</span> &amp;&amp; ctx.method == <span class="string">'GET'</span>) &#123;</span><br><span class="line">    ctx.set(<span class="string">'Content-Type'</span>, <span class="string">'text/html;charset=utf-8'</span>);</span><br><span class="line">    ctx.body = fs.createReadStream(<span class="string">'./form.html'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (ctx.path == <span class="string">'/login'</span> &amp;&amp; ctx.method == <span class="string">'POST'</span>) &#123;</span><br><span class="line">    ctx.body = ctx.request.body;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="中间件-1"><a href="#中间件-1" class="headerlink" title="中间件"></a>中间件</h4><ul>
-<li>静态文件中间件,根据用户访问的路径去查找文件 如果找不到再走路由 可使用 <code>koa-static</code>中间件</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//静态资源路由</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">static</span>(<span class="params">dirpath</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"111222"</span>,ctx.path);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> routerpath = ctx.path;</span><br><span class="line">      <span class="keyword">let</span> filepath = path.join(__dirname, dirpath,routerpath);</span><br><span class="line">      <span class="keyword">let</span> stat = fs.statSync(filepath);</span><br><span class="line">      <span class="keyword">if</span> (stat.isFile()) &#123;</span><br><span class="line">        <span class="keyword">let</span> type = mime.getType(filepath);</span><br><span class="line">        ctx.set(<span class="string">'Content-Type'</span>, <span class="string">`<span class="subst">$&#123;type&#125;</span>;charset=utf-8`</span>)</span><br><span class="line">        ctx.body = fs.createReadStream(filepath);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        filepath += <span class="string">"/index.html"</span>;</span><br><span class="line">        stat = fs.statSync(filepath);</span><br><span class="line">        <span class="keyword">let</span> type = mime.getType(filepath);</span><br><span class="line">        ctx.set(<span class="string">'Content-Type'</span>, <span class="string">`<span class="subst">$&#123;type&#125;</span>;charset=utf-8`</span>)</span><br><span class="line">        ctx.body = fs.createReadStream(filepath);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">await</span> next();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="koa-router-路由中间件"><a href="#koa-router-路由中间件" class="headerlink" title="koa-router 路由中间件"></a>koa-router 路由中间件</h4><ul>
-<li><p>使用 </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Router=<span class="built_in">require</span>(<span class="string">'koa-router'</span>);</span><br><span class="line"><span class="keyword">const</span> router=<span class="keyword">new</span> Router();</span><br><span class="line">router.get(<span class="string">'/'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">ctx,next</span>)</span>&#123;</span><br><span class="line">&#125;);</span><br><span class="line">app.use(router.routes())</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>全匹配 <code>/user</code></p>
-</li>
-<li>正则表达式 <code>/\user\/+d</code></li>
-<li>参数 <code>/user/:id</code> 可以使用 ctx.params获取参数</li>
-</ul>
-<h4 id="通过-koa-generator快速搭建node的koa环境"><a href="#通过-koa-generator快速搭建node的koa环境" class="headerlink" title="通过 koa-generator快速搭建node的koa环境"></a>通过 <code>koa-generator</code>快速搭建node的koa环境</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn global add koa-generator</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/05/珠峰6第十一节KOA应用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1324,7 +1236,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color2">bash脚本</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1332,7 +1244,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">REDIS</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1340,11 +1252,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
+                <a href="javascript:void(0)" class="js-tag color1">REDIS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
              
               <li class="article-tag-list-item">
