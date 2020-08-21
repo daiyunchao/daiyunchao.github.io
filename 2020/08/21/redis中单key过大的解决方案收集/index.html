@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: javascript | daiyunchao&#39;s blog</title>
+  <title>redis中单key过大的解决方案收集 | daiyunchao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="daiyunchao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/javascript/page/3/index.html">
+  <meta name="description" content="redis中单key过大的解决方案收集单key过大会出现的问题 读写bigkey会导致超时严重，甚至阻塞服务。 redis 是单线程，操作 bigkey 比较耗时，那么阻塞 redis 的可能性增大。每次获取 bigKey 的网络流量较大 在集群中分片数据时会造成数据分配不均的情况(slot分配到不同的节点中,有的节点因为bigkey导致数据很大) 在做数据迁移时候会出现卡顿  解决这个问题的方案">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis中单key过大的解决方案收集">
+<meta property="og:url" content="http://yoursite.com/2020/08/21/redis中单key过大的解决方案收集/index.html">
 <meta property="og:site_name" content="daiyunchao&#39;s blog">
+<meta property="og:description" content="redis中单key过大的解决方案收集单key过大会出现的问题 读写bigkey会导致超时严重，甚至阻塞服务。 redis 是单线程，操作 bigkey 比较耗时，那么阻塞 redis 的可能性增大。每次获取 bigKey 的网络流量较大 在集群中分片数据时会造成数据分配不均的情况(slot分配到不同的节点中,有的节点因为bigkey导致数据很大) 在做数据迁移时候会出现卡顿  解决这个问题的方案">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-21T02:57:36.370Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="daiyunchao&#39;s blog">
+<meta name="twitter:title" content="redis中单key过大的解决方案收集">
+<meta name="twitter:description" content="redis中单key过大的解决方案收集单key过大会出现的问题 读写bigkey会导致超时严重，甚至阻塞服务。 redis 是单线程，操作 bigkey 比较耗时，那么阻塞 redis 的可能性增大。每次获取 bigKey 的网络流量较大 在集群中分片数据时会造成数据分配不均的情况(slot分配到不同的节点中,有的节点因为bigkey导致数据很大) 在做数据迁移时候会出现卡顿  解决这个问题的方案">
   
     <link rel="alternative" href="/atom.xml" title="daiyunchao&#39;s blog" type="application/atom+xml">
   
@@ -160,255 +164,155 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-redis中单key过大的解决方案收集" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      redis中单key过大的解决方案收集
+    </h1>
+  
+
+        
+        <a href="/2020/08/21/redis中单key过大的解决方案收集/" class="archive-article-date">
+  	<time datetime="2020-08-21T02:55:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-21</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="redis中单key过大的解决方案收集"><a href="#redis中单key过大的解决方案收集" class="headerlink" title="redis中单key过大的解决方案收集"></a>redis中单key过大的解决方案收集</h3><h4 id="单key过大会出现的问题"><a href="#单key过大会出现的问题" class="headerlink" title="单key过大会出现的问题"></a>单key过大会出现的问题</h4><ol>
+<li>读写bigkey会导致超时严重，甚至阻塞服务。</li>
+<li>redis 是单线程，操作 bigkey 比较耗时，那么阻塞 redis 的可能性增大。每次获取 bigKey 的网络流量较大</li>
+<li>在集群中分片数据时会造成数据分配不均的情况(slot分配到不同的节点中,有的节点因为bigkey导致数据很大)</li>
+<li>在做数据迁移时候会出现卡顿</li>
+</ol>
+<h4 id="解决这个问题的方案"><a href="#解决这个问题的方案" class="headerlink" title="解决这个问题的方案"></a>解决这个问题的方案</h4><ol>
+<li><p>类似pomelo找类型服务器的解决方案类似,将key做取模运算,将原来存储到一个key的数据分别放到不同的key中去,实现减少bigkey</p>
+</li>
+<li><p>在业务中将数据分类,比如player过大,可以将player分为:facebook Android ios 也可以将player按照地区进行分类,比如可以分为 美国 欧洲 xxx..</p>
+</li>
+<li><p>将redis中不常用的数据存储到磁盘中(可以给player设置一个超长的过期时间,当过期时,程序接收到过期的触发器,将数据再写入到数据库中,当读取时,如果从数据库中读取的再写入到redis中)</p>
+</li>
+</ol>
+<h4 id="该方案带来的问题"><a href="#该方案带来的问题" class="headerlink" title="该方案带来的问题"></a>该方案带来的问题</h4><ol>
+<li><p>统计数据的复杂的会增加,原来统计player的数据只需要统计一个hash,如果进行拆分了可能需要统计一组player,才能统计出最终的结果</p>
+</li>
+<li><p>如果将部分存储到磁盘中,性能表现肯定没有存储在内存中好.</p>
+</li>
+<li><p>如果使用磁盘的方案,程序的复杂度也会相应的升高.</p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/16/珠峰6箭头函数和数组reduce的常用笔记/" class="archive-article-date">
-  	<time datetime="2019-09-16T11:01:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/16/珠峰6箭头函数和数组reduce的常用笔记/">珠峰6箭头函数和数组reduce的常用笔记</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/21/redis中单key过大的解决方案收集/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/16/珠峰6ES6-Class的笔记/" class="archive-article-date">
-  	<time datetime="2019-09-16T07:37:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-16</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/21/Redis混合持久化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Redis混合持久化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/16/珠峰6ES6-Class的笔记/">珠峰6ES6_Class的笔记</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/12/珠峰6常用数据结构/" class="archive-article-date">
-  	<time datetime="2019-09-12T09:36:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/12/珠峰6常用数据结构/">珠峰6常用数据结构</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/10/珠峰6ES2笔记/" class="archive-article-date">
-  	<time datetime="2019-09-10T11:18:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/10/珠峰6ES2笔记/">珠峰6ES2笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/09/珠峰6ES笔记/" class="archive-article-date">
-  	<time datetime="2019-09-09T10:02:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/09/珠峰6ES笔记/">珠峰6ES笔记(01)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/javascript/page/2/">&laquo; Prev</a><a class="page-number" href="/tags/javascript/">1</a><a class="page-number" href="/tags/javascript/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
   
 
 
@@ -432,9 +336,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

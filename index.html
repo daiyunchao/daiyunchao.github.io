@@ -162,6 +162,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-redis中单key过大的解决方案收集" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/21/redis中单key过大的解决方案收集/">redis中单key过大的解决方案收集</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/21/redis中单key过大的解决方案收集/" class="archive-article-date">
+  	<time datetime="2020-08-21T02:55:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="redis中单key过大的解决方案收集"><a href="#redis中单key过大的解决方案收集" class="headerlink" title="redis中单key过大的解决方案收集"></a>redis中单key过大的解决方案收集</h3><h4 id="单key过大会出现的问题"><a href="#单key过大会出现的问题" class="headerlink" title="单key过大会出现的问题"></a>单key过大会出现的问题</h4><ol>
+<li>读写bigkey会导致超时严重，甚至阻塞服务。</li>
+<li>redis 是单线程，操作 bigkey 比较耗时，那么阻塞 redis 的可能性增大。每次获取 bigKey 的网络流量较大</li>
+<li>在集群中分片数据时会造成数据分配不均的情况(slot分配到不同的节点中,有的节点因为bigkey导致数据很大)</li>
+<li>在做数据迁移时候会出现卡顿</li>
+</ol>
+<h4 id="解决这个问题的方案"><a href="#解决这个问题的方案" class="headerlink" title="解决这个问题的方案"></a>解决这个问题的方案</h4><ol>
+<li><p>类似pomelo找类型服务器的解决方案类似,将key做取模运算,将原来存储到一个key的数据分别放到不同的key中去,实现减少bigkey</p>
+</li>
+<li><p>在业务中将数据分类,比如player过大,可以将player分为:facebook Android ios 也可以将player按照地区进行分类,比如可以分为 美国 欧洲 xxx..</p>
+</li>
+<li><p>将redis中不常用的数据存储到磁盘中(可以给player设置一个超长的过期时间,当过期时,程序接收到过期的触发器,将数据再写入到数据库中,当读取时,如果从数据库中读取的再写入到redis中)</p>
+</li>
+</ol>
+<h4 id="该方案带来的问题"><a href="#该方案带来的问题" class="headerlink" title="该方案带来的问题"></a>该方案带来的问题</h4><ol>
+<li><p>统计数据的复杂的会增加,原来统计player的数据只需要统计一个hash,如果进行拆分了可能需要统计一组player,才能统计出最终的结果</p>
+</li>
+<li><p>如果将部分存储到磁盘中,性能表现肯定没有存储在内存中好.</p>
+</li>
+<li><p>如果使用磁盘的方案,程序的复杂度也会相应的升高.</p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/21/redis中单key过大的解决方案收集/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Redis混合持久化" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1017,87 +1101,6 @@
 
 
   
-    <article id="post-珠峰6第十八节node进程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/30/珠峰6第十八节node进程/">珠峰6第十八节node进程</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/30/珠峰6第十八节node进程/" class="archive-article-date">
-  	<time datetime="2019-12-30T15:00:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Node进程"><a href="#Node进程" class="headerlink" title="Node进程"></a>Node进程</h3><h4 id="spawn-可用于大文件因为可以使用pipe"><a href="#spawn-可用于大文件因为可以使用pipe" class="headerlink" title="spawn 可用于大文件因为可以使用pipe"></a>spawn 可用于大文件因为可以使用<code>pipe</code></h4><ul>
-<li>问题:cpu密集型的问题 单线程,会导致线程被占用,一个请求卡住了,导致后面的请求都进不来<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计算型,cpu密集型</span></span><br><span class="line"><span class="keyword">const</span> http=<span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//计算型,cpu密集型</span></span><br><span class="line"><span class="keyword">let</span> app=http.createServer(<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(req.url==<span class="string">'/sum'</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> total=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">100000000000000</span>; i++) &#123;</span><br><span class="line">            total+=i;</span><br><span class="line">        &#125;</span><br><span class="line">        res.end(<span class="string">'total--&gt;'</span>,total)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        res.end(<span class="string">'ok'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/30/珠峰6第十八节node进程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1203,15 +1206,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">REDIS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1219,15 +1218,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NGINX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">PYTHON</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
