@@ -162,6 +162,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-最近学习redis整理的百度脑图" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/23/最近学习redis整理的百度脑图/">最近学习redis整理的百度脑图</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/23/最近学习redis整理的百度脑图/" class="archive-article-date">
+  	<time datetime="2020-09-23T02:42:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近算是比较系统的学习了redis,看了一本redis的书又买了一个redis的课程<br>算是把命令,日常使用,运维的这些部分都系统的学习了一次,再刚开始接触到redis或是大概了解redis的时候 我单是把redis作为一个缓存,到了这个公司,基本上把redis当成是数据库在使用,又本身对redis只是一知半解,所以还是系统的学习了一次,学习后发现redis的简单和强大,再里面也有各种道道,同时也学习到了很多其他数据库类似的东西 比如 主从 哨兵 集群 也发现了很多redis的限制 比如在集群中的限制,没有事务如果需要逻辑关联一些数据比较不容易实现.</p>
+</blockquote>
+<p>下面是我在学习过程中整理的一份百度脑图,也算是对输入的东西一个整理和输出吧,比如如果只有输入,没有输出的话,基本上算是白学的.<br><a href="http://naotu.baidu.com/file/6a446658f715d948baa9725774016a51?token=06f107bc3e354ea9" target="_blank" rel="noopener">http://naotu.baidu.com/file/6a446658f715d948baa9725774016a51?token=06f107bc3e354ea9</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/23/最近学习redis整理的百度脑图/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-redis中单key过大的解决方案收集" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1020,87 +1097,6 @@
 
 
   
-    <article id="post-珠峰6第二十节ast语法树" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/06/珠峰6第二十节ast语法树/">珠峰6第二十节ast语法树</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/06/珠峰6第二十节ast语法树/" class="archive-article-date">
-  	<time datetime="2020-01-06T07:34:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="AST语法树"><a href="#AST语法树" class="headerlink" title="AST语法树"></a>AST语法树</h3><ul>
-<li>ast抽象语法树 可以通过程序<code>javascript parser</code>将代码转换成抽象语法树(ast)<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用https://esprima.org/demo/parse.html# 在线解析</span></span><br><span class="line"><span class="keyword">var</span> name=<span class="string">'zhangsan'</span>;</span><br><span class="line"><span class="comment">//的结果:</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"type"</span>: <span class="string">"Program"</span>,</span><br><span class="line">    <span class="string">"body"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"type"</span>: <span class="string">"VariableDeclaration"</span>,</span><br><span class="line">            <span class="string">"kind"</span>: <span class="string">"var"</span>,</span><br><span class="line">            <span class="string">"declarations"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">"type"</span>: <span class="string">"VariableDeclarator"</span>,</span><br><span class="line">                    <span class="string">"id"</span>: &#123;</span><br><span class="line">                        <span class="string">"type"</span>: <span class="string">"Identifier"</span>,</span><br><span class="line">                        <span class="string">"name"</span>: <span class="string">"name"</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="string">"init"</span>: &#123;</span><br><span class="line">                        <span class="string">"type"</span>: <span class="string">"Literal"</span>,</span><br><span class="line">                        <span class="string">"value"</span>: <span class="string">"zhangsan"</span>,</span><br><span class="line">                        <span class="string">"raw"</span>: <span class="string">"'zhangsan'"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"sourceType"</span>: <span class="string">"script"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/06/珠峰6第二十节ast语法树/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1206,10 +1202,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">REDIS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络通讯</a>
               </li>
              
@@ -1223,6 +1215,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">PYTHON</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">REDIS</a>
               </li>
              
               <li class="article-tag-list-item">
